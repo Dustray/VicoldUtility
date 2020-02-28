@@ -29,7 +29,7 @@ namespace VicoldUtility.PingDashboard
 
         #region 计数参数
 
-        
+
         //历史连通率计数表（有限次）
         private byte[] _historyQueue100 = new byte[100];//1成功0失败
         private byte[] _historyQueue50 = new byte[50];//1成功0失败
@@ -60,9 +60,9 @@ namespace VicoldUtility.PingDashboard
         public MainWindow()
         {
             InitializeComponent();
-            CheckIsFirstStartup(); 
+            CheckIsFirstStartup();
             InitUI();
-            
+
             _ping = new Ping();
             tboxIP.Text = _ip = Settings.Default.IP;
             if (CheckIP(_ip))
@@ -189,7 +189,7 @@ namespace VicoldUtility.PingDashboard
                         }
                         tbCountAll.Text = _historyQueueAllCount.ToString();
                         tbCountSuccess.Text = _historyQueueAllSuccessCount.ToString();
-                        tbCountFailed.Text = (_historyQueueAllCount-_historyQueueAllSuccessCount).ToString();
+                        tbCountFailed.Text = (_historyQueueAllCount - _historyQueueAllSuccessCount).ToString();
                         UpdatePercentUI(tbPercent100, tbPercentText100, p100);
                         UpdatePercentUI(tbPercent50, tbPercentText50, p50);
                         UpdatePercentUI(tbPercent10, tbPercentText10, p10);
@@ -254,13 +254,16 @@ namespace VicoldUtility.PingDashboard
             string GetContent(int successlength)
             {
                 var result = "";
+                var count = 0;
                 for (int i = 0; i < successlength; i++)
                 {
-                    result += _font[0] + " ";
+                    count++;
+                    result = $"{result}{_font[0]}{(count == 10 ? "" : " ")}";
                 }
                 for (int i = 0; i < 10 - successlength; i++)
                 {
-                    result += _font[1] + " ";
+                    count++;
+                    result = $"{result}{_font[1]}{(count == 10 ? "" : " ")}";
                 }
                 //result.PadRight(10, _font[1]);
                 return result;
@@ -288,8 +291,9 @@ namespace VicoldUtility.PingDashboard
 
         #region 成员方法
 
-        private void InitUI() { 
-        //读取配置文件
+        private void InitUI()
+        {
+            //读取配置文件
             try
             {
                 //设置位置、大小
@@ -322,7 +326,8 @@ namespace VicoldUtility.PingDashboard
             _continuousFailedCount = 0;
         }
 
-        private bool CheckIsFirstStartup() {
+        private bool CheckIsFirstStartup()
+        {
 
             if (Settings.Default.IsFirstStartup)
             {
