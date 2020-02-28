@@ -1,0 +1,82 @@
+﻿<Window x:Class="VicoldUtility.PingDashboard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VicoldUtility.PingDashboard"
+        mc:Ignorable="d"
+        Title="MainWindow" SizeToContent="Height"  Width="180" Topmost="True" Background="#6333" AllowsTransparency="True"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" >
+    <StackPanel>
+        <Border Background="#2333" Height="5">
+            
+        </Border>
+        <Grid Background="#2333">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="17"></RowDefinition>
+                <RowDefinition Height="17"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="字节"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="时间(ms)"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="TTL"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbActualByte"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbActualTime"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbActualTTL"/>
+        </Grid>
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Text="ALL"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Name="tbPercentAll" FontSize="8"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Name="tbPercentTextAll"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Text="100条"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Name="tbPercent100" FontSize="8"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Name="tbPercentText100"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Text="50条"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Name="tbPercent50" FontSize="8"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Name="tbPercentText50"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Text="10条"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Name="tbPercent10" FontSize="8"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Name="tbPercentText10"/>
+
+            <TextBlock Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Name="tbContinuousCount"/>
+        </Grid>
+        <Grid Name="gridTool" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="2"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"  Foreground="#eee" Text="操作:" FontSize="14"/>
+            <Button Grid.Row="0" Grid.Column="1" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="开始" Name="btnStartOrPause" Click="btnStartOrPause_Click"/>
+            <Button Grid.Row="0" Grid.Column="2" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="清空" Name="btnClear" Click="btnClear_Click"/>
+            <Button Grid.Row="0" Grid.Column="3" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="退出" Name="btnExit" Click="btnExit_Click"/>
+            
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"  Foreground="#eee" Text="IP:" FontSize="14"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Center" Background="#0fff" Foreground="#9fff" BorderBrush="#4fff" FontSize="14" Name="tboxIP" MouseEnter="tboxIP_MouseEnter"/>
+        </Grid>
+    </StackPanel>
+</Window>
