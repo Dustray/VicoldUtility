@@ -7,10 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" SizeToContent="Height"  Width="180" Topmost="True" Background="#6333" AllowsTransparency="True"  ResizeMode="NoResize" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" >
     <StackPanel>
-        <Border Background="#2333" Height="5">
-            
-        </Border>
-        <Grid Background="#2333">
+        <Border Background="#2333" Height="5"></Border>
+        <Grid Background="#2333" Margin="0 0 0 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="17"></RowDefinition>
                 <RowDefinition Height="17"></RowDefinition>
@@ -29,7 +27,26 @@
             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbActualTime"/>
             <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbActualTTL"/>
         </Grid>
-        <Grid Margin="5">
+        <Grid  Margin="0 0 0 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="17"></RowDefinition>
+                <RowDefinition Height="17"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="总(次)"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="成功(次)"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="失败(次)"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbCountAll"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbCountSuccess"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbCountFailed"/>
+        </Grid>
+        <Grid  Margin="5 0 5 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15"></RowDefinition>
                 <RowDefinition Height="15"></RowDefinition>

@@ -24,25 +24,27 @@ namespace VicoldUtility.PingDashboard
     public partial class MainWindow : Window
     {
         private Ping _ping;
-        //private FontEtt _fontSuccess = new FontEtt() {   FontContent=((char)0xEA3B).ToString()};
-        //private FontEtt _fontFaild = new FontEtt() { FontContent = ((char)0xEA3A).ToString()};
         private char[] _font = new char[] { ((char)0xEA3B), ((char)0xEA3A) };
         private string _ip;
-        /// <summary>
-        /// 1成功0失败
-        /// </summary>
+
         #region 计数参数
 
-        private byte[] _historyQueue100 = new byte[100];
-        private byte[] _historyQueue50 = new byte[50];
-        private byte[] _historyQueue10 = new byte[10];
-        private int _historyQueueAllCount = 0;
-        private int _historyQueueAllSuccessCount = 0;
+        
+        //历史连通率计数表（有限次）
+        private byte[] _historyQueue100 = new byte[100];//1成功0失败
+        private byte[] _historyQueue50 = new byte[50];//1成功0失败
+        private byte[] _historyQueue10 = new byte[10];//1成功0失败
 
+        //历史连通率计数表索引（有限次）
         private int _historyIndex100 = 0;
         private int _historyIndex50 = 0;
         private int _historyIndex10 = 0;
 
+        //历史连通率计数（无限次）
+        private int _historyQueueAllCount = 0;
+        private int _historyQueueAllSuccessCount = 0;
+
+        //连续成功和失败计数
         private int _continuousSuccessCount = 0;
         private int _continuousFailedCount = 0;
 
@@ -185,6 +187,9 @@ namespace VicoldUtility.PingDashboard
                                 Alert.Show("警告", $"Ping{_ip}已连续失败{_continuousFailedCount}次", AlertTheme.Warning, new AlertConfig() { AlertShowDuration = -1, OnlyOneWindowAllowed = true });
                             }
                         }
+                        tbCountAll.Text = _historyQueueAllCount.ToString();
+                        tbCountSuccess.Text = _historyQueueAllSuccessCount.ToString();
+                        tbCountFailed.Text = (_historyQueueAllCount-_historyQueueAllSuccessCount).ToString();
                         UpdatePercentUI(tbPercent100, tbPercentText100, p100);
                         UpdatePercentUI(tbPercent50, tbPercentText50, p50);
                         UpdatePercentUI(tbPercent10, tbPercentText10, p10);
@@ -332,6 +337,7 @@ namespace VicoldUtility.PingDashboard
             }
         }
         #endregion
+
         #region 成员事件
 
         private void btnStartOrPause_Click(object sender, RoutedEventArgs e)
