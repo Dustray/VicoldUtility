@@ -58,8 +58,9 @@ namespace VicoldUtility.PingDashboard
         public MainWindow()
         {
             InitializeComponent();
-            ShowInTaskbar = false;
-            gridTool.Visibility = Visibility.Collapsed;
+            CheckIsFirstStartup(); 
+            InitUI();
+            
             _ping = new Ping();
             tboxIP.Text = _ip = Settings.Default.IP;
             if (CheckIP(_ip))
@@ -75,6 +76,11 @@ namespace VicoldUtility.PingDashboard
             _loadOver = true;
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Settings.Default.MainWindowPosition = this.RestoreBounds;
+            Settings.Default.Save();
+        }
         private void Window_Closed(object sender, EventArgs e)
         {
             _ping?.Dispose();
@@ -130,6 +136,7 @@ namespace VicoldUtility.PingDashboard
                 while (isStart)
                 {
                     _historyQueueAllCount++;
+                    if (null == _ping) return;
                     var p = _ping.Send(_ip);
 
                     var flag = false;
@@ -276,6 +283,21 @@ namespace VicoldUtility.PingDashboard
 
         #region 成员方法
 
+        private void InitUI() { 
+        //读取配置文件
+            try
+            {
+                //设置位置、大小
+                Rect restoreBounds = Settings.Default.MainWindowPosition;
+                this.Left = restoreBounds.Left;
+                this.Top = restoreBounds.Top;
+            }
+            catch { }
+            ShowInTaskbar = false;
+            gridTool.Visibility = Visibility.Collapsed;
+        }
+
+
         /// <summary>
         /// 重置参数
         /// </summary>
@@ -295,7 +317,20 @@ namespace VicoldUtility.PingDashboard
             _continuousFailedCount = 0;
         }
 
+        private bool CheckIsFirstStartup() {
 
+            if (Settings.Default.IsFirstStartup)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.IsFirstStartup = false;
+                Settings.Default.Save();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         #endregion
         #region 成员事件
 
@@ -339,6 +374,7 @@ namespace VicoldUtility.PingDashboard
         }
 
         #endregion
+
     }
 
 }

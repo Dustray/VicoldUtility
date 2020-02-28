@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.PingDashboard"
         mc:Ignorable="d"
-        Title="MainWindow" SizeToContent="Height"  Width="180" Topmost="True" Background="#6333" AllowsTransparency="True"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" >
+        Title="MainWindow" SizeToContent="Height"  Width="180" Topmost="True" Background="#6333" AllowsTransparency="True"  ResizeMode="NoResize" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" >
     <StackPanel>
         <Border Background="#2333" Height="5">
             

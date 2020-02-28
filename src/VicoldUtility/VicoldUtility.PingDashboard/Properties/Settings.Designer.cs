@@ -34,5 +34,29 @@ namespace VicoldUtility.PingDashboard.Properties {
                 this["IP"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
+        public global::System.Windows.Rect MainWindowPosition {
+            get {
+                return ((global::System.Windows.Rect)(this["MainWindowPosition"]));
+            }
+            set {
+                this["MainWindowPosition"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsFirstStartup {
+            get {
+                return ((bool)(this["IsFirstStartup"]));
+            }
+            set {
+                this["IsFirstStartup"] = value;
+            }
+        }
     }
 }
