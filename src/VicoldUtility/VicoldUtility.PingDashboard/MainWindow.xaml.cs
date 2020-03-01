@@ -213,6 +213,7 @@ namespace VicoldUtility.PingDashboard
                             tbActualTime.Text = p.RoundtripTime.ToString();
                             tbActualTTL.Text = p.Options.Ttl.ToString();
                             tbContinuousCount.Text = $"已连续Ping成功{_continuousSuccessCount}次";
+                            StatisticsDelayCount(p.RoundtripTime);
                         }
                         else
                         {
@@ -232,7 +233,7 @@ namespace VicoldUtility.PingDashboard
                         UpdatePercentUI(tbPercent50, tbPercentText50, p50);
                         UpdatePercentUI(tbPercent10, tbPercentText10, p10);
                         UpdatePercentUI(tbPercentAll, tbPercentTextAll, Convert.ToInt16(_historyQueueAllCount == 0 ? 0 : (double)_historyQueueAllSuccessCount / _historyQueueAllCount * 100));
-                        StatisticsDelayCount(p.RoundtripTime);
+                        
                     }));
                     await Task.Delay(_reflushTime);
                 }
@@ -245,12 +246,7 @@ namespace VicoldUtility.PingDashboard
         /// <param name="roundtripTime"></param>
         private void StatisticsDelayCount(long roundtripTime)
         {
-
-            if (roundtripTime == 0)
-            {
-                return;
-            }
-            else if (roundtripTime <= 60)
+            if (roundtripTime <= 60)
             {
                 _delayTimesCount[0]++;
                 tbDelay60.Text = _delayTimesCount[0].ToString();

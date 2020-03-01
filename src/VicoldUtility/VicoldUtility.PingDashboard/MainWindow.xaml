@@ -91,25 +91,25 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="0-60" FontSize="10"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c00" Text="0" Name="tbDelay60"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#0c0" Text="0" Name="tbDelay60"/>
             <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="60-120"  FontSize="10"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c80" Text="0" Name="tbDelay120"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#8c0" Text="0" Name="tbDelay120"/>
             <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="120-460"  FontSize="10"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eb0" Text="0" Name="tbDelay460"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#be0" Text="0" Name="tbDelay460"/>
             <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="460-1000"  FontSize="10"/>
-            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#be0" Text="0" Name="tbDelay1000"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eb0" Text="0" Name="tbDelay1000"/>
             <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="1000-3000"  FontSize="10"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#8c0" Text="0" Name="tbDelay3000"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c80" Text="0" Name="tbDelay3000"/>
             <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="3000-∞"  FontSize="10"/>
-            <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#0c0" Text="0" Name="tbDelay10000"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c00" Text="0" Name="tbDelay10000"/>
 
             <StackPanel Name="spDelay" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="3" Height="5" Margin=" 0 2 0 0">
-                <Border Background="#c00" Width="12" Name="bdrDelay60"/>
-                <Border Background="#c80" Width="12" Name="bdrDelay120" />
-                <Border Background="#eb0" Width="12" Name="bdrDelay460" />
-                <Border Background="#be0" Width="12" Name="bdrDelay1000" />
-                <Border Background="#8c0" Width="12" Name="bdrDelay3000" />
-                <Border Background="#0c0" Width="12" Name="bdrDelay10000" />
+                <Border Background="#0c0" Width="0" Name="bdrDelay60"/>
+                <Border Background="#8c0" Width="0" Name="bdrDelay120" />
+                <Border Background="#be0" Width="0" Name="bdrDelay460" />
+                <Border Background="#eb0" Width="0" Name="bdrDelay1000" />
+                <Border Background="#c80" Width="0" Name="bdrDelay3000" />
+                <Border Background="#c00" Width="0" Name="bdrDelay10000" />
             </StackPanel>
         </Grid>
         <Grid Name="gridTool" Margin="5" Background="#2aaa">
