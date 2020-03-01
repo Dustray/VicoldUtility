@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" SizeToContent="Height"  Width="180" Topmost="True" Background="#6333" AllowsTransparency="True"  ResizeMode="NoResize" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" >
     <StackPanel>
-        <Border Background="#2333" Height="5"></Border>
-        <Grid Background="#2333" Margin="0 0 0 5">
+        <Border Height="5"></Border>
+        <Grid Margin="0 0 0 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="17"></RowDefinition>
                 <RowDefinition Height="17"></RowDefinition>
@@ -23,11 +23,12 @@
             <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="时间(ms)"/>
             <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="TTL"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbActualByte"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbActualTime"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbActualTTL"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualByte"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTime"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTTL"/>
         </Grid>
-        <Grid  Margin="0 0 0 5">
+        <Border Background="#2fff" Height="1"/>
+        <Grid  Margin="0 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="17"></RowDefinition>
                 <RowDefinition Height="17"></RowDefinition>
@@ -42,9 +43,9 @@
             <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="成功(次)"/>
             <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="失败(次)"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbCountAll"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbCountSuccess"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" Name="tbCountFailed"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbCountAll"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbCountSuccess"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbCountFailed"/>
         </Grid>
         <Grid  Margin="5 0 5 5">
             <Grid.RowDefinitions>
@@ -74,8 +75,47 @@
 
             <TextBlock Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Name="tbContinuousCount"/>
         </Grid>
-        <Grid Name="gridTool" Margin="5">
+        <Border Background="#2fff" Height="1"/>
+        <Grid Margin="5">
             <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="0-60" FontSize="10"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c00" Text="0" Name="tbDelay60"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="60-120"  FontSize="10"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c80" Text="0" Name="tbDelay120"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="120-460"  FontSize="10"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eb0" Text="0" Name="tbDelay460"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="460-1000"  FontSize="10"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#be0" Text="0" Name="tbDelay1000"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="1000-3000"  FontSize="10"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#8c0" Text="0" Name="tbDelay3000"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="3000-∞"  FontSize="10"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#0c0" Text="0" Name="tbDelay10000"/>
+
+            <StackPanel Name="spDelay" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="3" Height="5" Margin=" 0 2 0 0">
+                <Border Background="#c00" Width="12" Name="bdrDelay60"/>
+                <Border Background="#c80" Width="12" Name="bdrDelay120" />
+                <Border Background="#eb0" Width="12" Name="bdrDelay460" />
+                <Border Background="#be0" Width="12" Name="bdrDelay1000" />
+                <Border Background="#8c0" Width="12" Name="bdrDelay3000" />
+                <Border Background="#0c0" Width="12" Name="bdrDelay10000" />
+            </StackPanel>
+        </Grid>
+        <Grid Name="gridTool" Margin="5" Background="#2aaa">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="2"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="2"></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -86,14 +126,18 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"  Foreground="#eee" Text="操作:" FontSize="14"/>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="3 0 0 0" Foreground="#eee" Text="操作:" FontSize="14"/>
             <Button Grid.Row="0" Grid.Column="1" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="开始" Name="btnStartOrPause" Click="btnStartOrPause_Click"/>
             <Button Grid.Row="0" Grid.Column="2" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="清空" Name="btnClear" Click="btnClear_Click"/>
             <Button Grid.Row="0" Grid.Column="3" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="退出" Name="btnExit" Click="btnExit_Click"/>
-            
-            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"  Foreground="#eee" Text="IP:" FontSize="14"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Center" Background="#0fff" Foreground="#9fff" BorderBrush="#4fff" FontSize="14" Name="tboxIP" MouseEnter="tboxIP_MouseEnter"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="3 0 0 0"  Foreground="#eee" Text="IP:" FontSize="14"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Center" Background="#0fff" Foreground="#9fff" BorderBrush="#4fff" FontSize="14" Name="tboxIP"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="3 0 0 0" VerticalAlignment="Center"  Foreground="#eee" Text="刷新间隔:" FontSize="14"/>
+            <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Center" Background="#0fff" Foreground="#9fff" BorderBrush="#4fff" Text="3600000" FontSize="14" Name="tboxReflushTime" ToolTip="大于10，小于3600000（毫秒）"/>
+
         </Grid>
     </StackPanel>
 </Window>

@@ -26,6 +26,8 @@ namespace VicoldUtility.PingDashboard
         private Ping _ping;
         private char[] _font = new char[] { ((char)0xEA3B), ((char)0xEA3A) };
         private string _ip;
+        private int _reflushTime = 0;
+        private double _delayActualWidth = 0;
 
         #region 计数参数
 
@@ -48,6 +50,9 @@ namespace VicoldUtility.PingDashboard
         private int _continuousSuccessCount = 0;
         private int _continuousFailedCount = 0;
 
+        //联通延迟统计   <60   <120   <460   <1000   <3000   >3000
+        private int[] _delayTimesCount = new int[6];
+
         #endregion
 
         #region Flag
@@ -69,6 +74,9 @@ namespace VicoldUtility.PingDashboard
             {
                 Start();
             }
+            _reflushTime = Settings.Default.ReflushTime;
+            tboxReflushTime.Text = _reflushTime.ToString();
+
         }
 
         #region 窗体事件
@@ -100,28 +108,56 @@ namespace VicoldUtility.PingDashboard
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
             gridTool.Visibility = Visibility.Collapsed;
+            var alert = "";
+            var changedFlag = false;
             var ip = tboxIP.Text.ToString();
-            if (_ip == ip) return;
-            if (CheckIP(ip))
+            if (_ip != ip)
             {
-                _ip = ip;
-                Settings.Default.IP = ip;
-                Settings.Default.Save();
-                Alert.Show("修改IP成功", AlertTheme.Success);
-                ReloadData();
-                Start();
+                if (CheckIP(ip))
+                {
+                    _ip = ip;
+                    Settings.Default.IP = ip;
+                    Settings.Default.Save();
+                    ReloadData();
+                    Start();
+                }
+                else
+                {
+                    alert = "IP格式不规范";
+                    tboxIP.Text = _ip;
+                }
+                changedFlag = true;
             }
-            else
+            var timeStr = tboxReflushTime.Text.ToString();
+            var reflushTime = int.TryParse(timeStr, out int time);
+            if (_reflushTime != time)
             {
-                Alert.Show("IP格式不规范", AlertTheme.Error);
-                tboxIP.Text = _ip;
+                if (reflushTime && time >= 10 && time <= 3600000)
+                {
+                    _reflushTime = time;
+                    Settings.Default.ReflushTime = time;
+                    Settings.Default.Save();
+                }
+                else
+                {
+                    if (alert != "") alert = $"{alert}\r\n刷新时间间隔格式不准确";
+                    tboxReflushTime.Text = timeStr;
+                }
+                changedFlag = true;
+            }
+            if (changedFlag)
+            {
+                if (alert == "")
+                {
+                    Alert.Show("修改成功", AlertTheme.Success);
+                }
+                else
+                {
+                    Alert.Show("IP格式不规范", AlertTheme.Error);
+                }
             }
         }
 
-        private void tboxIP_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Window_MouseEnter(sender, e);
-        }
         #endregion
 
         #region 统计执行
@@ -137,6 +173,8 @@ namespace VicoldUtility.PingDashboard
             {
                 while (isStart)
                 {
+                    if (_delayActualWidth == 0)
+                        _delayActualWidth = spDelay.ActualWidth;
                     _historyQueueAllCount++;
                     if (null == _ping) return;
                     var p = _ping.Send(_ip);
@@ -194,11 +232,65 @@ namespace VicoldUtility.PingDashboard
                         UpdatePercentUI(tbPercent50, tbPercentText50, p50);
                         UpdatePercentUI(tbPercent10, tbPercentText10, p10);
                         UpdatePercentUI(tbPercentAll, tbPercentTextAll, Convert.ToInt16(_historyQueueAllCount == 0 ? 0 : (double)_historyQueueAllSuccessCount / _historyQueueAllCount * 100));
+                        StatisticsDelayCount(p.RoundtripTime);
                     }));
-                    await Task.Delay(1000);
+                    await Task.Delay(_reflushTime);
                 }
             }).Start();
         }
+
+        /// <summary>
+        /// 联通延迟统计
+        /// </summary>
+        /// <param name="roundtripTime"></param>
+        private void StatisticsDelayCount(long roundtripTime)
+        {
+
+            if (roundtripTime == 0)
+            {
+                return;
+            }
+            else if (roundtripTime <= 60)
+            {
+                _delayTimesCount[0]++;
+                tbDelay60.Text = _delayTimesCount[0].ToString();
+            }
+            else if (roundtripTime <= 120)
+            {
+                _delayTimesCount[1]++;
+                tbDelay120.Text = _delayTimesCount[1].ToString();
+            }
+            else if (roundtripTime <= 460)
+            {
+                _delayTimesCount[2]++;
+                tbDelay460.Text = _delayTimesCount[2].ToString();
+            }
+            else if (roundtripTime <= 1000)
+            {
+                _delayTimesCount[3]++;
+                tbDelay1000.Text = _delayTimesCount[3].ToString();
+            }
+            else if (roundtripTime <= 3000)
+            {
+                _delayTimesCount[4]++;
+                tbDelay3000.Text = _delayTimesCount[4].ToString();
+            }
+            else
+            {
+                _delayTimesCount[5]++;
+                tbDelay10000.Text = _delayTimesCount[5].ToString();
+            }
+            if (_historyQueueAllSuccessCount != 0)
+            {
+                bdrDelay60.Width = (double)_delayTimesCount[0] / _historyQueueAllSuccessCount * _delayActualWidth;
+                bdrDelay120.Width = (double)_delayTimesCount[1] / _historyQueueAllSuccessCount * _delayActualWidth;
+                bdrDelay460.Width = (double)_delayTimesCount[2] / _historyQueueAllSuccessCount * _delayActualWidth;
+                bdrDelay1000.Width = (double)_delayTimesCount[3] / _historyQueueAllSuccessCount * _delayActualWidth;
+                bdrDelay3000.Width = (double)_delayTimesCount[4] / _historyQueueAllSuccessCount * _delayActualWidth;
+                bdrDelay10000.Width = (double)_delayTimesCount[5] / _historyQueueAllSuccessCount * _delayActualWidth;
+            }
+        }
+
         /// <summary>
         /// 停止
         /// </summary>

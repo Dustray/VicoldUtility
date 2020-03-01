@@ -37,7 +37,7 @@ namespace VicoldUtility.PingDashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("500,200,0,0")]
         public global::System.Windows.Rect MainWindowPosition {
             get {
                 return ((global::System.Windows.Rect)(this["MainWindowPosition"]));
@@ -56,6 +56,18 @@ namespace VicoldUtility.PingDashboard.Properties {
             }
             set {
                 this["IsFirstStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int ReflushTime {
+            get {
+                return ((int)(this["ReflushTime"]));
+            }
+            set {
+                this["ReflushTime"] = value;
             }
         }
     }
