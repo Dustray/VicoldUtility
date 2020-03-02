@@ -70,5 +70,17 @@ namespace VicoldUtility.PingDashboard.Properties {
                 this["ReflushTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public byte BgTrans {
+            get {
+                return ((byte)(this["BgTrans"]));
+            }
+            set {
+                this["BgTrans"] = value;
+            }
+        }
     }
 }

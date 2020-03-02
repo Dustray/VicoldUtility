@@ -80,6 +80,8 @@ namespace VicoldUtility.PingDashboard
             _reflushTime = Settings.Default.ReflushTime;
             tboxReflushTime.Text = _reflushTime.ToString();
             tbMyLogo.ToolTip = $"Version {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
+            this.Background= new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
+            sldBgTrans.Value = Settings.Default.BgTrans;
         }
 
         #region 窗体事件
@@ -490,6 +492,14 @@ namespace VicoldUtility.PingDashboard
             Close();
         }
 
+
+        private void sldBgTrans_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var sl = sender as Slider;
+            this.Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
+            Settings.Default.BgTrans = (byte)sl.Value;
+            Settings.Default.Save();
+        }
         #endregion
 
         #region tool
@@ -527,9 +537,8 @@ namespace VicoldUtility.PingDashboard
             else { r = 255; }
             return new SolidColorBrush(Color.FromArgb((byte)200, (byte)r, (byte)g, (byte)b));
         }
+
         #endregion
-
-
     }
 
 }
