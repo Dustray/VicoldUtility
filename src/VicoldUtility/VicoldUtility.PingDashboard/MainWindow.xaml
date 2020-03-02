@@ -112,6 +112,22 @@
                 <Border Background="#b00" Width="0" Name="bdrDelay10000" />
             </StackPanel>
         </Grid>
+        <Border Background="#2fff" Height="1"/>
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" FontSize="12" Text="稳定指数"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" FontSize="12" Name="tbStabilityText"/>
+            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" FontSize="15" Name="tbStabilityColor" Text="&#xE91F;" FontFamily="Segoe MDL2 Assets"/>
+
+        </Grid>
         <Grid Name="gridTool" Margin="5" Background="#2aaa">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
