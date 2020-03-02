@@ -104,12 +104,12 @@
             <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c00" Text="0" Name="tbDelay10000"/>
 
             <StackPanel Name="spDelay" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="3" Height="5" Margin=" 0 2 0 0">
-                <Border Background="#0c0" Width="0" Name="bdrDelay60"/>
-                <Border Background="#8c0" Width="0" Name="bdrDelay120" />
-                <Border Background="#be0" Width="0" Name="bdrDelay460" />
-                <Border Background="#eb0" Width="0" Name="bdrDelay1000" />
+                <Border Background="#0b0" Width="0" Name="bdrDelay60"/>
+                <Border Background="#9c0" Width="0" Name="bdrDelay120" />
+                <Border Background="#cf0" Width="0" Name="bdrDelay460" />
+                <Border Background="#fc0" Width="0" Name="bdrDelay1000" />
                 <Border Background="#c80" Width="0" Name="bdrDelay3000" />
-                <Border Background="#c00" Width="0" Name="bdrDelay10000" />
+                <Border Background="#b00" Width="0" Name="bdrDelay10000" />
             </StackPanel>
         </Grid>
         <Grid Name="gridTool" Margin="5" Background="#2aaa">
@@ -128,7 +128,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="3 0 0 0" Foreground="#eee" Text="操作:" FontSize="14"/>
-            <Button Grid.Row="0" Grid.Column="1" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="开始" Name="btnStartOrPause" Click="btnStartOrPause_Click"/>
+            <Button Grid.Row="0" Grid.Column="1" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="暂停" Name="btnStartOrPause" Click="btnStartOrPause_Click"/>
             <Button Grid.Row="0" Grid.Column="2" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="清空" Name="btnClear" Click="btnClear_Click"/>
             <Button Grid.Row="0" Grid.Column="3" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="退出" Name="btnExit" Click="btnExit_Click"/>
 

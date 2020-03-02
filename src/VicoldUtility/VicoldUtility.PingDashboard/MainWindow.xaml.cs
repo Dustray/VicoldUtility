@@ -76,7 +76,6 @@ namespace VicoldUtility.PingDashboard
             }
             _reflushTime = Settings.Default.ReflushTime;
             tboxReflushTime.Text = _reflushTime.ToString();
-
         }
 
         #region 窗体事件
@@ -178,7 +177,7 @@ namespace VicoldUtility.PingDashboard
                     _historyQueueAllCount++;
                     if (null == _ping) return;
                     var p = _ping.Send(_ip);
-
+                   
                     var flag = false;
 
                     switch (p.Status)
@@ -412,6 +411,14 @@ namespace VicoldUtility.PingDashboard
 
             _continuousSuccessCount = 0;
             _continuousFailedCount = 0;
+
+            _delayTimesCount = new int[6];
+            //bdrDelay60.Width = 0;
+            //bdrDelay120.Width = 0;
+            //bdrDelay460.Width = 0;
+            //bdrDelay1000.Width = 0;
+            //bdrDelay3000.Width = 0;
+            //bdrDelay10000.Width = 0;
         }
 
         private bool CheckIsFirstStartup()
@@ -443,7 +450,7 @@ namespace VicoldUtility.PingDashboard
             else
             {
                 Start();
-                btnStartOrPause.Content = "停止";
+                btnStartOrPause.Content = "暂停";
             }
         }
 
