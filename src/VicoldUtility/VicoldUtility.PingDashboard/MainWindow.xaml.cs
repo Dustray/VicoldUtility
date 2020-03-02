@@ -422,6 +422,13 @@ namespace VicoldUtility.PingDashboard
             //bdrDelay1000.Width = 0;
             //bdrDelay3000.Width = 0;
             //bdrDelay10000.Width = 0;
+
+            tbDelay60.Text = 0.ToString();
+            tbDelay120.Text = 0.ToString();
+            tbDelay460.Text = 0.ToString();
+            tbDelay1000.Text = 0.ToString();
+            tbDelay3000.Text = 0.ToString();
+            tbDelay10000.Text = 0.ToString();
         }
 
         private bool CheckIsFirstStartup()
@@ -451,7 +458,7 @@ namespace VicoldUtility.PingDashboard
             var value = sum / 200;
             if (value > 10) value = 10;
             var brush = GetColor(value);
-            tbStabilityText.Text =(10- Math.Round( value,2,MidpointRounding.AwayFromZero)).ToString();
+            tbStabilityText.Text = (10 - Math.Round(value, 2, MidpointRounding.AwayFromZero)).ToString();
             tbStabilityColor.Foreground = brush;
         }
 
