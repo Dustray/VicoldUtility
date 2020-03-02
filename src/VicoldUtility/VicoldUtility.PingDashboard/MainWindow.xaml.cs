@@ -80,7 +80,7 @@ namespace VicoldUtility.PingDashboard
             _reflushTime = Settings.Default.ReflushTime;
             tboxReflushTime.Text = _reflushTime.ToString();
             tbMyLogo.ToolTip = $"Version {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
-            this.Background= new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
+            Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
             sldBgTrans.Value = Settings.Default.BgTrans;
         }
 
@@ -93,7 +93,7 @@ namespace VicoldUtility.PingDashboard
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Settings.Default.MainWindowPosition = this.RestoreBounds;
+            Settings.Default.MainWindowPosition = RestoreBounds;
             Settings.Default.Save();
         }
         private void Window_Closed(object sender, EventArgs e)
@@ -107,10 +107,32 @@ namespace VicoldUtility.PingDashboard
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            gridTool.Visibility = Visibility.Visible;
         }
 
-        private void Window_MouseLeave(object sender, MouseEventArgs e)
+
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (RestoreBounds.Height - e.GetPosition(this).Y < 30)
+            {
+                gridTool.Visibility = Visibility.Visible;
+            }
+            int screenRight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Right;//屏幕右边缘
+            double formRight = Left + RestoreBounds.Width;//窗口右边缘=窗口左上角x+窗口宽度
+            if (screenRight - formRight <= 30) //往右靠
+                Left = screenRight - RestoreBounds.Width - 5;
+            if (Left <= 30)//往左靠
+                Left = 5;
+
+            int screenBottom = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Bottom;//屏幕下边缘
+            double formBottom = Top + RestoreBounds.Height;//窗口下边缘
+            if (screenBottom - formBottom <= 30)//往下靠
+                Top = screenBottom - RestoreBounds.Height - 5;
+            if (Top <= 30)//往上靠
+                Top = 5;
+        }
+
+        void Window_MouseLeave(object sender, MouseEventArgs e)
         {
             gridTool.Visibility = Visibility.Collapsed;
             var alert = "";
@@ -217,7 +239,7 @@ namespace VicoldUtility.PingDashboard
                         var p100 = GetPercent(_historyQueue100);
                         var p50 = GetPercent(_historyQueue50);
                         var p10 = GetPercent(_historyQueue10);
-                        this.Dispatcher.Invoke(new Action(() =>
+                        Dispatcher.Invoke(new Action(() =>
                         {
                             if (p.Status == IPStatus.Success)
                             {
@@ -253,7 +275,7 @@ namespace VicoldUtility.PingDashboard
                 _runTask.Dispose();
                 _runTask = null;
 
-                this.Dispatcher.Invoke(new Action(() =>
+                Dispatcher.Invoke(new Action(() =>
                 {
                     btnStartOrPause.Content = "开始";
                 }));
@@ -391,8 +413,8 @@ namespace VicoldUtility.PingDashboard
             {
                 //设置位置、大小
                 Rect restoreBounds = Settings.Default.MainWindowPosition;
-                this.Left = restoreBounds.Left;
-                this.Top = restoreBounds.Top;
+                Left = restoreBounds.Left;
+                Top = restoreBounds.Top;
             }
             catch { }
             ShowInTaskbar = false;
@@ -496,7 +518,7 @@ namespace VicoldUtility.PingDashboard
         private void sldBgTrans_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             var sl = sender as Slider;
-            this.Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
+            Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
             Settings.Default.BgTrans = (byte)sl.Value;
             Settings.Default.Save();
         }
