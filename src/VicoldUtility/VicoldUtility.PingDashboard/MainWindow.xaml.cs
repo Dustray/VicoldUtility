@@ -82,6 +82,22 @@ namespace VicoldUtility.PingDashboard
             tbMyLogo.ToolTip = $"Version {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
             Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
             sldBgTrans.Value = Settings.Default.BgTrans;
+            new Task(async () =>
+            {
+                double t = 14;
+                double flag = -1;
+                while (true)
+                {
+                    if (t > 15|| t < 13)
+                        flag = -flag;
+                    t += flag;
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        tbStabilityColor.FontSize = t;
+                    }));
+                    await Task.Delay(50);
+                }
+            }).Start();
         }
 
         #region 窗体事件

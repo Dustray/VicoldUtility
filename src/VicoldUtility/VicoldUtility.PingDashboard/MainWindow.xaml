@@ -117,7 +117,7 @@
         <Border Background="#2fff" Height="1"/>
         <Grid Margin="5" >
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="16"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
