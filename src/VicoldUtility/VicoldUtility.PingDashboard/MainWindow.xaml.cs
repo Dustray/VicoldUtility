@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -78,6 +79,7 @@ namespace VicoldUtility.PingDashboard
             }
             _reflushTime = Settings.Default.ReflushTime;
             tboxReflushTime.Text = _reflushTime.ToString();
+            tbMyLogo.ToolTip = $"Version {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
         }
 
         #region 窗体事件
