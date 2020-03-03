@@ -258,7 +258,7 @@ namespace VicoldUtility.PingDashboard
                                 tbActualByte.Text = p.Buffer.Length.ToString();
                                 tbActualTime.Text = p.RoundtripTime.ToString();
                                 tbActualTTL.Text = p.Options.Ttl.ToString();
-                                tbContinuousCount.Text = $"已连续Ping成功{_continuousSuccessCount}次";
+                                tbContinuousCount.Text = $"成功：{_continuousSuccessCount}";
                                 StatisticsDelayCount(p.RoundtripTime);
                             }
                             else
@@ -266,7 +266,7 @@ namespace VicoldUtility.PingDashboard
                                 tbActualByte.Text = "*";
                                 tbActualTime.Text = "*";
                                 tbActualTTL.Text = "*";
-                                tbContinuousCount.Text = $"已连续Ping失败{_continuousFailedCount}次";
+                                tbContinuousCount.Text = $"失败：{_continuousFailedCount}";
                                 if (_continuousFailedCount == 20)
                                 {
                                     Alert.Show("警告", $"Ping{_ip}已连续失败{_continuousFailedCount}次", AlertTheme.Warning, new AlertConfig() { AlertShowDuration = -1, OnlyOneWindowAllowed = true });
@@ -496,7 +496,9 @@ namespace VicoldUtility.PingDashboard
             var value = sum / 200;
             if (value > 10) value = 10;
             var brush = GetColor(value);
-            tbStabilityText.Text = (10 - Math.Round(value, 2, MidpointRounding.AwayFromZero)).ToString();
+            var showPoint = Math.Round(10 - value, 2, MidpointRounding.AwayFromZero).ToString();
+            tbStabilityText.Text = showPoint;
+            tbStabilityText.ToolTip = showPoint;
             elpStabilityBreath.Fill = brush;
         }
 

@@ -92,8 +92,11 @@
             <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Text="10条"/>
             <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Name="tbPercent10" FontSize="8"/>
             <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Name="tbPercentText10"/>
-
-            <TextBlock Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#eee" Name="tbContinuousCount"/>
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Foreground="#ebebeb" Text="Ping连续"/>
+                <TextBlock Foreground="#eee" Name="tbContinuousCount" FontWeight="Bold"/>
+                <TextBlock Foreground="#ebebeb" Text="次"/>
+            </StackPanel>
         </Grid>
         <Border Background="#2fff" Height="1"/>
         <Grid Margin="5">
@@ -124,12 +127,12 @@
             <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c00" Text="0" Name="tbDelay10000"/>
 
             <StackPanel Name="spDelay" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="3" Height="5" Margin=" 0 2 0 0">
-                <Border Background="#0b0" Width="0" Name="bdrDelay60"/>
-                <Border Background="#9c0" Width="0" Name="bdrDelay120" />
-                <Border Background="#cf0" Width="0" Name="bdrDelay460" />
-                <Border Background="#fc0" Width="0" Name="bdrDelay1000" />
-                <Border Background="#c80" Width="0" Name="bdrDelay3000" />
-                <Border Background="#b00" Width="0" Name="bdrDelay10000" />
+                <Border Background="#c0b0" Width="0" Name="bdrDelay60"/>
+                <Border Background="#c9c0" Width="0" Name="bdrDelay120" />
+                <Border Background="#ccf0" Width="0" Name="bdrDelay460" />
+                <Border Background="#cfc0" Width="0" Name="bdrDelay1000" />
+                <Border Background="#cc80" Width="0" Name="bdrDelay3000" />
+                <Border Background="#cb00" Width="0" Name="bdrDelay10000" />
             </StackPanel>
         </Grid>
         <Border Background="#2fff" Height="1"/>
