@@ -10,7 +10,7 @@
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove">
 
     <Window.Resources>
-        <Storyboard x:Key="OnLoaded" RepeatBehavior="Forever" AutoReverse="True">
+        <Storyboard x:Key="OnLoaded" RepeatBehavior="Forever" AutoReverse="True" Timeline.DesiredFrameRate="10">
             <DoubleAnimation  Storyboard.TargetProperty="Height" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
             <DoubleAnimation  Storyboard.TargetProperty="Width" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
         </Storyboard>
