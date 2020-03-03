@@ -8,6 +8,19 @@
         Title="MainWindow" SizeToContent="Height"  Width="180" Topmost="True" AllowsTransparency="True"  ResizeMode="NoResize"
         MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove">
+
+    <Window.Resources>
+        <Storyboard x:Key="OnLoaded" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation  Storyboard.TargetProperty="Height" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
+            <DoubleAnimation  Storyboard.TargetProperty="Width" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource OnLoaded}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    
     <StackPanel>
         <Border Height="5"></Border>
         <Grid Margin="0 0 0 5">
@@ -127,8 +140,12 @@
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" FontSize="12" Text="稳定指数"/>
             <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" FontSize="12" Name="tbStabilityText"/>
-            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" FontSize="15" Name="tbStabilityColor" Text="&#xE91F;" FontFamily="Segoe MDL2 Assets"/>
 
+            <Ellipse Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"  x:Name="elpStabilityBreath" Height="10" Width="10" Fill="White">
+                <Ellipse.Effect>
+                    <DropShadowEffect Opacity="1" ShadowDepth="0" Color="GreenYellow" BlurRadius="200" Direction="10"/>
+                </Ellipse.Effect>
+            </Ellipse>
         </Grid>
         <Grid Name="gridTool" Margin="5" Background="#2aaa">
             <Grid.RowDefinitions>
@@ -162,6 +179,7 @@
             <TextBlock Grid.Row="6" Grid.Column="0"  Margin="3 0 0 0" VerticalAlignment="Center"  Foreground="#eee" Text="背景:" FontSize="14"/>
             <Slider  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Minimum="0" Maximum="255" Style="{DynamicResource SliderStyle1}" VerticalAlignment="Center" Name="sldBgTrans" ValueChanged="sldBgTrans_ValueChanged"  TickFrequency="1"/>
             <TextBlock Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 0 0 3" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#47b1ad" Text="Designed by Dustray" FontSize="11" Name="tbMyLogo"/>
+
 
         </Grid>
     </StackPanel>
