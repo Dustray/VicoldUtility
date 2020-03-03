@@ -9,15 +9,20 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove">
 
-    <Window.Resources>
-        <Storyboard x:Key="OnLoaded" RepeatBehavior="Forever" AutoReverse="True" Timeline.DesiredFrameRate="10">
-            <DoubleAnimation  Storyboard.TargetProperty="Height" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
-            <DoubleAnimation  Storyboard.TargetProperty="Width" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
-        </Storyboard>
-    </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource OnLoaded}"/>
+            <BeginStoryboard Name="OpacityStoryboard">
+                <Storyboard RepeatBehavior="Forever" AutoReverse="True" Timeline.DesiredFrameRate="10">
+                    <DoubleAnimation  Storyboard.TargetProperty="Height" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
+                    <DoubleAnimation  Storyboard.TargetProperty="Width" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+            <PauseStoryboard BeginStoryboardName="OpacityStoryboard" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+            <ResumeStoryboard BeginStoryboardName="OpacityStoryboard" />
         </EventTrigger>
     </Window.Triggers>
     
