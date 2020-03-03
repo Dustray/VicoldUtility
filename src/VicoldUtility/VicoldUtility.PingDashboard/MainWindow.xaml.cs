@@ -133,19 +133,47 @@ namespace VicoldUtility.PingDashboard
             {
                 gridTool.Visibility = Visibility.Visible;
             }
-            int screenRight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Right;//屏幕右边缘
-            double formRight = Left + RestoreBounds.Width;//窗口右边缘=窗口左上角x+窗口宽度
-            if (screenRight - formRight <= 30) //往右靠
-                Left = screenRight - RestoreBounds.Width - 5;
-            if (Left <= 30)//往左靠
-                Left = 5;
 
-            int screenBottom = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Bottom;//屏幕下边缘
-            double formBottom = Top + RestoreBounds.Height;//窗口下边缘
-            if (screenBottom - formBottom <= 30)//往下靠
-                Top = screenBottom - RestoreBounds.Height - 5;
-            if (Top <= 30)//往上靠
-                Top = 5;
+            foreach(var screen in System.Windows.Forms.Screen.AllScreens)
+            {
+                int screenLeft = screen.Bounds.Left;//屏幕右边缘
+                int screenRight = screen.Bounds.Right;//屏幕右边缘
+
+                double formLeft = Left ;//窗口右边缘=窗口左上角x+窗口宽度
+                double formRight = Left + RestoreBounds.Width;//窗口右边缘=窗口左上角x+窗口宽度
+                double formCenter = (formRight + formLeft) / 2;
+                if(formCenter>=screenLeft&& formCenter <= screenRight)
+                {
+                    if (screenRight - formRight <= 30) //往右靠
+                        Left = screenRight - RestoreBounds.Width - 5;
+                    if (formLeft - screenLeft  <= 30)//往左靠
+                        Left = screenLeft+5;
+
+                    int screenBottom = screen.Bounds.Bottom;//屏幕下边缘
+                    double formBottom = Top + RestoreBounds.Height;//窗口下边缘
+                    if (screenBottom - formBottom <= 30)//往下靠
+                        Top = screenBottom - RestoreBounds.Height - 5;
+                    if (Top <= 30)//往上靠
+                        Top = 5;
+                    break;
+                }
+                else
+                {
+                    if (screenRight - formRight <= 30) //往右靠
+                    {
+                        //Left = screenRight - RestoreBounds.Width - 5;
+
+                    }
+                    if (formLeft - screenLeft <= 30)//往左靠
+                    {
+                        //Left = screenLeft + 5;
+
+                    }
+                }
+                
+            }
+
+            
         }
 
         void Window_MouseLeave(object sender, MouseEventArgs e)
