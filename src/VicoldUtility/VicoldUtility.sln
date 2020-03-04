@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.PingDashboard", "VicoldUtility.PingDashboard\VicoldUtility.PingDashboard.csproj", "{E315BE86-F96C-4FA3-B75C-4AD42CBCD3BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ResourceMonitor", "VicoldUtility.ResourceMonitor\VicoldUtility.ResourceMonitor.csproj", "{6803082F-6A53-4132-8503-D76862BFAC52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E315BE86-F96C-4FA3-B75C-4AD42CBCD3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E315BE86-F96C-4FA3-B75C-4AD42CBCD3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E315BE86-F96C-4FA3-B75C-4AD42CBCD3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6803082F-6A53-4132-8503-D76862BFAC52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6803082F-6A53-4132-8503-D76862BFAC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6803082F-6A53-4132-8503-D76862BFAC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6803082F-6A53-4132-8503-D76862BFAC52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

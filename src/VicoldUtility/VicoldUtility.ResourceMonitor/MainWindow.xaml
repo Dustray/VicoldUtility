@@ -1,0 +1,37 @@
+﻿<Window x:Class="VicoldUtility.ResourceMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VicoldUtility.ResourceMonitor"
+        mc:Ignorable="d"
+        Title="MainWindow"  SizeToContent="Height"  Width="180" Topmost="True" AllowsTransparency="True"  ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseEnter" MouseMove="Window_MouseEnter" Background="#333">
+    <Grid>
+        <StackPanel>
+            <Border Height="5"></Border>
+            <Grid Margin="0 0 0 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="17"></RowDefinition>
+                    <RowDefinition Height="17"></RowDefinition>
+                    <RowDefinition Height="17"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#fff" FontWeight="Bold" Text="CPU"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="字节"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="时间(ms)"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="TTL"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbCPU"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTime"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTTL"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
