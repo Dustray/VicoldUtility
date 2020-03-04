@@ -220,8 +220,18 @@ namespace VicoldUtility.PingDashboard
                     if (null == _ping) return;
                     lock (lockOb)
                     {
-                        var p = _ping.Send(_ip);
+                        PingReply p = null ;
 
+                        try
+                        {
+                            p = _ping.Send(_ip);
+
+                        }
+                        catch (Exception e)
+                        {
+                            Alert.Show("请求错误",$"{e.Message}单次检测失败", AlertTheme.Error);
+                            continue;
+                        }
                         var flag = false;
 
                         switch (p.Status)
@@ -286,7 +296,6 @@ namespace VicoldUtility.PingDashboard
                 }
                 _runTask.Dispose();
                 _runTask = null;
-
                 Dispatcher.Invoke(new Action(() =>
                 {
                     btnStartOrPause.Content = "开始";

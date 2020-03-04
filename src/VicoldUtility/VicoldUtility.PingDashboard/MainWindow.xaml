@@ -18,7 +18,7 @@
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
-        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown">
             <PauseStoryboard BeginStoryboardName="OpacityStoryboard" />
         </EventTrigger>
         <EventTrigger RoutedEvent="UIElement.MouseLeave">
