@@ -8,11 +8,11 @@
       Title="GPUPage">
 
     <StackPanel>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold"  FontSize="14" Text="GPU"/>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold"  FontSize="14" Text="GPU" Name="TbTitle"/>
         <Grid Margin="5 0 0 5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="16"></RowDefinition>
-                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"></ColumnDefinition>
@@ -31,8 +31,10 @@
         </Grid>
         <Grid Margin="5 0 0 5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="16"></RowDefinition>
-                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition  Height="15"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition ></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"></ColumnDefinition>
@@ -40,7 +42,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="显存"/>
+            <TextBlock Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="显存"/>
             <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="利用率"/>
             <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="频率"/>
             <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="温度"/>
@@ -48,11 +50,19 @@
             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbMemoryLoad"/>
             <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbMemoryClock"/>
             <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbMemoryTemp"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="已用" Name="TbMemoryT1"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="可用" Name="TbMemoryT2"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="总" Name="TbMemoryT3"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbMemoryUsed"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbMemoryFree"/>
+            <TextBlock Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbMemoryTotal"/>
         </Grid>
         <Grid Margin="5 0 0 0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="16"></RowDefinition>
-                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"></ColumnDefinition>

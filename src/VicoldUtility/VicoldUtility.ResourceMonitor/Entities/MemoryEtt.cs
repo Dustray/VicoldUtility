@@ -10,7 +10,7 @@ namespace VicoldUtility.ResourceMonitor.Entities
     {
         public float MemoryLoad { get; set; }
         public float MemoryUsed { get; set; }
-        public float MemoryAvailable { get; set; }
+        public float MemoryFree { get; set; }
 
     }
 }

@@ -21,6 +21,7 @@ namespace VicoldUtility.ResourceMonitor.Components
             InitializeComponent();
             _inv = Settings.Default.InvalidValue;
             _textBlockDic = new Dictionary<string, TextBlock>();
+            TbTitle.Foreground = new SolidColorBrush(Settings.Default.TitleColor);
         }
 
         public void ImportData(CPUEtt ett)
@@ -36,9 +37,7 @@ namespace VicoldUtility.ResourceMonitor.Components
                 {
                     for(int i=1;i<= ett.CoreDic.Count;i++)
                     {
-                        var row = new RowDefinition() { 
-                            Height=new GridLength(16),
-                        };
+                        var row = new RowDefinition();
                         GridCore.RowDefinitions.Add(row);
 
                         var tbCoreTitle = CreateTitleTextBlock($"Core {i}");

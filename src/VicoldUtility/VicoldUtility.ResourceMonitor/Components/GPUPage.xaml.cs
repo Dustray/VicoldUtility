@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Media;
 using VicoldUtility.ResourceMonitor.Entities;
 using VicoldUtility.ResourceMonitor.Properties;
 using VicoldUtility.ResourceMonitor.Utilities;
@@ -16,6 +17,7 @@ namespace VicoldUtility.ResourceMonitor.Components
         {
             InitializeComponent();
             _inv = Settings.Default.InvalidValue;
+            TbTitle.Foreground = new SolidColorBrush(Settings.Default.TitleColor);
         }
         public void ImportData(GPUEtt ett)
         {
@@ -30,6 +32,20 @@ namespace VicoldUtility.ResourceMonitor.Components
                 TbMemoryClock.Text = ett.Memory.MemoryClock == _inv ? "*" : $"{PointRoundUtil.ToVision0Point(ett.Memory.MemoryClock)}MHz";
                 TbMemoryTemp.Text = ett.Memory.MemoryTemperature == _inv ? "*" : $"{PointRoundUtil.ToVision1Point(ett.Memory.MemoryTemperature)}℃";
 
+                if (ett.Memory.MemoryTotal != _inv)
+                {
+                    var used = ett.Memory.MemoryLoad / 100 * ett.Memory.MemoryTotal;
+                    var free = ett.Memory.MemoryTotal - used;
+                    TbMemoryUsed.Text = $"{PointRoundUtil.ToVision1Point(used)}MB";
+                    TbMemoryFree.Text = $"{PointRoundUtil.ToVision1Point(free)}MB";
+                    TbMemoryTotal.Text = $"{PointRoundUtil.ToVision1Point(ett.Memory.MemoryTotal)}MB";
+                }
+                else
+                {
+                    TbMemoryUsed.Text =  "*";
+                    TbMemoryFree.Text =  "*";
+                    TbMemoryTotal.Text = "*";
+                }
                 TbFanLoad.Text = ett.Fan.FanLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.Fan.FanLoad)}%";
                 TbFanSpeed.Text = ett.Fan.FanSpeed == _inv ? "*" : $"{PointRoundUtil.ToVision0Point(ett.Fan.FanSpeed)}RPM";
             });

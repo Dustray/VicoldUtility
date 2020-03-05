@@ -67,5 +67,14 @@ namespace VicoldUtility.ResourceMonitor.Properties {
                 return ((float)(this["InvalidValue"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#88DDDDDD")]
+        public global::System.Windows.Media.Color TitleColor {
+            get {
+                return ((global::System.Windows.Media.Color)(this["TitleColor"]));
+            }
+        }
     }
 }

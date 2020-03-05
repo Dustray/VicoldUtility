@@ -7,11 +7,11 @@
       mc:Ignorable="d" d:DesignWidth="180"
       Title="CPUPage">
     <StackPanel>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold"  FontSize="14" Text="CPU"/>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold"  FontSize="14" Text="CPU" Name="TbTitle"/>
         <Grid Margin="0 0 0 5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="16"></RowDefinition>
-                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -31,7 +31,7 @@
         </Grid>
         <Grid  Name="GridCore">
             <Grid.RowDefinitions>
-                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition  Height="15"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

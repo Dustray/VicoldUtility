@@ -333,7 +333,7 @@ namespace VicoldUtility.ResourceMonitor
                         }
                         else if (sensor.Name.Contains("Available"))
                         {
-                            memoryEtt.MemoryAvailable = value;
+                            memoryEtt.MemoryFree = value;
                         }
                         break;
                 }

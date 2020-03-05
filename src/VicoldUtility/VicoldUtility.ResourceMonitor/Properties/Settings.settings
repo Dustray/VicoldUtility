@@ -14,5 +14,8 @@
     <Setting Name="InvalidValue" Type="System.Single" Scope="Application">
       <Value Profile="(Default)">999</Value>
     </Setting>
+    <Setting Name="TitleColor" Type="System.Windows.Media.Color" Scope="Application">
+      <Value Profile="(Default)">#88DDDDDD</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
