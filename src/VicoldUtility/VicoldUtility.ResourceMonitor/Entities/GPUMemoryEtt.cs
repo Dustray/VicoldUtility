@@ -8,9 +8,9 @@ namespace VicoldUtility.ResourceMonitor.Entities
 {
     public class GPUMemoryEtt
     {
-        public float MemoryClock { get; set; }
         public float MemoryLoad { get; set; }
-        public float MemoryTemperature { get; set; }
-        public float MemoryTotal { get; set; }
+        public float MemoryClock { get; set; }
+        public float MemoryTemperature { get; set; } = Properties.Settings.Default.InvalidValue;
+        public float MemoryTotal { get; set; } = Properties.Settings.Default.InvalidValue;
     }
 }

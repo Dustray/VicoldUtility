@@ -8,7 +8,7 @@ namespace VicoldUtility.ResourceMonitor.Entities
 {
     public class GPUFanEtt
     {
-        public float FanLoad { get; set; }
-        public float FanSpeed { get; set; }
+        public float FanLoad { get; set; } = Properties.Settings.Default.InvalidValue;
+        public float FanSpeed { get; set; } = Properties.Settings.Default.InvalidValue;
     }
 }

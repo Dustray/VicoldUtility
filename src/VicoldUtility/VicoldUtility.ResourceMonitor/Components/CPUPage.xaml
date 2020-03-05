@@ -4,11 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VicoldUtility.ResourceMonitor.Components"
-      mc:Ignorable="d" 
-      d:DesignHeight="180" d:DesignWidth="180"
+      mc:Ignorable="d" d:DesignWidth="180"
       Title="CPUPage">
     <StackPanel>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Foreground="#eee" FontWeight="Bold"  FontSize="14" Text="CPU"/>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold"  FontSize="14" Text="CPU"/>
         <Grid Margin="0 0 0 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="16"></RowDefinition>
@@ -30,9 +29,8 @@
             <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbMainPackagePower"/>
             <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbMainTemp"/>
         </Grid>
-        <Grid Margin="0 0 0 5" Name="GridCore">
+        <Grid  Name="GridCore">
             <Grid.RowDefinitions>
-                <RowDefinition Height="16"></RowDefinition>
                 <RowDefinition Height="16"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>

@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using VicoldUtility.ResourceMonitor.Entities;
 using VicoldUtility.ResourceMonitor.Properties;
+using VicoldUtility.ResourceMonitor.Utilities;
 
 namespace VicoldUtility.ResourceMonitor.Components
 {
@@ -21,7 +22,16 @@ namespace VicoldUtility.ResourceMonitor.Components
             if (ett == null) return;
             Dispatcher.Invoke(() =>
             {
+                TbCoreLoad.Text = ett.Core.CoreLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.Core.CoreLoad)}%";
+                TbCoreClock.Text = ett.Core.CoreClock == _inv ? "*" : $"{PointRoundUtil.ToVision0Point(ett.Core.CoreClock)}MHz";
+                TbCoreTemp.Text = ett.Core.CoreTemperature == _inv ? "*" : $"{PointRoundUtil.ToVision1Point(ett.Core.CoreTemperature)}℃";
 
+                TbMemoryLoad.Text = ett.Memory.MemoryLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.Memory.MemoryLoad)}%";
+                TbMemoryClock.Text = ett.Memory.MemoryClock == _inv ? "*" : $"{PointRoundUtil.ToVision0Point(ett.Memory.MemoryClock)}MHz";
+                TbMemoryTemp.Text = ett.Memory.MemoryTemperature == _inv ? "*" : $"{PointRoundUtil.ToVision1Point(ett.Memory.MemoryTemperature)}℃";
+
+                TbFanLoad.Text = ett.Fan.FanLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.Fan.FanLoad)}%";
+                TbFanSpeed.Text = ett.Fan.FanSpeed == _inv ? "*" : $"{PointRoundUtil.ToVision0Point(ett.Fan.FanSpeed)}RPM";
             });
         }
     }
