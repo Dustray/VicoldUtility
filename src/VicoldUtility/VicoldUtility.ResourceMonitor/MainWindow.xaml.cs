@@ -342,5 +342,15 @@ namespace VicoldUtility.ResourceMonitor
         }
 
         #endregion
+
+        private void btnStartOrPause_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void sldBgTrans_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
     }
 }
