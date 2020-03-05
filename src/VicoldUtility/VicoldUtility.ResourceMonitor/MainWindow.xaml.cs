@@ -21,10 +21,14 @@ namespace VicoldUtility.ResourceMonitor
         private CPUPage _cpuPage;
         private GPUPage _gpuPage;
         private MemoryPage _memoryPage;
+        private CPUMiniPage _cpuMiniPage;
+        private GPUMiniPage _gpuMiniPage;
+        private MemoryMiniPage _memoryMiniPage;
         private Task _runTask;
 
         private int _reflushTime = 1000;
-        private bool isStart = false;
+        private bool _isStart = false;
+        private bool _isSimpleMode = false;
 
         public MainWindow()
         {
@@ -34,6 +38,11 @@ namespace VicoldUtility.ResourceMonitor
             _cpuPage = new CPUPage();
             _gpuPage = new GPUPage();
             _memoryPage = new MemoryPage();
+
+            _cpuMiniPage = new CPUMiniPage();
+            _gpuMiniPage = new GPUMiniPage();
+            _memoryMiniPage = new MemoryMiniPage();
+
             FrameCPU.Navigate(_cpuPage);
             FrameGPU.Navigate(_gpuPage);
             FrameMemory.Navigate(_memoryPage);
@@ -46,10 +55,10 @@ namespace VicoldUtility.ResourceMonitor
 
         private void Start()
         {
-            if (isStart) return;
+            if (_isStart) return;
             if (_runTask != null) return;
             btnStartOrPause.Content = "暂停";
-            isStart = true;
+            _isStart = true;
 
             var manager = new ResourceManager();
             var computer = new Computer();
@@ -69,7 +78,7 @@ namespace VicoldUtility.ResourceMonitor
 
             _runTask = new Task(async () =>
             {
-                while (isStart) 
+                while (_isStart) 
                 {
                     computer.Accept(manager);
                     //Console.Clear();
@@ -79,13 +88,16 @@ namespace VicoldUtility.ResourceMonitor
                         {
                             case HardwareType.CPU:
                                 _cpuPage.ImportData(CPUDataFill(hardwareItem.Sensors));
+                                _cpuMiniPage.ImportData(CPUDataFill(hardwareItem.Sensors));
                                 break;
                             case HardwareType.GpuAti:
                             case HardwareType.GpuNvidia:
                                 _gpuPage.ImportData(GPUDataFill(hardwareItem.Sensors));
+                                _gpuMiniPage.ImportData(GPUDataFill(hardwareItem.Sensors));
                                 break;
                             case HardwareType.RAM:
                                 _memoryPage.ImportData(MemoryDataFill(hardwareItem.Sensors));
+                                _memoryMiniPage.ImportData(MemoryDataFill(hardwareItem.Sensors));
                                 break;
                             case HardwareType.SuperIO:
                                 break;
@@ -131,10 +143,11 @@ namespace VicoldUtility.ResourceMonitor
         /// </summary>
         private void Stop()
         {
-            isStart = false;
+            _isStart = false;
         }
 
         #region 窗体事件
+
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -195,13 +208,48 @@ namespace VicoldUtility.ResourceMonitor
             }
         }
 
+        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        {
+            gridTool.Visibility = Visibility.Collapsed;
+            var alert = "";
+            var changedFlag = false;
+
+            var timeStr = tboxReflushTime.Text.ToString();
+            var reflushTime = int.TryParse(timeStr, out int time);
+            if (_reflushTime != time)
+            {
+                if (reflushTime && time >= 10 && time <= 3600000)
+                {
+                    _reflushTime = time;
+                    Settings.Default.ReflushTime = time;
+                    Settings.Default.Save();
+                }
+                else
+                {
+                    if (alert != "") alert = $"{alert}\r\n刷新时间间隔格式不准确";
+                    tboxReflushTime.Text = timeStr;
+                }
+                changedFlag = true;
+            }
+            if (changedFlag)
+            {
+                if (alert == "")
+                {
+                    Alert.Show("修改成功", AlertTheme.Success);
+                }
+                else
+                {
+                    Alert.Show("IP格式不规范", AlertTheme.Error);
+                }
+            }
+        }
         #endregion
 
         #region 成员事件
 
         private void btnStartOrPause_Click(object sender, RoutedEventArgs e)
         {
-            if (isStart)
+            if (_isStart)
             {
                 Stop();
             }
@@ -221,7 +269,21 @@ namespace VicoldUtility.ResourceMonitor
 
         private void btnSimple_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_isSimpleMode)
+            {
+                FrameCPU.Navigate(_cpuPage);
+                FrameGPU.Navigate(_gpuPage);
+                FrameMemory.Navigate(_memoryPage);
+                btnSimple.Content = "极简";
+            }
+            else
+            {
+                FrameCPU.Navigate(_cpuMiniPage);
+                FrameGPU.Navigate(_gpuMiniPage);
+                FrameMemory.Navigate(_memoryMiniPage);
+                btnSimple.Content = "详细";
+            }
+            _isSimpleMode = !_isSimpleMode;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -465,40 +527,6 @@ namespace VicoldUtility.ResourceMonitor
 
         #endregion
 
-        private void Window_MouseLeave(object sender, MouseEventArgs e)
-        {
-            gridTool.Visibility = Visibility.Collapsed;
-            var alert = "";
-            var changedFlag = false;
-
-            var timeStr = tboxReflushTime.Text.ToString();
-            var reflushTime = int.TryParse(timeStr, out int time);
-            if (_reflushTime != time)
-            {
-                if (reflushTime && time >= 10 && time <= 3600000)
-                {
-                    _reflushTime = time;
-                    Settings.Default.ReflushTime = time;
-                    Settings.Default.Save();
-                }
-                else
-                {
-                    if (alert != "") alert = $"{alert}\r\n刷新时间间隔格式不准确";
-                    tboxReflushTime.Text = timeStr;
-                }
-                changedFlag = true;
-            }
-            if (changedFlag)
-            {
-                if (alert == "")
-                {
-                    Alert.Show("修改成功", AlertTheme.Success);
-                }
-                else
-                {
-                    Alert.Show("IP格式不规范", AlertTheme.Error);
-                }
-            }
-        }
+        
     }
 }

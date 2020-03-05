@@ -29,6 +29,7 @@ namespace VicoldUtility.ResourceMonitor.Components
             if (ett == null) return;
             Dispatcher.Invoke(() =>
             {
+                elpStabilityBreath.Fill = ColorUtil.GetColor(ett.TotalLoad/10);
                 TbMainLoad.Text = ett.TotalLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.TotalLoad)}%";
                 TbMainCorePower.Text = ett.CorePower == _inv ? "*" : $"{PointRoundUtil.ToVision1Point(ett.CorePower)}W";
                 TbMainPackagePower.Text = ett.PackagePower == _inv ? "*" : $"{PointRoundUtil.ToVision1Point(ett.PackagePower)}W";
@@ -101,7 +102,7 @@ namespace VicoldUtility.ResourceMonitor.Components
             tbCoreTitle.VerticalAlignment = VerticalAlignment.Center;
             tbCoreTitle.HorizontalAlignment = HorizontalAlignment.Center;
             tbCoreTitle.FontSize = 10;
-            tbCoreTitle.Foreground = new SolidColorBrush(Color.FromArgb(255, 238, 238, 238));
+            tbCoreTitle.Foreground = new SolidColorBrush(Color.FromArgb(255, 221,221,221));
             return tbCoreTitle;
         }
     }

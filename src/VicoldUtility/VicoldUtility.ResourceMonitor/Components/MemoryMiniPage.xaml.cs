@@ -9,26 +9,20 @@ namespace VicoldUtility.ResourceMonitor.Components
     /// <summary>
     /// MemoryPage.xaml 的交互逻辑
     /// </summary>
-    public partial class MemoryPage : Page
+    public partial class MemoryMiniPage : Page
     {
         private float _inv;
-        private bool _loadedCoreGrid = false;
-        public MemoryPage()
+        public MemoryMiniPage()
         {
             InitializeComponent();
             _inv = Settings.Default.InvalidValue;
-            TbTitle.Foreground = new SolidColorBrush(Settings.Default.TitleColor);
         }
         public void ImportData(MemoryEtt ett)
         {
             Dispatcher.Invoke(() =>
             {
-                elpStabilityBreath.Fill = ColorUtil.GetColor(ett.MemoryLoad / 10);
-                var total = (ett.MemoryUsed == _inv|| ett.MemoryFree == _inv)?_inv: ett.MemoryUsed + ett.MemoryFree;
                 TbLoad.Text = ett.MemoryLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.MemoryLoad)}%";
-                TbUsed.Text = ett.MemoryUsed == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.MemoryUsed)}GB";
                 TbFree.Text = ett.MemoryFree == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.MemoryFree)}GB";
-                TbTotal.Text = total == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(total)}GB";
             });
         }
     }

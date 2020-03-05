@@ -70,7 +70,7 @@ namespace VicoldUtility.ResourceMonitor.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#88DDDDDD")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF47B1AD")]
         public global::System.Windows.Media.Color TitleColor {
             get {
                 return ((global::System.Windows.Media.Color)(this["TitleColor"]));

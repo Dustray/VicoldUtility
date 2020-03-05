@@ -9,11 +9,12 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove" Background="#333">
     <StackPanel>
-        <Frame Name="FrameCPU"/>
+        <Border Height="3"/>
+        <Frame Name="FrameCPU" NavigationUIVisibility="Hidden"/>
         <Border Height="5"></Border>
-        <Frame Name="FrameGPU"/>
+        <Frame Name="FrameGPU" NavigationUIVisibility="Hidden"/>
         <Border Height="5"></Border>
-        <Frame Name="FrameMemory"/>
+        <Frame Name="FrameMemory" NavigationUIVisibility="Hidden"/>
         <Grid Name="gridTool" Margin="5" Background="#2aaa">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2"></RowDefinition>

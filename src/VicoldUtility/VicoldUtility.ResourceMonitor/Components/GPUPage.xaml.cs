@@ -24,6 +24,7 @@ namespace VicoldUtility.ResourceMonitor.Components
             if (ett == null) return;
             Dispatcher.Invoke(() =>
             {
+                elpStabilityBreath.Fill = ColorUtil.GetColor(ett.Core.CoreLoad / 10);
                 TbCoreLoad.Text = ett.Core.CoreLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.Core.CoreLoad)}%";
                 TbCoreClock.Text = ett.Core.CoreClock == _inv ? "*" : $"{PointRoundUtil.ToVision0Point(ett.Core.CoreClock)}MHz";
                 TbCoreTemp.Text = ett.Core.CoreTemperature == _inv ? "*" : $"{PointRoundUtil.ToVision1Point(ett.Core.CoreTemperature)}℃";

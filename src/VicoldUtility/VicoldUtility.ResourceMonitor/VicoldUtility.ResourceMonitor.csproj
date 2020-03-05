@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -42,6 +44,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenHardwareMonitorLib, Version=0.9.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -73,11 +78,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\CPUMiniPage.xaml.cs">
+      <DependentUpon>CPUMiniPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\CPUPage.xaml.cs">
       <DependentUpon>CPUPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\GPUMiniPage.xaml.cs">
+      <DependentUpon>GPUMiniPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\GPUPage.xaml.cs">
       <DependentUpon>GPUPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\MemoryMiniPage.xaml.cs">
+      <DependentUpon>MemoryMiniPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\MemoryPage.xaml.cs">
       <DependentUpon>MemoryPage.xaml</DependentUpon>
@@ -90,14 +104,27 @@
     <Compile Include="Entities\GPUEtt.cs" />
     <Compile Include="Entities\MemoryEtt.cs" />
     <Compile Include="ResourceManager.cs" />
+    <Compile Include="Utilities\ColorUtil.cs" />
     <Compile Include="Utilities\PointRoundUtil.cs" />
+    <Page Include="Components\CPUMiniPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Components\CPUPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\GPUMiniPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Components\GPUPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\MemoryMiniPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Components\MemoryPage.xaml">
       <SubType>Designer</SubType>
@@ -147,6 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

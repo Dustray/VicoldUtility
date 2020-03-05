@@ -6,9 +6,37 @@
       xmlns:local="clr-namespace:VicoldUtility.ResourceMonitor.Components"
       mc:Ignorable="d"  d:DesignWidth="180"
       Title="MemoryPage">
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Name="OpacityStoryboard">
+                <Storyboard RepeatBehavior="Forever" AutoReverse="True" Timeline.DesiredFrameRate="10">
+                    <DoubleAnimation  Storyboard.TargetProperty="Height" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
+                    <DoubleAnimation  Storyboard.TargetProperty="Width" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown">
+            <PauseStoryboard BeginStoryboardName="OpacityStoryboard" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+            <ResumeStoryboard BeginStoryboardName="OpacityStoryboard" />
+        </EventTrigger>
+    </Page.Triggers>
     <StackPanel>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold"  FontSize="14" Text="Memory" Name="TbTitle"/>
-        <Grid Margin="0 0 0 5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold"  FontSize="14" Text="Memory" Name="TbTitle"/>
+            <Ellipse Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="elpStabilityBreath" Height="10" Width="10" Fill="White">
+                <Ellipse.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="0" Color="GreenYellow" BlurRadius="20" Direction="10"/>
+                </Ellipse.Effect>
+            </Ellipse>
+        </Grid>
+        <Grid Margin="0 3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15"></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -24,10 +52,10 @@
             <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="可用"/>
             <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" FontSize="10" Text="总容量"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbLoad"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbUsed"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbFree"/>
-            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontSize="10" Name="TbTotal"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" FontSize="10" Name="TbLoad"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" FontSize="10" Name="TbUsed"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" FontSize="10" Name="TbFree"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" FontSize="10" Name="TbTotal"/>
         </Grid>
     </StackPanel>
 </Page>
