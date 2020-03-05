@@ -71,10 +71,29 @@
     <Compile Include="Components\CPUPage.xaml.cs">
       <DependentUpon>CPUPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\GPUPage.xaml.cs">
+      <DependentUpon>GPUPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\MemoryPage.xaml.cs">
+      <DependentUpon>MemoryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Entities\CPUCoreEtt.cs" />
     <Compile Include="Entities\CPUEtt.cs" />
+    <Compile Include="Entities\GPUFanEtt.cs" />
+    <Compile Include="Entities\GPUMemoryEtt.cs" />
+    <Compile Include="Entities\GPUCoreEtt.cs" />
+    <Compile Include="Entities\GPUEtt.cs" />
+    <Compile Include="Entities\MemoryEtt.cs" />
     <Compile Include="ResourceManager.cs" />
     <Page Include="Components\CPUPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\GPUPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\MemoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

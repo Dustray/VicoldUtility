@@ -17,8 +17,13 @@ namespace VicoldUtility.ResourceMonitor.Entities
         /// </summary>
         public float Clock { get; set; }
         /// <summary>
-        /// 核心电耗
+        /// 核心功耗
         /// </summary>
         public float Power { get; set; }
+
+        /// <summary>
+        /// 核心温度
+        /// </summary>
+        public float Temperature { get; set; }
     }
 }

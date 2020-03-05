@@ -17,13 +17,21 @@ namespace VicoldUtility.ResourceMonitor.Entities
         /// </summary>
         public float TotalLoad { get; set; }
         /// <summary>
-        /// 核心电耗
+        /// 核心功耗
         /// </summary>
         public float CorePower { get; set; }
         /// <summary>
-        /// 包电耗
+        /// 包功耗
         /// </summary>
         public float PackagePower { get; set; }
+        /// <summary>
+        /// 图形功耗
+        /// </summary>
+        public float GraphicsPower { get; set; }
+        /// <summary>
+        /// DRAM功耗
+        /// </summary>
+        public float DRAMPower { get; set; }
         /// <summary>
         /// 包温度
         /// </summary>

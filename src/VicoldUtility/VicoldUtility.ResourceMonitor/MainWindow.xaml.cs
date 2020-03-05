@@ -15,9 +15,15 @@ namespace VicoldUtility.ResourceMonitor
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CPUPage _cpuPage;
+        private GPUPage _gpuPage;
+        private MemoryPage _memoryPage;
         public MainWindow()
         {
             InitializeComponent();
+            _cpuPage = new CPUPage();
+            _gpuPage = new GPUPage();
+            _memoryPage = new MemoryPage();
             CheckIsFirstStartup();
             Start();
         }
@@ -50,12 +56,14 @@ namespace VicoldUtility.ResourceMonitor
                         switch (hardwareItem.HardwareType)
                         {
                             case HardwareType.CPU:
+                                _cpuPage.ImportData(CPUDataFill(hardwareItem.Sensors));
                                 break;
                             case HardwareType.GpuAti:
-                                break;
                             case HardwareType.GpuNvidia:
+                                _gpuPage.ImportData(GPUDataFill(hardwareItem.Sensors));
                                 break;
                             case HardwareType.RAM:
+                                _memoryPage.ImportData(MemoryDataFill(hardwareItem.Sensors));
                                 break;
                             case HardwareType.SuperIO:
                                 break;
@@ -88,6 +96,7 @@ namespace VicoldUtility.ResourceMonitor
                 } while (true);
             }).Start();
         }
+
         #region 成员事件
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -139,77 +148,193 @@ namespace VicoldUtility.ResourceMonitor
 
         #region 数据填充
 
-        public CPUEtt ShoudCPU(ISensor sensor)
+        public CPUEtt CPUDataFill(ISensor[] sensors)
         {
             var cpuEtt = new CPUEtt();
             cpuEtt.CoreDic = new System.Collections.Generic.Dictionary<string, CPUCoreEtt>();
             cpuEtt.CCDTemperatureDic = new System.Collections.Generic.Dictionary<string, float>();
-            var value = sensor.Value ?? Settings.Default.InvalidValue;
-            switch (sensor.SensorType)
+            foreach (var sensor in sensors)
             {
+                var value = sensor.Value ?? Settings.Default.InvalidValue;
+                switch (sensor.SensorType)
+                {
+                    case SensorType.Load:
+                        if (sensor.Name.Contains("Total"))
+                        {
+                            cpuEtt.TotalLoad = value;
+                        }
+                        else if (sensor.Name.Contains("#"))
+                        {
+                            if (cpuEtt.CoreDic.TryGetValue(sensor.Name, out CPUCoreEtt ett1))
+                            {
+                                ett1.Load = value;
+                            }
+                            else
+                            {
+                                cpuEtt.CoreDic[sensor.Name] = new CPUCoreEtt() { Load = value };
+                            }
+                        }
+                        break;
+                    case SensorType.Power:
 
-                case SensorType.Load:
-                    if (sensor.Name.Contains("Total"))
-                    {
-                        cpuEtt.TotalLoad = value;
-                    }
-                    else
-                    {
-                        if (cpuEtt.CoreDic.TryGetValue(sensor.Name, out CPUCoreEtt ett1))
+                        if (sensor.Name.Contains("Cores"))
                         {
-                            ett1.Load = value;
+                            cpuEtt.CorePower = value;
                         }
-                        else
+                        else if (sensor.Name.Contains("Package"))
                         {
-                            cpuEtt.CoreDic[sensor.Name] = new CPUCoreEtt() { Load = value };
+                            cpuEtt.PackagePower = value;
                         }
-                    }
-                    break;
-                case SensorType.Power:
+                        else if (sensor.Name.Contains("Graphics"))
+                        {
+                            cpuEtt.GraphicsPower = value;
+                        }
+                        else if (sensor.Name.Contains("DRAM"))
+                        {
+                            cpuEtt.DRAMPower = value;
+                        }
+                        else if (sensor.Name.Contains("#"))
+                        {
+                            if (cpuEtt.CoreDic.TryGetValue(sensor.Name, out CPUCoreEtt ett2))
+                            {
+                                ett2.Power = value;
+                            }
+                            else
+                            {
+                                cpuEtt.CoreDic[sensor.Name] = new CPUCoreEtt() { Power = value };
+                            }
+                        }
+                        break;
+                    case SensorType.Temperature:
+                        if (sensor.Name.Contains("Package"))
+                        {
+                            cpuEtt.PackageTemperature = value;
+                        }
+                        else if (sensor.Name.Contains("CCD"))
+                        {
+                            cpuEtt.CCDTemperatureDic[sensor.Name] = value;
+                        }
+                        else if (sensor.Name.Contains("#"))
+                        {
+                            if (cpuEtt.CoreDic.TryGetValue(sensor.Name, out CPUCoreEtt ett2))
+                            {
+                                ett2.Temperature = value;
+                            }
+                            else
+                            {
+                                cpuEtt.CoreDic[sensor.Name] = new CPUCoreEtt() { Temperature = value };
+                            }
+                        }
+                        break;
+                    case SensorType.Clock:
+                        if (cpuEtt.CoreDic.TryGetValue(sensor.Name, out CPUCoreEtt ett3))
+                        {
+                            ett3.Clock = value;
+                        }
+                        else if (sensor.Name.Contains("#"))
+                        {
+                            cpuEtt.CoreDic[sensor.Name] = new CPUCoreEtt() { Clock = value };
+                        }
+                        break;
 
-                    if (sensor.Name.Contains("Cores"))
-                    {
-                        cpuEtt.CorePower = value;
-                    }
-                    else if (sensor.Name.Contains("Package"))
-                    {
-                        cpuEtt.PackagePower = value;
-                    }
-                    else
-                    {
-                        if (cpuEtt.CoreDic.TryGetValue(sensor.Name, out CPUCoreEtt ett2))
-                        {
-                            ett2.Power = value;
-                        }
-                        else
-                        {
-                            cpuEtt.CoreDic[sensor.Name] = new CPUCoreEtt() { Power = value };
-                        }
-                    }
-                    break;
-                case SensorType.Temperature:
-                    if (sensor.Name.Contains("Package"))
-                    {
-                        cpuEtt.PackageTemperature = value;
-                    }
-                    else
-                    {
-                        cpuEtt.CCDTemperatureDic[sensor.Name] = value;
-                    }
-                    break;
-                case SensorType.Clock:
-                    if (cpuEtt.CoreDic.TryGetValue(sensor.Name, out CPUCoreEtt ett3))
-                    {
-                        ett3.Clock = value;
-                    }
-                    else
-                    {
-                        cpuEtt.CoreDic[sensor.Name] = new CPUCoreEtt() { Clock = value };
-                    }
-                    break;
-
+                }
             }
             return cpuEtt;
+        }
+
+        public GPUEtt GPUDataFill(ISensor[] sensors)
+        {
+            var gpuEtt = new GPUEtt();
+            gpuEtt.Core = new GPUCoreEtt();
+            gpuEtt.Memory = new GPUMemoryEtt();
+            gpuEtt.Fan = new GPUFanEtt();
+            foreach (var sensor in sensors)
+            {
+                var value = sensor.Value ?? Settings.Default.InvalidValue;
+                switch (sensor.SensorType)
+                {
+
+                    case SensorType.Load:
+                        if (sensor.Name.Contains("Core"))
+                        {
+                            gpuEtt.Core.CoreLoad = value;
+                        }
+                        else if (sensor.Name.Contains("Memory"))
+                        {
+                            gpuEtt.Memory.MemoryLoad = value;
+                        }
+                        break;
+                    case SensorType.Power:
+
+                        break;
+                    case SensorType.Temperature:
+                        if (sensor.Name.Contains("Core"))
+                        {
+                            gpuEtt.Core.CoreTemperature = value;
+                        }
+                        else if (sensor.Name.Contains("Memory"))
+                        {
+                            gpuEtt.Memory.MemoryTemperature = value;
+                        }
+                        break;
+                    case SensorType.Clock:
+                        if (sensor.Name.Contains("Core"))
+                        {
+                            gpuEtt.Core.CoreClock = value;
+                        }
+                        else if (sensor.Name.Contains("Memory"))
+                        {
+                            gpuEtt.Memory.MemoryClock = value;
+                        }
+                        break;
+                    case SensorType.Data:
+                        if (sensor.Name.Contains("Memory Total"))
+                        {
+                            gpuEtt.Memory.MemoryTotal = value;
+                        }
+                        break;
+                    case SensorType.Control:
+                        if (sensor.Name.Contains("Fan"))
+                        {
+                            gpuEtt.Fan.FanLoad = value;
+                        }
+                        break;
+                    case SensorType.Fan:
+                        if (sensor.Name.Contains("Fan"))
+                        {
+                            gpuEtt.Fan.FanSpeed = value;
+                        }
+                        break;
+                }
+            }
+            return gpuEtt;
+        }
+
+        public MemoryEtt MemoryDataFill(ISensor[] sensors)
+        {
+            var memoryEtt = new MemoryEtt();
+
+            foreach (var sensor in sensors)
+            {
+                var value = sensor.Value ?? Settings.Default.InvalidValue;
+                switch (sensor.SensorType)
+                {
+                    case SensorType.Load:
+                        memoryEtt.MemoryLoad = value;
+                        break;
+                    case SensorType.Data:
+                        if (sensor.Name.Contains("Used"))
+                        {
+                            memoryEtt.MemoryUsed = value;
+                        }
+                        else if (sensor.Name.Contains("Available"))
+                        {
+                            memoryEtt.MemoryAvailable = value;
+                        }
+                        break;
+                }
+            }
+            return memoryEtt;
         }
 
         #endregion

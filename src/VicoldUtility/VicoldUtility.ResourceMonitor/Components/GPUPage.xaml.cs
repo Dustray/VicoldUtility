@@ -4,16 +4,15 @@ using VicoldUtility.ResourceMonitor.Entities;
 namespace VicoldUtility.ResourceMonitor.Components
 {
     /// <summary>
-    /// CPUPage.xaml 的交互逻辑
+    /// GPUPage.xaml 的交互逻辑
     /// </summary>
-    public partial class CPUPage : Page
+    public partial class GPUPage : Page
     {
-        public CPUPage()
+        public GPUPage()
         {
             InitializeComponent();
         }
-
-        public void ImportData(CPUEtt ett)
+        public void ImportData(GPUEtt ett)
         {
             Dispatcher.Invoke(() =>
             {
