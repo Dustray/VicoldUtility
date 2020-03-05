@@ -24,6 +24,9 @@ namespace VicoldUtility.ResourceMonitor
             _cpuPage = new CPUPage();
             _gpuPage = new GPUPage();
             _memoryPage = new MemoryPage();
+            FrameCPU.Navigate(_cpuPage);
+            FrameGPU.Navigate(_gpuPage);
+            FrameMemory.Navigate(_memoryPage);
             CheckIsFirstStartup();
             Start();
         }
@@ -81,16 +84,16 @@ namespace VicoldUtility.ResourceMonitor
                         //    Console.WriteLine(hardwareItem.Name);
                         //    tbCPU.Text = hardwareItem.Name;
                         //});
-                        foreach (var sensor in hardwareItem.Sensors)
-                        {
-                            Dispatcher.Invoke(() =>
-                            {
+                        //foreach (var sensor in hardwareItem.Sensors)
+                        //{
+                        //    Dispatcher.Invoke(() =>
+                        //    {
 
-                                Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
-                                tbCPU.Text = hardwareItem.Name;
-                            });
-                            //Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
-                        }
+                        //        Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
+                        //        tbCPU.Text = hardwareItem.Name;
+                        //    });
+                        //    //Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
+                        //}
                     }
                     await Task.Delay(1000);
                 } while (true);
@@ -100,7 +103,7 @@ namespace VicoldUtility.ResourceMonitor
         #region 成员事件
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            DragMove();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -153,8 +156,9 @@ namespace VicoldUtility.ResourceMonitor
             var cpuEtt = new CPUEtt();
             cpuEtt.CoreDic = new System.Collections.Generic.Dictionary<string, CPUCoreEtt>();
             cpuEtt.CCDTemperatureDic = new System.Collections.Generic.Dictionary<string, float>();
-            foreach (var sensor in sensors)
+            for (int i=0;i< sensors.Length;i++)
             {
+                var sensor = sensors[i];
                 var value = sensor.Value ?? Settings.Default.InvalidValue;
                 switch (sensor.SensorType)
                 {

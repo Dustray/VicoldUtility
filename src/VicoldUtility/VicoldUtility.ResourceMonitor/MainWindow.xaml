@@ -10,28 +10,12 @@
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseEnter" MouseMove="Window_MouseEnter" Background="#333">
     <Grid>
         <StackPanel>
+            <Frame Name="FrameCPU"/>
             <Border Height="5"></Border>
-            <Grid Margin="0 0 0 5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="17"></RowDefinition>
-                    <RowDefinition Height="17"></RowDefinition>
-                    <RowDefinition Height="17"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#fff" FontWeight="Bold" Text="CPU"/>
+            <Frame Name="FrameGPU"/>
+            <Border Height="5"></Border>
+            <Frame Name="FrameMemory"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="字节"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="时间(ms)"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="TTL"/>
-
-                <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbCPU"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTime"/>
-                <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTTL"/>
-            </Grid>
         </StackPanel>
     </Grid>
 </Window>

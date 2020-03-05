@@ -9,19 +9,19 @@ namespace VicoldUtility.ResourceMonitor.Entities
     public class CPUEtt
     {
         /// <summary>
-        /// 核心列表
+        /// 核心列表*
         /// </summary>
         public Dictionary<string,CPUCoreEtt> CoreDic { get; set; }
         /// <summary>
-        /// 总利用率
+        /// 总利用率*
         /// </summary>
         public float TotalLoad { get; set; }
         /// <summary>
-        /// 核心功耗
+        /// 核心功耗*
         /// </summary>
         public float CorePower { get; set; }
         /// <summary>
-        /// 包功耗
+        /// 整体功耗*
         /// </summary>
         public float PackagePower { get; set; }
         /// <summary>
@@ -33,7 +33,7 @@ namespace VicoldUtility.ResourceMonitor.Entities
         /// </summary>
         public float DRAMPower { get; set; }
         /// <summary>
-        /// 包温度
+        /// 整体温度*
         /// </summary>
         public float PackageTemperature { get; set; }
         /// <summary>

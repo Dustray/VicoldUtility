@@ -85,6 +85,7 @@
     <Compile Include="Entities\GPUEtt.cs" />
     <Compile Include="Entities\MemoryEtt.cs" />
     <Compile Include="ResourceManager.cs" />
+    <Compile Include="Utilities\PointRoundUtil.cs" />
     <Page Include="Components\CPUPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
