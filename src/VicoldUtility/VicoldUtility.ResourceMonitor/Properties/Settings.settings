@@ -17,5 +17,8 @@
     <Setting Name="TitleColor" Type="System.Windows.Media.Color" Scope="Application">
       <Value Profile="(Default)">#88DDDDDD</Value>
     </Setting>
+    <Setting Name="ReflushTime" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

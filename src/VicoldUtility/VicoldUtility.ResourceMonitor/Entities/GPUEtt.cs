@@ -8,8 +8,8 @@ namespace VicoldUtility.ResourceMonitor.Entities
 {
     public class GPUEtt
     {
-        public string Name { get; set; }
-        public GPUCoreEtt Core { get; set; }
+        public string Name { get; set; } 
+        public GPUCoreEtt Core { get; set; } 
         public GPUMemoryEtt Memory { get; set; }
         public GPUFanEtt Fan { get; set; }
     }

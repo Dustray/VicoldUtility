@@ -11,19 +11,19 @@ namespace VicoldUtility.ResourceMonitor.Entities
         /// <summary>
         /// 核心利用率
         /// </summary>
-        public float Load { get; set; }
+        public float Load { get; set; } = Properties.Settings.Default.InvalidValue;
         /// <summary>
         /// 核心频率
         /// </summary>
-        public float Clock { get; set; }
+        public float Clock { get; set; } = Properties.Settings.Default.InvalidValue;
         /// <summary>
         /// 核心功耗
         /// </summary>
-        public float Power { get; set; }
+        public float Power { get; set; } = Properties.Settings.Default.InvalidValue;
 
         /// <summary>
         /// 核心温度
         /// </summary>
-        public float Temperature { get; set; }
+        public float Temperature { get; set; } = Properties.Settings.Default.InvalidValue;
     }
 }

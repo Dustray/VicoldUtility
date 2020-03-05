@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using OpenHardwareMonitor.Hardware;
+using Vicold.Popup;
 using VicoldUtility.ResourceMonitor.Components;
 using VicoldUtility.ResourceMonitor.Entities;
 using VicoldUtility.ResourceMonitor.Properties;
@@ -18,21 +21,36 @@ namespace VicoldUtility.ResourceMonitor
         private CPUPage _cpuPage;
         private GPUPage _gpuPage;
         private MemoryPage _memoryPage;
+        private Task _runTask;
+
+        private int _reflushTime = 1000;
+        private bool isStart = false;
+
         public MainWindow()
         {
             InitializeComponent();
+            CheckIsFirstStartup();
+            InitUI();
             _cpuPage = new CPUPage();
             _gpuPage = new GPUPage();
             _memoryPage = new MemoryPage();
             FrameCPU.Navigate(_cpuPage);
             FrameGPU.Navigate(_gpuPage);
             FrameMemory.Navigate(_memoryPage);
-            CheckIsFirstStartup();
+
             Start();
+
+            _reflushTime = Settings.Default.ReflushTime;
+            tboxReflushTime.Text = _reflushTime.ToString();
         }
 
         private void Start()
         {
+            if (isStart) return;
+            if (_runTask != null) return;
+            btnStartOrPause.Content = "暂停";
+            isStart = true;
+
             var manager = new ResourceManager();
             var computer = new Computer();
             computer.Open();
@@ -48,9 +66,10 @@ namespace VicoldUtility.ResourceMonitor
             computer.FanControllerEnabled = true;
             //启动硬盘监测
             computer.HDDEnabled = false;
-            new Task(async () =>
+
+            _runTask = new Task(async () =>
             {
-                do
+                while (isStart) 
                 {
                     computer.Accept(manager);
                     //Console.Clear();
@@ -95,12 +114,27 @@ namespace VicoldUtility.ResourceMonitor
                         //    //Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
                         //}
                     }
-                    await Task.Delay(1000);
-                } while (true);
-            }).Start();
+                    await Task.Delay(_reflushTime);
+                }
+                _runTask.Dispose();
+                _runTask = null;
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    btnStartOrPause.Content = "开始";
+                }));
+            });
+            _runTask.Start();
         }
 
-        #region 成员事件
+        /// <summary>
+        /// 停止
+        /// </summary>
+        private void Stop()
+        {
+            isStart = false;
+        }
+
+        #region 窗体事件
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -118,12 +152,81 @@ namespace VicoldUtility.ResourceMonitor
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            Settings.Default.MainWindowPosition = RestoreBounds;
+            Settings.Default.Save();
         }
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
 
+        }
+
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (RestoreBounds.Height - e.GetPosition(this).Y < 30)
+            {
+                gridTool.Visibility = Visibility.Visible;
+            }
+
+            double formLeft = Left;//窗口右边缘=窗口左上角x+窗口宽度
+            double formRight = Left + RestoreBounds.Width;//窗口右边缘=窗口左上角x+窗口宽度
+            double formCenter = (formRight + formLeft) / 2;
+            foreach (var screen in System.Windows.Forms.Screen.AllScreens)
+            {
+                int screenLeft = screen.Bounds.Left;//屏幕右边缘
+                int screenRight = screen.Bounds.Right;//屏幕右边缘
+                if (formCenter >= screenLeft && formCenter <= screenRight)
+                {
+                    if (screenRight - formRight <= 30) //往右靠
+                        Left = screenRight - RestoreBounds.Width - 5;
+                    if (formLeft - screenLeft <= 30)//往左靠
+                        Left = screenLeft + 5;
+                    int screenTop = screen.Bounds.Top;//屏幕下边缘
+                    int screenBottom = screen.Bounds.Bottom;//屏幕下边缘
+                    double formTop = Top;//窗口下边缘
+                    double formBottom = Top + RestoreBounds.Height;//窗口下边缘
+                    if (screenBottom - formBottom <= 30)//往下靠
+                        Top = screenBottom - RestoreBounds.Height - 5;
+                    if (formTop - screenTop <= 30)//往上靠
+                        Top = screenTop + 5;
+                    break;
+                }
+            }
+        }
+
+        #endregion
+
+        #region 成员事件
+
+        private void btnStartOrPause_Click(object sender, RoutedEventArgs e)
+        {
+            if (isStart)
+            {
+                Stop();
+            }
+            else
+            {
+                Start();
+            }
+        }
+
+        private void sldBgTrans_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var sl = sender as Slider;
+            Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
+            Settings.Default.BgTrans = (byte)sl.Value;
+            Settings.Default.Save();
+        }
+
+        private void btnSimple_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         #endregion
@@ -145,6 +248,25 @@ namespace VicoldUtility.ResourceMonitor
             {
                 return false;
             }
+        }
+
+        private void InitUI()
+        {
+            //读取配置文件
+            try
+            {
+                //设置位置、大小
+                Rect restoreBounds = Settings.Default.MainWindowPosition;
+                Left = restoreBounds.Left;
+                Top = restoreBounds.Top;
+            }
+            catch { }
+            ShowInTaskbar = false;
+            gridTool.Visibility = Visibility.Collapsed;
+
+            tbMyLogo.ToolTip = $"Version {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
+            Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
+            sldBgTrans.Value = Settings.Default.BgTrans;
         }
 
         #endregion
@@ -343,14 +465,40 @@ namespace VicoldUtility.ResourceMonitor
 
         #endregion
 
-        private void btnStartOrPause_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
+            gridTool.Visibility = Visibility.Collapsed;
+            var alert = "";
+            var changedFlag = false;
 
-        }
-
-        private void sldBgTrans_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
+            var timeStr = tboxReflushTime.Text.ToString();
+            var reflushTime = int.TryParse(timeStr, out int time);
+            if (_reflushTime != time)
+            {
+                if (reflushTime && time >= 10 && time <= 3600000)
+                {
+                    _reflushTime = time;
+                    Settings.Default.ReflushTime = time;
+                    Settings.Default.Save();
+                }
+                else
+                {
+                    if (alert != "") alert = $"{alert}\r\n刷新时间间隔格式不准确";
+                    tboxReflushTime.Text = timeStr;
+                }
+                changedFlag = true;
+            }
+            if (changedFlag)
+            {
+                if (alert == "")
+                {
+                    Alert.Show("修改成功", AlertTheme.Success);
+                }
+                else
+                {
+                    Alert.Show("IP格式不规范", AlertTheme.Error);
+                }
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow"  SizeToContent="Height"  Width="180" Topmost="True" AllowsTransparency="True"  ResizeMode="NoResize"
         MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
-        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseEnter" MouseMove="Window_MouseEnter" Background="#333">
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove" Background="#333">
     <StackPanel>
         <Frame Name="FrameCPU"/>
         <Border Height="5"></Border>
@@ -23,7 +23,6 @@
                 <RowDefinition Height="2"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -34,18 +33,16 @@
 
             <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="3 0 0 0" Foreground="#eee" Text="操作:" FontSize="14"/>
             <Button Grid.Row="1" Grid.Column="1" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="暂停" Name="btnStartOrPause" Click="btnStartOrPause_Click"/>
-            <Button Grid.Row="1" Grid.Column="2" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="重置" Name="btnClear" Click="btnStartOrPause_Click"/>
-            <Button Grid.Row="1" Grid.Column="3" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="退出" Name="btnExit" Click="btnStartOrPause_Click"/>
+            <Button Grid.Row="1" Grid.Column="2" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="极简" Name="btnSimple" Click="btnSimple_Click"/>
+            <Button Grid.Row="1" Grid.Column="3" Height="20" Background="#0fff" Foreground="#9fff" Cursor="Hand" Content="退出" Name="btnExit" Click="btnExit_Click"/>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="3 0 0 0"  Foreground="#eee" Text="IP:" FontSize="14"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Center" Background="#0fff" Foreground="#9fff" BorderBrush="#4fff" FontSize="14" Name="tboxIP"/>
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="3 0 0 0" VerticalAlignment="Center"  Foreground="#eee" Text="刷新间隔:" FontSize="14"/>
-            <TextBox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Center" Background="#0fff" Foreground="#9fff" BorderBrush="#4fff" Text="3600000" FontSize="14" Name="tboxReflushTime" ToolTip="大于10，小于3600000（毫秒）"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="3 0 0 0" VerticalAlignment="Center"  Foreground="#eee" Text="刷新间隔:" FontSize="14"/>
+            <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Center" Background="#0fff" Foreground="#9fff" BorderBrush="#4fff" Text="3600000" FontSize="14" Name="tboxReflushTime" ToolTip="大于10，小于3600000（毫秒）"/>
 
-            <TextBlock Grid.Row="6" Grid.Column="0"  Margin="3 0 0 0" VerticalAlignment="Center"  Foreground="#eee" Text="背景:" FontSize="14"/>
-            <Slider  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Minimum="0" Maximum="255" Style="{DynamicResource SliderStyle1}" VerticalAlignment="Center" Name="sldBgTrans" ValueChanged="sldBgTrans_ValueChanged"  TickFrequency="1"/>
-            <TextBlock Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 0 0 3" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#47b1ad" Text="Designed by Dustray" FontSize="11" Name="tbMyLogo"/>
+            <TextBlock Grid.Row="5" Grid.Column="0"  Margin="3 0 0 0" VerticalAlignment="Center"  Foreground="#eee" Text="背景:" FontSize="14"/>
+            <Slider  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Minimum="0" Maximum="255" Style="{DynamicResource SliderStyle1}" VerticalAlignment="Center" Name="sldBgTrans" ValueChanged="sldBgTrans_ValueChanged"  TickFrequency="1"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 0 0 3" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#47b1ad" Text="Designed by Dustray" FontSize="11" Name="tbMyLogo"/>
 
 
         </Grid>

@@ -8,8 +8,8 @@ namespace VicoldUtility.ResourceMonitor.Entities
 {
     public class GPUCoreEtt
     {
-        public float CoreLoad { get; set; }
-        public float CoreClock { get; set; }
-        public float CoreTemperature { get; set; }
+        public float CoreLoad { get; set; } = Properties.Settings.Default.InvalidValue;
+        public float CoreClock { get; set; } = Properties.Settings.Default.InvalidValue;
+        public float CoreTemperature { get; set; } = Properties.Settings.Default.InvalidValue;
     }
 }

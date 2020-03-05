@@ -27,7 +27,7 @@ namespace VicoldUtility.PingDashboard
         private Ping _ping;
         private char[] _font = new char[] { ((char)0xEA3B), ((char)0xEA3A) };
         private string _ip;
-        private int _reflushTime = 0;
+        private int _reflushTime = 1000;
         private double _delayActualWidth = 0;
         private object lockOb = new object();
         private Task _runTask;

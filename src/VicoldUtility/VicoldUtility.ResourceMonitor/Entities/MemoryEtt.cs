@@ -8,9 +8,9 @@ namespace VicoldUtility.ResourceMonitor.Entities
 {
     public class MemoryEtt
     {
-        public float MemoryLoad { get; set; }
-        public float MemoryUsed { get; set; }
-        public float MemoryFree { get; set; }
+        public float MemoryLoad { get; set; } = Properties.Settings.Default.InvalidValue;
+        public float MemoryUsed { get; set; } = Properties.Settings.Default.InvalidValue;
+        public float MemoryFree { get; set; } = Properties.Settings.Default.InvalidValue;
 
     }
 }

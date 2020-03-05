@@ -76,5 +76,17 @@ namespace VicoldUtility.ResourceMonitor.Properties {
                 return ((global::System.Windows.Media.Color)(this["TitleColor"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int ReflushTime {
+            get {
+                return ((int)(this["ReflushTime"]));
+            }
+            set {
+                this["ReflushTime"] = value;
+            }
+        }
     }
 }
