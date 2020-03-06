@@ -110,21 +110,24 @@ namespace VicoldUtility.ResourceMonitor
                             case HardwareType.TBalancer:
                                 break;
                         }
-                        //Dispatcher.Invoke(() =>
-                        //{
-                        //    Console.WriteLine(hardwareItem.Name);
-                        //    tbCPU.Text = hardwareItem.Name;
-                        //});
-                        //foreach (var sensor in hardwareItem.Sensors)
-                        //{
-                        //    Dispatcher.Invoke(() =>
-                        //    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            Console.WriteLine(hardwareItem.Name);
+                            //tbCPU.Text = hardwareItem.Name;
+                        });
+                        foreach (var sensor in hardwareItem.Sensors)
+                        {
+                            Dispatcher.Invoke(() =>
+                            {
+                                if (sensor.Name.Contains("Total"))
+                                {
 
-                        //        Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
-                        //        tbCPU.Text = hardwareItem.Name;
-                        //    });
-                        //    //Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
-                        //}
+                                }
+                                Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
+                                //tbCPU.Text = hardwareItem.Name;
+                            });
+                            //Console.WriteLine(sensor.Name + "的" + sensor.SensorType + "是" + sensor.Value);
+                        }
                     }
                     await Task.Delay(_reflushTime);
                 }
@@ -475,7 +478,7 @@ namespace VicoldUtility.ResourceMonitor
                             gpuEtt.Memory.MemoryClock = value;
                         }
                         break;
-                    case SensorType.Data:
+                    case SensorType.SmallData:
                         if (sensor.Name.Contains("Memory Total"))
                         {
                             gpuEtt.Memory.MemoryTotal = value;
