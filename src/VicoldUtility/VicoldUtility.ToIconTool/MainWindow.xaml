@@ -1,0 +1,31 @@
+﻿<Window x:Class="VicoldUtility.ToIconTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VicoldUtility.ToIconTool"
+        mc:Ignorable="d"
+        Title="MainWindow"  Height="300" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" AllowDrop="True"
+        Loaded="Window_Loaded"  Closed="Window_Closed" DragEnter="Window_DragEnter" Drop="Window_Drop" Background="#fff">
+    <StackPanel>
+        <Grid Background="#3aaa" Height="50" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" >
+            <TextBlock Text="转Icon" FontSize="25" Margin="10" HorizontalAlignment="Left"/>
+            <Button Name="BtnClose" Margin="0 0 10 0" HorizontalAlignment="Right" Content="&#xEF2C;" ToolTip="关闭" Style="{StaticResource ToolBarBtnStyle}" Click="BtnClose_Click" />
+        </Grid>
+        <StackPanel Margin="10">
+            <RadioButton Margin="3" FontSize="14" Name="Rbtn32" Content="32*32"/>
+            <RadioButton Margin="3" FontSize="14" Name="Rbtn64" Content="64*64" IsChecked="True"/>
+            <RadioButton Margin="3" FontSize="14" Name="Rbtn128" Content="128*128"/>
+            <RadioButton Margin="3" FontSize="14" Name="Rbtn256" Content="256*256"/>
+            <RadioButton Margin="3" FontSize="14" Name="Rbtn512" Content="512*512"/>
+            <RadioButton Margin="3" FontSize="14" Name="RbtnCus" Content="自定义"/>
+            <StackPanel Orientation="Horizontal" Margin="25 0 0 0">
+                <TextBox Width="40" Name="TbCusX" Text="64"/>
+                <TextBlock Margin="5 0" Text="*" VerticalAlignment="Center"/>
+                <TextBox Width="40" Name="TbCusY" Text="64"/>
+            </StackPanel>
+        </StackPanel>
+            <Button Name="BtnOpen" Content="打开文件并转换" Width="120" Height="30" Cursor="Hand" HorizontalAlignment="Center" Click="BtnOpen_Click"/>
+        <TextBlock Text="* Ico文件将保存在原目录" Margin="10"/>
+    </StackPanel>
+</Window>

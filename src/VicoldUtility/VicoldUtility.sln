@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.PingDashboard
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ResourceMonitor", "VicoldUtility.ResourceMonitor\VicoldUtility.ResourceMonitor.csproj", "{6803082F-6A53-4132-8503-D76862BFAC52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ToIconTool", "VicoldUtility.ToIconTool\VicoldUtility.ToIconTool.csproj", "{4CF20476-4F40-4A28-8956-9D0D35C287DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6803082F-6A53-4132-8503-D76862BFAC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6803082F-6A53-4132-8503-D76862BFAC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6803082F-6A53-4132-8503-D76862BFAC52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CF20476-4F40-4A28-8956-9D0D35C287DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CF20476-4F40-4A28-8956-9D0D35C287DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CF20476-4F40-4A28-8956-9D0D35C287DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CF20476-4F40-4A28-8956-9D0D35C287DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
