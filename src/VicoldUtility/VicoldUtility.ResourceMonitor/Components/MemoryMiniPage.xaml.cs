@@ -21,6 +21,7 @@ namespace VicoldUtility.ResourceMonitor.Components
         {
             Dispatcher.Invoke(() =>
             {
+                RecLoad.Fill = ColorUtil.GetColor(ett.MemoryLoad / 10);
                 TbLoad.Text = ett.MemoryLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.MemoryLoad)}%";
                 TbFree.Text = ett.MemoryFree == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.MemoryFree)}GB";
             });

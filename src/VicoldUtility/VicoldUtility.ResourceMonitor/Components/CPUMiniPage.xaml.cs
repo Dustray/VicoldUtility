@@ -25,6 +25,7 @@ namespace VicoldUtility.ResourceMonitor.Components
             if (ett == null) return;
             Dispatcher.Invoke(() =>
             {
+                RecLoad.Fill = ColorUtil.GetColor(ett.TotalLoad/10);
                 TbMainLoad.Text = ett.TotalLoad == _inv ? "*" : $"{PointRoundUtil.ToVision2Point(ett.TotalLoad)}%";
                 TbMainTemp.Text = ett.PackageTemperature == _inv ? "*" : $"{PointRoundUtil.ToVision1Point(ett.PackageTemperature)}℃";
             });

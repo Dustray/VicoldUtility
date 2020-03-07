@@ -567,19 +567,20 @@ namespace VicoldUtility.PingDashboard
         /// <returns></returns>
         public Brush GetColor(float val)
         {
-            float one = (255 + 255) / 6;
+            var full = 10;
+            var half = 4;
+            val = val < 0 ? 0 : (val > full ? full : val);
             int r = 0, g = 0, b = 0;
-            if (val < 3)
+            if (val < half)
             {
-                r = (int)(one * val);
+                r = (int)(255 * val / half);
                 g = 255;
             }
-            else if (val >= 3 && val < 6)
+            else
             {
                 r = 255;
-                g = 255 - (int)((val - 3) * one);
+                g = 255 - (int)(255 * (val - half) / (full - half));
             }
-            else { r = 255; }
             return new SolidColorBrush(Color.FromArgb((byte)200, (byte)r, (byte)g, (byte)b));
         }
 
