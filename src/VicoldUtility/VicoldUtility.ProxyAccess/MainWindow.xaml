@@ -26,10 +26,10 @@
             <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="目标地址:"/>
             <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5 0" Height=" 25" VerticalContentAlignment="Center"  VerticalAlignment="Center" Name="TboxTargetIP" Text="https://www.baidu.com"/>
             <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="执行规则："/>
-            <RadioButton Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Content="按访问次数" Name="RdForVisitCount"/>
-            <TextBox Grid.Row="1" Grid.Column="2" Margin="5 0" Height=" 25" FontSize="15" VerticalContentAlignment="Center" VerticalAlignment="Center" Name="TboxTimesCount" Text="100"  />
-            <RadioButton Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="按成功次数" Name="RdForSuccessCount" IsChecked="True"/>
-            <TextBox Grid.Row="2" Grid.Column="2" Margin="5 0" Height=" 25" FontSize="15" VerticalContentAlignment="Center" VerticalAlignment="Center" Name="TboxSuccessCount" Text="10" />
+            <RadioButton Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Content="按成功次数" Name="RdForSuccessCount" IsChecked="True"/>
+            <TextBox Grid.Row="1" Grid.Column="2" Margin="5 0" Height=" 25" FontSize="15" VerticalContentAlignment="Center" VerticalAlignment="Center" Name="TboxSuccessCount" Text="10" />
+            <RadioButton Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="按访问次数" Name="RdForVisitCount"/>
+            <TextBox Grid.Row="2" Grid.Column="2" Margin="5 0" Height=" 25" FontSize="15" VerticalContentAlignment="Center" VerticalAlignment="Center" Name="TboxTimesCount" Text="100"  />
             <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"></RowDefinition>

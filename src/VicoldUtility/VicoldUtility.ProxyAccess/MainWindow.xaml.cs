@@ -18,15 +18,26 @@ namespace VicoldUtility.ProxyAccess
         public MainWindow()
         {
             InitializeComponent();
-            for (int i = 1; i <= 50; i++)
-            {
-                _proxyIPList.AddRange(new ProxyIPManager().GetProxyIPs(i));
-            }
-            var proxy_json = JsonConvert.SerializeObject(_proxyIPList);
+
+            //本地查询
             var path = Path.GetFullPath(@"data");
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             var filePath = Path.Combine(path, "proxy_ip_data.json");
-            System.IO.File.WriteAllText(filePath, proxy_json);
+            if (File.Exists(filePath))
+            {
+                var valueText = System.IO.File.ReadAllText(filePath);
+                _proxyIPList = JsonConvert.DeserializeObject<List<ProxyIPEtt>>(valueText);
+            }
+            //网络查询
+            //for (int i = 1; i <= 50; i++)
+            //{
+            //    _proxyIPList.AddRange(new ProxyIPManager().GetProxyIPs(i));
+            //}
+            //保存
+            //var proxy_json = JsonConvert.SerializeObject(_proxyIPList);
+            //var path = Path.GetFullPath(@"data");
+            //if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            //var filePath = Path.Combine(path, "proxy_ip_data.json");
+            //System.IO.File.WriteAllText(filePath, proxy_json);
         }
 
         #region 成员事件
