@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using Vicold.Popup;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace VicoldUtility.ProxyAccess
 {
@@ -16,10 +18,15 @@ namespace VicoldUtility.ProxyAccess
         public MainWindow()
         {
             InitializeComponent();
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= 50; i++)
             {
                 _proxyIPList.AddRange(new ProxyIPManager().GetProxyIPs(i));
             }
+            var proxy_json = JsonConvert.SerializeObject(_proxyIPList);
+            var path = Path.GetFullPath(@"data");
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            var filePath = Path.Combine(path, "proxy_ip_data.json");
+            System.IO.File.WriteAllText(filePath, proxy_json);
         }
 
         #region 成员事件

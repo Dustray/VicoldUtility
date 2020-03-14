@@ -1,7 +1,9 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,10 +16,23 @@ namespace VicoldUtility.ProxyAccess
         {
             var _proxyIPList = new List<ProxyIPEtt>();
             string url = $@"https://www.xicidaili.com/nt/{page}";
+
+            WebProxy proxyObject = new WebProxy("120.234.138.99", 53779);//这里我是用的代理。
+            //向指定地址发送请求
+            //HttpWebRequest HttpWReq = (HttpWebRequest)WebRequest.Create(url);
+            //HttpWReq.Proxy = proxyObject;
+            //HttpWReq.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50";
+            //HttpWReq.Timeout = 3000;
+            //HttpWebResponse HttpWResp = (HttpWebResponse)HttpWReq.GetResponse();
+            //StreamReader sr = new StreamReader(HttpWResp.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
+            //HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
+            //document.Load(sr);
+
             var webGet = new HtmlWeb();
-            webGet.UserAgent = "'Opera/9.25 (Windows NT 5.1; U; en)','Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)','Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Kubuntu)','Mozilla/5.0 (X11; U; linux i686; en-US; rv:1.8.0.12) Gecko/20070731 Ubuntu/dapper-security Firefox/1.5.0.12','Lynx/2.8.5rel.1 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/1.2.9'\"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)\",\"Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.5; AOLBuild 4337.35; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)\"";
+            webGet.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50";// "'Opera/9.25 (Windows NT 5.1; U; en)','Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)','Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Kubuntu)','Mozilla/5.0 (X11; U; linux i686; en-US; rv:1.8.0.12) Gecko/20070731 Ubuntu/dapper-security Firefox/1.5.0.12','Lynx/2.8.5rel.1 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/1.2.9'\"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)\",\"Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.5; AOLBuild 4337.35; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)\"";
             var document = webGet.Load(url);
             var div = document.DocumentNode.SelectNodes("//table[@id='ip_list']/tr");
+            if (div == null) return _proxyIPList;
             var i = 0;
             foreach (HtmlNode node in div)
             {
