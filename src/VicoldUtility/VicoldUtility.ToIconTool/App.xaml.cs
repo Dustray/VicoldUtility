@@ -13,5 +13,17 @@ namespace VicoldUtility.ToIconTool
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// 程序启动
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            //命令模式修改设置
+            foreach (string arg in e.Args)
+            {
+            }
+
+        }
     }
 }

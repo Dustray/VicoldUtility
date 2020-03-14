@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ResourceMonit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ToIconTool", "VicoldUtility.ToIconTool\VicoldUtility.ToIconTool.csproj", "{4CF20476-4F40-4A28-8956-9D0D35C287DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ProxyAccess", "VicoldUtility.ProxyAccess\VicoldUtility.ProxyAccess.csproj", "{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4CF20476-4F40-4A28-8956-9D0D35C287DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CF20476-4F40-4A28-8956-9D0D35C287DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CF20476-4F40-4A28-8956-9D0D35C287DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

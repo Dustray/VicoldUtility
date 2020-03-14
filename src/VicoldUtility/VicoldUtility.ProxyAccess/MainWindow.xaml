@@ -1,0 +1,55 @@
+﻿<Window x:Class="VicoldUtility.ProxyAccess.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VicoldUtility.ProxyAccess"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="500" MinWidth="500" MinHeight="500">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="10" MinWidth="350" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition Width="85"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="目标地址:"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5 0" Height=" 25" VerticalContentAlignment="Center"  VerticalAlignment="Center" Name="TboxTargetIP" Text="https://www.baidu.com"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="执行规则："/>
+            <RadioButton Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Content="按访问次数" Name="RdForVisitCount"/>
+            <TextBox Grid.Row="1" Grid.Column="2" Margin="5 0" Height=" 25" FontSize="15" VerticalContentAlignment="Center" VerticalAlignment="Center" Name="TboxVisitCount" />
+            <RadioButton Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="按成功次数" Name="RdForSuccessCount" IsChecked="True"/>
+            <TextBox Grid.Row="2" Grid.Column="2" Margin="5 0" Height=" 25" FontSize="15" VerticalContentAlignment="Center" VerticalAlignment="Center" Name="TboxSuccessCount" Text="10" />
+            <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="成功"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="已执行"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="总数"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="0" Name="TbExecuteCountSuccess"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="0" Name="TbExecuteCountDid"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="0" Name="TbExecuteCountAll"/>
+
+            </Grid>
+            <Button Grid.Row="3" Grid.Column="2"  Width="100" Height="30" Content="给我爬" Name="BtnStart" Click="BtnStart_Click" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Foreground="White" BorderBrush="{x:Null}"/>
+        </Grid>
+        <TextBox  Grid.Row="1"  Background="#eee" Name="TboxLog" TextWrapping="Wrap"/>
+    </Grid>
+</Window>
