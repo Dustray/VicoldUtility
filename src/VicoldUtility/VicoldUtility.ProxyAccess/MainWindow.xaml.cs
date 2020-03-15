@@ -5,6 +5,8 @@ using System.Windows.Media;
 using Vicold.Popup;
 using Newtonsoft.Json;
 using System.IO;
+using System.Threading.Tasks;
+using VicoldUtility.ProxyAccess.Core;
 
 namespace VicoldUtility.ProxyAccess
 {
@@ -14,7 +16,8 @@ namespace VicoldUtility.ProxyAccess
     public partial class MainWindow : Window
     {
         private List<ProxyIPEtt> _proxyIPList = new List<ProxyIPEtt>();
-        private IPRequireManager _manager;
+        private int _proxyIPIndex = 0;
+        private IProvider _provider;
         public MainWindow()
         {
             InitializeComponent();
@@ -50,7 +53,7 @@ namespace VicoldUtility.ProxyAccess
                 Alert.Show("目标地址不能为空", AlertTheme.Error);
                 return;
             }
-            if (_manager == null)
+            if (_provider == null)
             {
                 IPRequireMod mod = new IPRequireMod();
                 if ((bool)RdForSuccessCount.IsChecked)
@@ -77,19 +80,29 @@ namespace VicoldUtility.ProxyAccess
                         return;
                     }
                 }
-                _manager = new IPRequireManager(mod);
-                _manager.AddResource(_proxyIPList, CreateUserAgent());
-                _manager.SetExecuteCountCallback(Statistic);
-                _manager.SetLogCallback(WriteLog);
+                if ((bool)RdForProxySourceFile.IsChecked)
+                    _provider = new IPRequireListProvider(targetIP, mod);
+                else
+                {
+                    _provider = new IPRequireQueueProvider(targetIP, mod);
+                    var creator = new IPPoolCreator(_provider as IPRequireQueueProvider);
+                    creator.CreatorStart();
+                }
+                _provider.AddResource(CreatorResourceGetter(), CreateUserAgent());
+                _provider.ExecuteCountCallback = Statistic;
+                _provider.LogCallback = WriteLog;
+                _provider.OnStartCallback = OnStart;
+                _provider.OnStoppedCallback = OnStop;
             }
-            ChangeState(_manager.IsStarting, targetIP);
+            CreatorStart();
+            ChangeState(_provider.IsStarting, targetIP);
         }
 
         private void BtnReload_Click(object sender, RoutedEventArgs e)
         {
             ChangeState(true);
-            _manager?.Dispose();
-            _manager = null;
+            _provider?.Dispose();
+            _provider = null;
             RdForVisitCount.IsEnabled = true;
             RdForSuccessCount.IsEnabled = true;
             TboxTimesCount.IsEnabled = true;
@@ -117,20 +130,21 @@ namespace VicoldUtility.ProxyAccess
         /// </summary>
         /// <param name="flag"></param>
         /// <param name="targetIP"></param>
-        private void ChangeState(bool flag, string targetIP = "")
+        private void ChangeState(bool flag)
         {
             if (flag)
             {
-                _manager?.Stop();
-                BtnStart.Background = new SolidColorBrush(Color.FromRgb(25, 128, 218));
-                BtnStart.Content = "开始";
-                BtnReload.Visibility = Visibility.Visible;
+                _provider?.Stop();
+                BtnStart.Background = new SolidColorBrush(Color.FromRgb(55, 128, 218));
+                BtnStart.Content = "停止中";
+                BtnStart.IsEnabled = false;
             }
             else
             {
-                _manager?.Start(targetIP);
+                _provider?.Start();
                 BtnStart.Background = new SolidColorBrush(Color.FromRgb(125, 128, 218));
-                BtnStart.Content = "停止";
+                BtnStart.Content = "准备";
+                BtnStart.IsEnabled = false;
                 BtnReload.Visibility = Visibility.Hidden;
             }
 
@@ -139,6 +153,7 @@ namespace VicoldUtility.ProxyAccess
             TboxTimesCount.IsEnabled = false;
             TboxSuccessCount.IsEnabled = false;
         }
+
 
         #region 回调
 
@@ -150,13 +165,16 @@ namespace VicoldUtility.ProxyAccess
         /// <param name="all"></param>
         public void Statistic(int success, int times, int all)
         {
-            TbExecuteCountSuccess.Text = success.ToString();
-            TbExecuteCountDid.Text = times.ToString();
-            TbExecuteCountAll.Text = all.ToString();
-            if (times == all)
+            Dispatcher.Invoke(() =>
             {
-                ChangeState(true);
-            }
+                TbExecuteCountSuccess.Text = success.ToString();
+                TbExecuteCountDid.Text = times.ToString();
+                TbExecuteCountAll.Text = all.ToString();
+                if (times == all)
+                {
+                    ChangeState(true);
+                }
+            });
         }
 
         /// <summary>
@@ -166,9 +184,32 @@ namespace VicoldUtility.ProxyAccess
         /// <param name="text"></param>
         public void WriteLog(bool flag, string text)
         {
-            Console.WriteLine($"{text}");
-            TboxLog.AppendText($"[{(flag ? "成功" : "失败")}] {text}\r\n");
-            TboxLog.ScrollToEnd();
+            Dispatcher.Invoke(() =>
+            {
+                Console.WriteLine($"{text}");
+                TboxLog.AppendText($"[{(flag ? "成功" : "失败")}] {text}\r\n");
+                TboxLog.ScrollToEnd();
+            });
+        }
+        public void OnStart()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                BtnStart.Background = new SolidColorBrush(Color.FromRgb(190, 128, 218));
+                BtnStart.Content = "停止";
+                BtnStart.IsEnabled = true;
+                BtnReload.Visibility = Visibility.Hidden;
+            });
+        }
+        public void OnStop()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                BtnStart.Background = new SolidColorBrush(Color.FromRgb(25, 128, 218));
+                BtnStart.Content = "开始";
+                BtnStart.IsEnabled = true;
+                BtnReload.Visibility = Visibility.Visible;
+            });
         }
 
         #endregion

@@ -59,8 +59,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="IPRequireManager.cs" />
+    <Compile Include="Core\IPPoolCreator.cs" />
+    <Compile Include="Core\IPSender.cs" />
+    <Compile Include="Providers\IPRequireListProvider.cs" />
+    <Compile Include="Providers\IPRequireQueueProvider.cs" />
     <Compile Include="IPRequireMod.cs" />
+    <Compile Include="Providers\IProvider.cs" />
     <Compile Include="ProxyIPEtt.cs" />
     <Compile Include="ProxyIPManager.cs" />
     <Compile Include="Utils\WPFSupportFormatUtil.cs" />
