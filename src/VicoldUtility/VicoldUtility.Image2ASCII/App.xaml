@@ -1,0 +1,16 @@
+﻿<Application x:Class="VicoldUtility.Image2ASCII.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VicoldUtility.Image2ASCII"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/CircleButton.xaml"/>
+                <ResourceDictionary Source="Styles/BlueButton.xaml"/>
+                <ResourceDictionary Source="Styles/LightButton.xaml"/>
+                <ResourceDictionary Source="Styles/SettingButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

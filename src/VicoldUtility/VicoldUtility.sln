@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ToIconTool", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ProxyAccess", "VicoldUtility.ProxyAccess\VicoldUtility.ProxyAccess.csproj", "{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.Image2ASCII", "VicoldUtility.Image2ASCII\VicoldUtility.Image2ASCII.csproj", "{685FF664-B514-4098-9FEE-90861DCCD82D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF1BCD92-E6FF-42B9-884E-A81302CBA15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{685FF664-B514-4098-9FEE-90861DCCD82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{685FF664-B514-4098-9FEE-90861DCCD82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{685FF664-B514-4098-9FEE-90861DCCD82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{685FF664-B514-4098-9FEE-90861DCCD82D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

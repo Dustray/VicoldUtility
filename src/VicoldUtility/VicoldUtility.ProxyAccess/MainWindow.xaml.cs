@@ -88,14 +88,14 @@ namespace VicoldUtility.ProxyAccess
                     var creator = new IPPoolCreator(_provider as IPRequireQueueProvider);
                     creator.CreatorStart();
                 }
-                _provider.AddResource(CreatorResourceGetter(), CreateUserAgent());
+                _provider.AddResource(/*CreatorResourceGetter()*/null, CreateUserAgent());
                 _provider.ExecuteCountCallback = Statistic;
                 _provider.LogCallback = WriteLog;
                 _provider.OnStartCallback = OnStart;
                 _provider.OnStoppedCallback = OnStop;
             }
-            CreatorStart();
-            ChangeState(_provider.IsStarting, targetIP);
+            //CreatorStart();
+            ChangeState(_provider.IsStarting);
         }
 
         private void BtnReload_Click(object sender, RoutedEventArgs e)

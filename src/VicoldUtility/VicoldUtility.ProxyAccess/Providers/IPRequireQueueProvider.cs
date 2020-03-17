@@ -99,7 +99,7 @@ namespace VicoldUtility.ProxyAccess
         /// </summary>
         public void Start()
         {
-            if (ProxyIPQueue.Count == 0 || _userAgentList.Count == 0) return;
+            if (ProxyIPQueue.Count == 0 /*|| _userAgentList.Count == 0*/) return;
             if (IsStarting) return;
             IsStarting = true;
 
@@ -134,7 +134,7 @@ namespace VicoldUtility.ProxyAccess
             IsStarting = false;
             //_state?.Break();
             ProxyIPQueue.Clear();
-            _userAgentList.Clear();
+            //_userAgentList.Clear();
             _userAgentIndex = 0;
             _executeSuccessCount = 0;
             _executeDidCount = 0;
@@ -172,7 +172,7 @@ namespace VicoldUtility.ProxyAccess
                         }
                         Console.WriteLine($"资源池当前数量{ProxyIPQueue.Count}");
                     }
-                    var re = ExcuteRequest(ett.IP, ett.Port, _address);
+                    var re = Sender.ExcuteRequest(ett.IP, ett.Port, _address);
 
                     if (re) _executeSuccessCount++;
                     _executeDidCount++;
