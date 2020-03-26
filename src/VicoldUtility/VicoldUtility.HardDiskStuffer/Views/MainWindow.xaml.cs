@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VicoldUtility.HardDiskStuffer
+namespace VicoldUtility.Views.HardDiskStuffer
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑

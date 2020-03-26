@@ -1,12 +1,12 @@
-﻿<Window x:Class="VicoldUtility.HardDiskStuffer.MainWindow"
+﻿<Window x:Class="VicoldUtility.Views.HardDiskStuffer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VicoldUtility.HardDiskStuffer"
+        xmlns:local="clr-namespace:VicoldUtility.Views.HardDiskStuffer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="硬盘填充器" Height="450" Width="500" MinHeight="450" MinWidth="500">
     <Grid>
-        
+        <Frame Source="MainPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
