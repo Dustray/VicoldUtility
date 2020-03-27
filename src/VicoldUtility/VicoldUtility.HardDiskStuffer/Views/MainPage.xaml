@@ -5,35 +5,36 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VicoldUtility.HardDiskStuffer.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="450"
+      d:DesignHeight="450" d:DesignWidth="550" Background="#fff"
       Title="MainPage" Loaded="Page_Loaded">
-    
-    <Grid>
+
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="120"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <CheckBox Grid.Row="0" Grid.Column="0" Content="全选"  Margin="5" Name="cboxCkeckAll" Click="cboxCkeckAll_Click" />
-            <CheckBox Grid.Row="0" Grid.Column="1" Content="填充完成后删除填充文件" Margin="5" Name="cboxDeleteFile"/>
-            <Button Grid.Row="0" Grid.Column="2" Content="开始" Width="50" Margin="5" Name="btnStartOrStop" Click="btnStartOrStop_Click"/>
-            <Button Grid.Row="0" Grid.Column="3" Content="清理填充文件" Width="80" Margin="5" Name="btnClearStufferFile" Click="btnClearStufferFile_Click"/>
+            <Button Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Width="90" Height="25" Cursor="Hand" Margin="5" Content="删除填充文件" Name="btnClearStufferFile" Click="btnClearStufferFile_Click" Background="{x:Null}" BorderBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+            <Button Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" Width="50" Height="25" Cursor="Hand" Margin="5" Content="开始" Name="btnStartOrStop" Click="btnStartOrStop_Click" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5" Text="正在填充：" Name="tbStuffering"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="正在填充：" Name="tbStuffering"/>
+            <CheckBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="全选"  Margin="5" Name="cboxCkeckAll" Click="cboxCkeckAll_Click" />
+            <CheckBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5" Cursor="Hand" Content="填充完成后删除填充文件" Name="cboxDeleteFile"/>
         </Grid>
-        <ListView Grid.Row="1" x:Name="lviewDrive" Margin="5" SelectionMode="Single" Background="{x:Null}" BorderBrush="{x:Null}">
+        <ListView Grid.Row="1" x:Name="lviewDrive" Margin="5" SelectionMode="Single" Background="{x:Null}" BorderBrush="#aaa">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
@@ -54,7 +55,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox  Grid.Row="2" Margin="5" Background="#eee" Name="tboxLog" TextWrapping="Wrap"/>
+        <TextBox  Grid.Row="2" Margin="5 0 5 5" Background="#eee" Name="tboxLog" TextWrapping="Wrap" BorderBrush="#aaa"/>
 
     </Grid>
 </Page>
