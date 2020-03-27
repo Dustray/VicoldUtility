@@ -28,5 +28,9 @@ namespace VicoldUtility.HardDiskStuffer.Entities
         /// 驱动器可用
         /// </summary>
         public bool IsEnable { get; set; }
+        /// <summary>
+        /// 填充速率
+        /// </summary>
+        public long StufferSpeed { get; set; } = 0;
     }
 }

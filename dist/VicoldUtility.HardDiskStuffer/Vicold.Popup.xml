@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Vicold.Popup</name>
+    </assembly>
+    <members>
+        <member name="M:Vicold.Popup.Alert.Show(System.String)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="content">弹框主体内容</param>
+        </member>
+        <member name="M:Vicold.Popup.Alert.Show(System.String,System.String)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="title">弹框标题</param>
+            <param name="content">弹框主体内容</param>
+        </member>
+        <member name="M:Vicold.Popup.Alert.Show(System.String,Vicold.Popup.AlertTheme)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="content">弹框主体内容</param>
+            <param name="AlertTheme">弹框类型</param>
+        </member>
+        <member name="M:Vicold.Popup.Alert.Show(System.String,System.String,Vicold.Popup.AlertTheme)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="title">弹框标题</param>
+            <param name="content">弹框主体内容</param>
+            <param name="AlertTheme">弹框类型</param>
+        </member>
+        <member name="M:Vicold.Popup.Alert.Show(System.String,System.String,Vicold.Popup.AlertTheme,Vicold.Popup.AlertConfig)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="title">弹框标题</param>
+            <param name="content">弹框主体内容</param>
+            <param name="AlertTheme">弹框类型</param>
+            <param name="alertConfig">用户自定义配置</param>
+        </member>
+        <member name="M:Vicold.Popup.Alert.Show(System.String,System.String,Vicold.Popup.AlertTheme,Vicold.Popup.UserButton)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="title">弹框标题</param>
+            <param name="content">弹框主体内容</param>
+            <param name="AlertTheme">弹框类型</param>
+            <param name="userButton">交互按钮</param>
+        </member>
+        <member name="M:Vicold.Popup.Alert.Show(System.String,System.String,Vicold.Popup.AlertTheme,Vicold.Popup.UserButton,Vicold.Popup.AlertConfig)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="title">弹框标题</param>
+            <param name="content">弹框主体内容</param>
+            <param name="AlertTheme">弹框类型</param>
+            <param name="userButton">交互按钮</param>
+            <param name="alertConfig">用户自定义配置</param>
+        </member>
+        <member name="M:Vicold.Popup.Alert.Show(System.String,System.String,Vicold.Popup.AlertTheme,Vicold.Popup.UserButton,Vicold.Popup.UserButton,Vicold.Popup.AlertConfig)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="title">弹框标题</param>
+            <param name="content">弹框主体内容</param>
+            <param name="AlertTheme">弹框类型</param>
+            <param name="userButton1">交互按钮1</param>
+            <param name="userButton2">交互按钮2</param>
+            <param name="alertConfig">用户自定义配置</param>
+        </member>
+        <member name="M:Vicold.Popup.Alert.Show(System.String,System.String,Vicold.Popup.AlertTheme,System.Collections.Generic.List{Vicold.Popup.UserButton},Vicold.Popup.AlertConfig)">
+            <summary>
+            显示弹框
+            </summary>
+            <param name="title">弹框标题</param>
+            <param name="content">弹框主体内容</param>
+            <param name="AlertTheme">弹框类型</param>
+            <param name="userButtonList">交互按钮集合</param>
+            <param name="alertConfig">用户自定义配置</param>
+        </member>
+        <member name="T:Vicold.Popup.AlertConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertConfig.AnimationDuration">
+            <summary>
+            动画持续时间，默认100毫秒
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertConfig.AlertShowDuration">
+            <summary>
+            Alert持续显示时间，计时关闭，默认3000毫秒，值为-1则永久显示
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertConfig.OnlyOneWindowAllowed">
+            <summary>
+            每次只允许一个窗体弹出，默认false
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertConfig.OnAlertCloseCallback">
+            <summary>
+            弹框关闭回调事件
+            </summary>
+        </member>
+        <member name="F:Vicold.Popup.AlertType.Default">
+            <summary>
+            默认
+            </summary>
+        </member>
+        <member name="F:Vicold.Popup.AlertType.Remind">
+            <summary>
+            提醒
+            </summary>
+        </member>
+        <member name="F:Vicold.Popup.AlertType.Warning">
+            <summary>
+            警告
+            </summary>
+        </member>
+        <member name="F:Vicold.Popup.AlertType.Error">
+            <summary>
+            错误
+            </summary>
+        </member>
+        <member name="T:Vicold.Popup.AlertWindow">
+            <summary>
+            AlertWindow.xaml 的交互逻辑
+            </summary>
+            <summary>
+            AlertWindow
+            </summary>
+        </member>
+        <member name="M:Vicold.Popup.AlertWindow.#ctor(System.String,System.String,Vicold.Popup.AlertTheme,System.Collections.Generic.List{Vicold.Popup.UserButton},Vicold.Popup.AlertConfig)">
+            <summary>
+            弹框窗体
+            </summary>
+            <param name="title"></param>
+            <param name="content"></param>
+            <param name="alertType"></param>
+            <param name="userButtonList"></param>
+            <param name="alertConfig"></param>
+        </member>
+        <member name="M:Vicold.Popup.AlertWindow.InitTheme(Vicold.Popup.AlertTheme)">
+            <summary>
+            初始化UI
+            </summary>
+            <param name="alertType"></param>
+        </member>
+        <member name="M:Vicold.Popup.AlertWindow.btnClose_MouseEnter(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            关闭按钮鼠标进入事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Vicold.Popup.AlertWindow.btnClose_MouseLeave(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            关闭按钮鼠标移出事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Vicold.Popup.AlertWindow.CloseAlert">
+            <summary>
+            关闭窗体
+            </summary>
+        </member>
+        <member name="M:Vicold.Popup.AlertWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Vicold.Popup.AlertTheme">
+            <summary>
+            默认
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.Default">
+            <summary>
+            默认
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.Info">
+            <summary>
+            Info
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.Remind">
+            <summary>
+            提醒
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.Warning">
+            <summary>
+            警告
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.Error">
+            <summary>
+            错误
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.PrimaryBackColor">
+            <summary>
+            主背景色
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.SecondaryBackColor">
+            <summary>
+            副背景色
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.TitleColor">
+            <summary>
+            标题颜色
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.ContentColor">
+            <summary>
+            内容颜色
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme.PullBackColor">
+            <summary>
+            收起按钮颜色
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.AlertTheme._pullBackForeColor">
+            <summary>
+            收起按钮文字颜色
+            </summary>
+        </member>
+        <member name="M:Vicold.Popup.AlertTheme.FromString16(System.String)">
+            <summary>
+            16进制字符串转Color对象
+            </summary>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vicold.Popup.AlertTheme.FromArgb(System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            色值转Color对象
+            </summary>
+            <param name="A"></param>
+            <param name="R"></param>
+            <param name="G"></param>
+            <param name="B"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Vicold.Popup.UserButton">
+            <summary>
+            用户按钮
+            </summary>
+        </member>
+        <member name="M:Vicold.Popup.UserButton.#ctor(System.Action)">
+            <summary>
+            构造方法
+            </summary>
+            <param name="action">按钮回调方法</param>
+        </member>
+        <member name="M:Vicold.Popup.UserButton.#ctor(System.String,System.Action)">
+            <summary>
+            构造方法
+            </summary>
+            <param name="content">按钮文本</param>
+            <param name="action">按钮回调方法</param>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.ButtonContent">
+            <summary>
+            按钮显示内容
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.BackgroundColor">
+            <summary>
+            背景颜色
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.FontColor">
+            <summary>
+            文本颜色
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.FontSize">
+            <summary>
+            文本大小
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.BorderThickness">
+            <summary>
+            边框粗细，默认1
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.BorderColor">
+            <summary>
+            边框颜色，默认透明
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.Height">
+            <summary>
+            高度，默认40
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.Width">
+            <summary>
+            宽度，默认自动
+            </summary>
+        </member>
+        <member name="P:Vicold.Popup.UserButton.CloseAlertIfClick">
+            <summary>
+            点击按钮关闭弹框
+            </summary>
+        </member>
+        <member name="M:Vicold.Popup.UserButton.GenerateControl">
+            <summary>
+            生成按钮控件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Vicold.Popup.UserButton.LoadAlertTheme(Vicold.Popup.AlertTheme)">
+            <summary>
+            应用指定弹窗主题
+            </summary>
+            <param name="theme"></param>
+        </member>
+    </members>
+</doc>

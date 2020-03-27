@@ -9,20 +9,27 @@ using VicoldUtility.HardDiskStuffer.Entities;
 
 namespace VicoldUtility.HardDiskStuffer.Utility
 {
-    public class FileStufferUtil
+    public class FileStufferUtil:IDisposable
     {
-        private string lastFilePath = @"StufferFolder\";
+        private const string _lastFilePath = @"StufferFolder\";
         private bool _isStarting = false;
-        private List<DriveShowEtt> _driveNumList;
         private static CancellationTokenSource _cts;
+
+        public  List<DriveShowEtt> DriveNumList;
+        public bool IsDeleteAfterStuffer = true;
+        public Action OnStarted;
+        public Action OnStopped;
+        public Action<string> OnDriveStart;
+        public Action<string> OnDriveComplete;
+        public Action<string, bool> OnDeleteStufferFile;
         public FileStufferUtil(List<DriveShowEtt> driveNumList)
         {
-            _driveNumList = driveNumList;
+            DriveNumList = driveNumList;
         }
 
         public void Start()
         {
-            if (_isStarting) return;
+            if (_isStarting|| DriveNumList.Count == 0) return;
             if (_cts != null)
             {
                 _cts.Cancel();
@@ -32,11 +39,13 @@ namespace VicoldUtility.HardDiskStuffer.Utility
             var ct = _cts.Token;
             new Task(() =>
             {
+                OnStarted?.Invoke();
                 _isStarting = true;
-                foreach (var num in _driveNumList)
+                foreach (var num in DriveNumList)
                 {
                     if (!_isStarting) break;
                     if (!num.IsChosen || !num.IsEnable) continue;
+                    OnDriveStart?.Invoke(num.Number);
                     try
                     {
                         DoStufferInDrive(num.Number, ct);
@@ -45,8 +54,10 @@ namespace VicoldUtility.HardDiskStuffer.Utility
                     {
 
                     }
+                    OnDriveComplete?.Invoke(num.Number);
                 }
                 _isStarting = false;
+                OnStopped?.Invoke();
             }).Start();
         }
         public void Stop()
@@ -60,24 +71,67 @@ namespace VicoldUtility.HardDiskStuffer.Utility
         {
             while (_isStarting)
             {
-                var folderPath = $"{driveNum}{lastFilePath}";
+                var folderPath = $"{driveNum}{_lastFilePath}";
                 if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
                 var fPath = Path.Combine(folderPath, Guid.NewGuid().ToString("N"));
                 try
                 {
                     // File.AppendAllText(fPath, content.ToString());
-                    FileUtil.WriteByteWithEmpty(fPath, 1024L * 1024 * 1);
+                    FileUtil.WriteByteWithEmpty(fPath, 1024L * 1024 * 50);
                     cToken.ThrowIfCancellationRequested();
                 }
-                catch (IOException)
-                {
+                catch (IOException e)
+                {//填充完后必进
                     var lastSize = DriveUtil.GetDriveFree(driveNum);
-                    try
-                    {
-                        FileUtil.WriteByteWithEmpty(fPath, lastSize);
+                    if (lastSize < 9)
+                    {//完整做完
+
                     }
-                    catch { }
+                    else
+                    {
+                        try
+                        {
+                            fPath = Path.Combine(folderPath, Guid.NewGuid().ToString("N"));
+                            FileUtil.WriteByteWithEmpty(fPath, lastSize - 8);
+                        }
+                        catch (Exception es) { }
+                    }
+                    OnDriveComplete?.Invoke(driveNum);
+                    if (IsDeleteAfterStuffer) DoDeleteInDrive(driveNum);
                     break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 删除所有或指定驱动器的填充文件
+        /// </summary>
+        /// <param name="driveNum"></param>
+        public void DoDeleteInDrive(string driveNum = null)
+        {
+            if (null != driveNum)
+            {
+                doDelete(driveNum);
+            }
+            else
+            {
+                foreach (var num in DriveNumList)
+                {
+                    if (!num.IsChosen || !num.IsEnable) continue;
+                    doDelete(num.Number);
+                }
+            }
+            void doDelete(string num)
+            {
+                var fPath = $"{num}{_lastFilePath}";
+                try
+                {
+                    FileUtil.DeleteFolder(fPath);
+                    OnDeleteStufferFile?.Invoke(num, true);
+                }
+                catch
+                {
+                    OnDeleteStufferFile?.Invoke(num, false);
                 }
             }
         }
@@ -92,7 +146,13 @@ namespace VicoldUtility.HardDiskStuffer.Utility
             {
                 Start();
             }
-            _isStarting = !_isStarting;
+            //_isStarting = !_isStarting;
+        }
+
+        public void Dispose()
+        {
+            _cts.Cancel();
+            _cts.Dispose();
         }
     }
 }

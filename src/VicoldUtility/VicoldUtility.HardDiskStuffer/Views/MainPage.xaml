@@ -7,43 +7,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="450"
       Title="MainPage" Loaded="Page_Loaded">
-    <Page.Resources>
-        <!-- 复选框 -->
-        <DataTemplate x:Key="TheCheckBox">
-            <TextBlock VerticalAlignment="Center">
-            <CheckBox Name="ckb_SelectAll" Margin="6 0 0 0">
-                <!--<TextBlock  Foreground="White">全选</TextBlock>-->
-            </CheckBox>
-            </TextBlock>
-        </DataTemplate>
-        <!-- 驱动器号 -->
-        <DataTemplate x:Key="Number">
-            <TextBlock Width="100" Text="{Binding Path=Number}" TextAlignment="Center"></TextBlock>
-        </DataTemplate>
-        <!--驱动器名-->
-        <DataTemplate x:Key="Name">
-            <TextBlock Width="150" Text="{Binding Path=Name}" TextAlignment="Center"></TextBlock>
-        </DataTemplate>
-        <!--可用空间-->
-        <DataTemplate x:Key="FreeSize">
-            <TextBlock Width="100" Text="{Binding Path=FreeSize }" TextAlignment="Center"></TextBlock>
-        </DataTemplate>
-        <!--总空间-->
-        <DataTemplate x:Key="TotalSize">
-            <TextBlock Width="150" Text="{Binding Path=TotalSize}" TextAlignment="Center"></TextBlock>
-        </DataTemplate>
-        <!--磁盘可用-->
-        <DataTemplate x:Key="IsEnable">
-            <TextBlock Width="100" Text="{Binding Path=IsEnable}" TextAlignment="Center" ></TextBlock>
-        </DataTemplate>
-    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
 
@@ -51,12 +24,16 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="全选" Width="50" Margin="5"/>
-            <Button Grid.Column="1" Content="你猜" Width="50" Margin="5"/>
-            <Button Grid.Column="2" Content="开始" Width="50" Margin="5" Name="btnStartOrStop" Click="btnStartOrStop_Click"/>
+            <CheckBox Grid.Row="0" Grid.Column="0" Content="全选"  Margin="5" Name="cboxCkeckAll" Click="cboxCkeckAll_Click" />
+            <CheckBox Grid.Row="0" Grid.Column="1" Content="填充完成后删除填充文件" Margin="5" Name="cboxDeleteFile"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="开始" Width="50" Margin="5" Name="btnStartOrStop" Click="btnStartOrStop_Click"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="清理填充文件" Width="80" Margin="5" Name="btnClearStufferFile" Click="btnClearStufferFile_Click"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="正在填充：" Name="tbStuffering"/>
         </Grid>
-        <ListView Grid.Row="1" x:Name="lviewDrive" SelectionMode="Single" Background="{x:Null}" BorderBrush="{x:Null}">
+        <ListView Grid.Row="1" x:Name="lviewDrive" Margin="5" SelectionMode="Single" Background="{x:Null}" BorderBrush="{x:Null}">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
@@ -72,9 +49,12 @@
                         <GridViewColumn DisplayMemberBinding="{Binding FreeSize}" Header="可用空间（GB）" />
                         <GridViewColumn DisplayMemberBinding="{Binding TotalSize}" Header="总空间（GB）" />
                         <GridViewColumn DisplayMemberBinding="{Binding IsEnable}" Header="驱动器可用"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding StufferSpeed}" Header="填充速率（MB/秒）"/>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBox  Grid.Row="2" Margin="5" Background="#eee" Name="tboxLog" TextWrapping="Wrap"/>
+
     </Grid>
 </Page>

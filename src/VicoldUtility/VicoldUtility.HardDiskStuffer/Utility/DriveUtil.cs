@@ -1,10 +1,9 @@
 ﻿using System;
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VicoldUtility.HardDiskStuffer.Entities;
 
 namespace VicoldUtility.HardDiskStuffer.Utility
@@ -31,9 +30,9 @@ namespace VicoldUtility.HardDiskStuffer.Utility
             return driveList;
         }
 
-        public static List<DriveShowEtt> Ett2EttShow(List<DriveEtt> etts)
+        public static ObservableCollection<DriveShowEtt> Ett2EttShow(List<DriveEtt> etts)
         {
-            var newList = new List<DriveShowEtt>();
+            var newList = new ObservableCollection<DriveShowEtt>();
             foreach (var ett in etts)
             {
                 newList.Add(new DriveShowEtt()
@@ -42,10 +41,34 @@ namespace VicoldUtility.HardDiskStuffer.Utility
                     Name = ett.Name,
                     TotalSize = (float)Math.Round((float)ett.TotalSize / 1024 / 1024 / 1024, 2, MidpointRounding.AwayFromZero),
                     FreeSize = (float)Math.Round((float)ett.FreeSize / 1024 / 1024 / 1024, 2, MidpointRounding.AwayFromZero),
-                    IsEnable = ett.IsEnable
+                    IsEnable = ett.IsEnable,
+                    StufferSpeed = (float)Math.Round((float)ett.StufferSpeed / 1024 / 1024, 1, MidpointRounding.AwayFromZero),
                 });
             }
             return newList;
+        }
+
+        /// <summary>
+        /// 比较并调整新驱动器列表（计算存储改变速度）
+        /// </summary>
+        /// <param name="newList"></param>
+        /// <param name="oldList"></param>
+        /// <returns></returns>
+        public static bool CompareNewDriveList(List<DriveEtt> newList, List<DriveEtt> oldList)
+        {
+            bool isDriveListChange = false;
+            foreach (var newEtt in newList)
+            {
+                var oldEtt = oldList.Find(a => a.Number == newEtt.Number);
+                if (null == oldEtt)
+                {
+                    isDriveListChange = true;
+                    continue;
+                }
+                newEtt.StufferSpeed = oldEtt.FreeSize - newEtt.FreeSize;
+            }
+            if (newList.Count != oldList.Count) isDriveListChange = true;
+            return isDriveListChange;
         }
 
         /// <summary>
