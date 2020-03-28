@@ -35,32 +35,32 @@
         </Grid>
         <Grid Grid.Row="1" >
             <Grid.RowDefinitions>
-                <RowDefinition MinHeight="55"></RowDefinition>
+                <RowDefinition MinHeight="65"></RowDefinition>
                 <RowDefinition Height="120" MinHeight="50"></RowDefinition>
             </Grid.RowDefinitions>
-            <ListView Grid.Row="0" x:Name="lviewDrive" Margin="5" SelectionMode="Single" Background="{x:Null}" BorderBrush="#aaa">
-            <ListView.View>
-                <GridView>
-                    <GridView.Columns>
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox Tag="{Binding Number}" IsChecked="{Binding Path=IsChosen}" IsEnabled="{Binding Path=IsEnable}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Number}" Header="驱动器号" />
-                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="驱动器名" />
-                        <GridViewColumn DisplayMemberBinding="{Binding FreeSize}" Header="可用空间（GB）" />
-                        <GridViewColumn DisplayMemberBinding="{Binding TotalSize}" Header="总空间（GB）" />
-                        <GridViewColumn DisplayMemberBinding="{Binding IsEnable}" Header="驱动器可用"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding StufferSpeed}" Header="填充速率（MB/秒）"/>
-                    </GridView.Columns>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <GridSplitter Height="5"  Background="#0000" HorizontalAlignment ="Stretch"  VerticalAlignment ="Bottom" Margin="0 10 0 0"/>
-        <TextBox  Grid.Row="1" Margin="5 0 5 5" Background="#eee" Name="tboxLog" TextWrapping="Wrap" BorderBrush="#aaa"/>
+            <ListView Grid.Row="0" x:Name="lviewDrive" Margin="5" SelectionMode="Single" Background="{x:Null}" BorderBrush="#aaa" Style="{DynamicResource DriveListViewStyle}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Tag="{Binding Number}" IsChecked="{Binding Path=IsChosen}" IsEnabled="{Binding Path=IsEnable}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Number}" Header="驱动器号" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="驱动器名" />
+                            <GridViewColumn DisplayMemberBinding="{Binding FreeSize}" Header="可用空间（GB）" />
+                            <GridViewColumn DisplayMemberBinding="{Binding TotalSize}" Header="总空间（GB）" />
+                            <GridViewColumn DisplayMemberBinding="{Binding IsEnable}" Header="驱动器可用"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding StufferSpeed}" Header="填充速率（MB/秒）"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <GridSplitter Height="5"  Background="#0000" HorizontalAlignment ="Stretch"  VerticalAlignment ="Bottom" Margin="0 10 0 0"/>
+            <TextBox  Grid.Row="1" Margin="5 0 5 5" Background="#eee" Name="tboxLog" TextWrapping="Wrap" BorderBrush="#aaa"/>
 
         </Grid>
     </Grid>

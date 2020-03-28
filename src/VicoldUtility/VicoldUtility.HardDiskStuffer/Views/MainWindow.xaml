@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.Views.HardDiskStuffer"
         mc:Ignorable="d"
-        Title="硬盘填充器" Height="550" Width="600" MinHeight="550" MinWidth="600" WindowStartupLocation="CenterScreen">
+        Title="硬盘填充器" Height="550" Width="700" MinHeight="550" MinWidth="700" WindowStartupLocation="CenterScreen">
     <Grid>
         <Frame Source="MainPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
