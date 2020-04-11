@@ -6,27 +6,8 @@
         xmlns:local="clr-namespace:VicoldUtility.FastTool"
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="400">
-    <Grid>
-        <ListBox Name="aaa" ItemsSource="{Binding DataSource}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Columns="{Binding Colums}" IsItemsHost="True"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Green" BorderBrush="Yellow" BorderThickness="1">
-                                    <Button Content="{Binding Content}" Tag="{Binding FilePath}" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                            Cursor="Hand" Click="ItemButton_Click"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
+    <Grid Name="MainGrid">
+        <TabControl Name="TabMain" Background="Transparent">
+        </TabControl>
     </Grid>
 </Window>

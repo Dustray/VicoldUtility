@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VicoldUtility.FastTool.Controls;
 using VicoldUtility.FastTool.Entities;
 
 namespace VicoldUtility.FastTool
@@ -24,54 +26,55 @@ namespace VicoldUtility.FastTool
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<ItemEtt> DataSource;
         public MainWindow()
         {
             InitializeComponent();
-            DataSource = new ObservableCollection<ItemEtt>();
-            aaa.ItemsSource = DataSource;
             InitData();
         }
 
         private void InitData()
         {
             var forderPath = System.IO.Path.GetFullPath("Tools");
+            CheckFolder(forderPath,"默认");
+        }
+
+        private void CheckFolder(string forderPath,string tabName=null)
+        {
             if (!Directory.Exists(forderPath)) return;
             string[] fileSystemEntries = Directory.GetFileSystemEntries(forderPath);
+            var folderName = System.IO.Path.GetFileName(forderPath);
+            var DataSource = CreateNewListBox(tabName??folderName).DataSource;
             for (int i = 0; i < fileSystemEntries.Length; i++)
             {
-                string file = fileSystemEntries[i];
-                var extension = System.IO.Path.GetExtension(file);
-                if (extension != ".bat" && extension != ".exe") continue;
-                if (File.Exists(file))
+                string path = fileSystemEntries[i];
+                if (File.Exists(path))
                 {
+                    var extension = System.IO.Path.GetExtension(path);
+                    if (extension != ".bat" && extension != ".exe") continue;
                     DataSource.Add(new ItemEtt()
                     {
-                        Content = System.IO.Path.GetFileNameWithoutExtension(file),
-                        FilePath = file
+                        Content = System.IO.Path.GetFileNameWithoutExtension(path),
+                        FilePath = path
                     });
+                }
+                else if (Directory.Exists(path))
+                {
+                    CheckFolder(path);
                 }
             }
         }
 
-        private void ItemButton_Click(object sender, RoutedEventArgs e)
+        private ButtonList CreateNewListBox(string tabName)
         {
-            var btn = sender as Button;
-            if (null == btn) return;
-            var file = btn.Tag.ToString();
-            if (!File.Exists(file)) return;
-            var exep = new Process();
-            exep.StartInfo.FileName = file;
-            exep.EnableRaisingEvents = true;
-            exep.Exited += new EventHandler(exep_Exited);
-            exep.Start();
-
-
+            var listBox = new ButtonList();
+            var tabItem = new TabItem();
+            tabItem.Header = tabName;
+            tabItem.Content = listBox;
+            TabMain.Items.Add(tabItem);
+            return listBox;
         }
 
-        private void exep_Exited(object sender, EventArgs e)
-        {
-            
-        }
+
+
     }
 }
