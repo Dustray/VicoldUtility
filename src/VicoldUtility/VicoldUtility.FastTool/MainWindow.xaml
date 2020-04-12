@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.FastTool"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="400">
+        Title="快速工具集" Height="400" Width="400">
     <Grid Name="MainGrid">
         <TabControl Name="TabMain" Background="Transparent">
         </TabControl>
