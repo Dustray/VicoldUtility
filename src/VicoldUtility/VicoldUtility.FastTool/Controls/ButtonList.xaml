@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
-        <ListBox Name="aaa" ItemsSource="{Binding DataSource}">
+        <ListBox Name="lboxMain" ItemsSource="{Binding DataSource}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="{Binding Colums}" IsItemsHost="True"/>
@@ -20,7 +20,7 @@
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#eee" BorderBrush="#ddd" BorderThickness="1">
                                     <Button Content="{Binding Content}" Tag="{Binding FilePath}" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                             Cursor="Hand" Click="ItemButton_Click" 
+                                            Cursor="Hand" Click="ItemButton_Click" 
                                             Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}"/>
                                 </Border>
                             </ControlTemplate>

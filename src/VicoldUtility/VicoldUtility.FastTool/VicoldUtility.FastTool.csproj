@@ -114,7 +114,7 @@
     <Content Include="Tools\网络\查看网络状态.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\激活\Win10企业版激活.bat">
+    <Content Include="Tools\激活\[admin]Win10企业版激活.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

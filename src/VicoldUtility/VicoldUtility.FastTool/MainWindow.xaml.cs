@@ -51,11 +51,18 @@ namespace VicoldUtility.FastTool
                 {
                     var extension = System.IO.Path.GetExtension(path);
                     if (extension != ".bat" && extension != ".exe") continue;
+                    var fileName = System.IO.Path.GetFileNameWithoutExtension(path);
+                    var isNeedAdmin = fileName.StartsWith("[admin]");
+                    if (isNeedAdmin)
+                    {
+                        fileName= fileName.Replace("[admin]", "");
+                    }
                     DataSource.Add(new ItemEtt()
                     {
-                        Content = System.IO.Path.GetFileNameWithoutExtension(path),
-                        FilePath = path
-                    });
+                        Content = fileName,
+                        FilePath = path,
+                        IsNeedAdmin = isNeedAdmin
+                    }) ;
                 }
                 else if (Directory.Exists(path))
                 {

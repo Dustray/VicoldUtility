@@ -29,16 +29,22 @@ namespace VicoldUtility.FastTool.Controls
         {
             InitializeComponent();
             DataSource = new ObservableCollection<ItemEtt>();
-            aaa.ItemsSource = DataSource;
+            lboxMain.ItemsSource = DataSource;
         }
         private void ItemButton_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
             if (null == btn) return;
-            var file = btn.Tag.ToString();
+            var curItem = ((ListBoxItem)lboxMain.ContainerFromElement(btn))?.Content;
+            if (null == curItem) return;
+            var ett = curItem as ItemEtt;
+
+            var file = ett.FilePath;
             if (!File.Exists(file)) return;
             var exep = new Process();
             exep.StartInfo.FileName = file;
+            if (ett.IsNeedAdmin)
+                exep.StartInfo.Verb = "RunAs";
             exep.EnableRaisingEvents = true;
             exep.Exited += new EventHandler((s, e2) =>
             {
@@ -48,7 +54,13 @@ namespace VicoldUtility.FastTool.Controls
                 });
             });
             btn.IsEnabled = false;
-            exep.Start();
+            try
+            {
+                exep.Start();
+            }
+            catch { }
+
+
         }
     }
 }
