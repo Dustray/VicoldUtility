@@ -43,7 +43,7 @@ namespace VicoldUtility.FastTool
             if (!Directory.Exists(forderPath)) return;
             string[] fileSystemEntries = Directory.GetFileSystemEntries(forderPath);
             var folderName = System.IO.Path.GetFileName(forderPath);
-            var DataSource = CreateNewListBox(tabName??folderName).DataSource;
+            var ettList =new ObservableCollection<ItemEtt>();
             for (int i = 0; i < fileSystemEntries.Length; i++)
             {
                 string path = fileSystemEntries[i];
@@ -57,7 +57,7 @@ namespace VicoldUtility.FastTool
                     {
                         fileName= fileName.Replace("[admin]", "");
                     }
-                    DataSource.Add(new ItemEtt()
+                    ettList.Add(new ItemEtt()
                     {
                         Content = fileName,
                         FilePath = path,
@@ -69,16 +69,22 @@ namespace VicoldUtility.FastTool
                     CheckFolder(path);
                 }
             }
+
+            CreateNewListBox(tabName ?? folderName, ettList);
         }
 
-        private ButtonList CreateNewListBox(string tabName)
+        private void CreateNewListBox(string tabName, ObservableCollection<ItemEtt> content)
         {
+            if (0 == content.Count) return;
             var listBox = new ButtonList();
+            foreach(var con in content)
+            {
+                listBox.DataSource.Add(con);
+            }
             var tabItem = new TabItem();
             tabItem.Header = tabName;
             tabItem.Content = listBox;
             TabMain.Items.Add(tabItem);
-            return listBox;
         }
 
 

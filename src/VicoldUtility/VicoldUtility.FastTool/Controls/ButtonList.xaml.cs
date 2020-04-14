@@ -58,7 +58,10 @@ namespace VicoldUtility.FastTool.Controls
             {
                 exep.Start();
             }
-            catch { }
+            catch
+            {
+                btn.IsEnabled = true;
+            }
 
 
         }
