@@ -108,28 +108,67 @@
     <Content Include="Tools\网站\GitHub.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\必备程序下载\QQ PC下载.bat">
+    <Content Include="Tools\必备程序下载\QQ_PC下载.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\必备程序下载\微信 PC下载.bat">
+    <Content Include="Tools\必备程序下载\微信_PC下载.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\开发相关程序下载\VS系列下载页面.bat">
+    <Content Include="Tools\开发相关程序下载\Visual Studio系列官网.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Tools\开发相关程序下载\Git下载.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\必备程序下载\7z 19.00下载.bat">
+    <Content Include="Tools\必备程序下载\7z_19.00_x64下载.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\必备程序下载\Edge浏览器稳定版下载.bat">
+    <Content Include="Tools\必备程序下载\Edge浏览器稳定版官网.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\必备程序下载\Edge浏览器Beta版下载.bat">
+    <Content Include="Tools\必备程序下载\Edge浏览器Beta版官网.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\开发相关程序下载\JDK14下载.bat">
+    <Content Include="Tools\开发相关程序下载\JDK14官网.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\必备程序下载\PotPlayer官网.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\必备程序下载\网易云音乐官网.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\必备程序下载\爱奇艺视频下载.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\必备程序下载\优酷客户端官网.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\系统\打开注册表.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\系统\打开服务.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\系统\打开任务管理器.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\系统\打开磁盘管理.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\系统\打开控制面板.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\激活\Office2019激活向导.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\开发相关程序下载\JetBrains官网.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\开发相关程序下载\Node.js官网.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\开发相关程序下载\Android Studio官网.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="logo.ico" />

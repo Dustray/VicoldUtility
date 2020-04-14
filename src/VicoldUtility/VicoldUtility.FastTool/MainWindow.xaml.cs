@@ -13,7 +13,7 @@ namespace VicoldUtility.FastTool
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string[] _canExecuteExtension = new string[] { ".bat", ".exe", ".msi", "reg", "msc" };
+        private string[] _canExecuteExtension = new string[] { ".bat", ".exe", ".ps1", ".msi", ".reg", ".msc", ".vbs" };
         public MainWindow()
         {
             InitializeComponent();
@@ -49,7 +49,7 @@ namespace VicoldUtility.FastTool
                     {
                         Content = fileName,
                         FilePath = path,
-                        IsNeedAdmin = isNeedAdmin
+                        IsNeedAdmin = extension.ToLower() == ".ps1" ? true : isNeedAdmin
                     });
                 }
                 else if (Directory.Exists(path))
