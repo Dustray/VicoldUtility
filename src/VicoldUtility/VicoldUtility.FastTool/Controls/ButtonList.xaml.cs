@@ -25,9 +25,11 @@ namespace VicoldUtility.FastTool.Controls
     public partial class ButtonList : UserControl
     {
         public ObservableCollection<ItemEtt> DataSource;
-        public ButtonList()
+        private Action<string> _logAction;
+        public ButtonList(Action<string> logAction)
         {
             InitializeComponent();
+            _logAction = logAction;
             DataSource = new ObservableCollection<ItemEtt>();
             lboxMain.ItemsSource = DataSource;
         }
@@ -50,20 +52,24 @@ namespace VicoldUtility.FastTool.Controls
             {
                 this.Dispatcher.Invoke(() =>
                 {
+                    _logAction?.Invoke($"[{ett.Content}]执行完毕");
                     btn.IsEnabled = true;
                 });
             });
             btn.IsEnabled = false;
             try
             {
+                _logAction?.Invoke($"[{ett.Content}]开始执行{(ett.IsNeedAdmin?"（管理员）":"")}");
                 exep.Start();
             }
             catch
             {
+                _logAction?.Invoke($"[{ett.Content}]执行失败，原因：取消了管理员执行");
                 btn.IsEnabled = true;
             }
 
 
         }
+
     }
 }
