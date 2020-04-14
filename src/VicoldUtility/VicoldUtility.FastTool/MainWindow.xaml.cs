@@ -57,7 +57,6 @@ namespace VicoldUtility.FastTool
                     CheckFolder(path);
                 }
             }
-
             CreateNewListBox(tabName ?? folderName, ettList);
         }
 
