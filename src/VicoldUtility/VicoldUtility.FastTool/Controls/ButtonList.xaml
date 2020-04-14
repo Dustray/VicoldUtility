@@ -18,7 +18,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#eee" BorderBrush="#ddd" BorderThickness="1">
+                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#eee" Margin="2" BorderBrush="#ddd" BorderThickness="0" >
                                     <Button Content="{Binding Content}" Tag="{Binding FilePath}" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center"
                                             Cursor="Hand" Click="ItemButton_Click" 
                                             Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}"/>
