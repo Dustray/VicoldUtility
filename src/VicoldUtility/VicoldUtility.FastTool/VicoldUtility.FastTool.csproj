@@ -171,6 +171,7 @@
     <Content Include="Tools\开发相关程序下载\Android Studio官网.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Tools\激活\[admin]Win10专业版激活.bat" />
     <Resource Include="logo.ico" />
     <Content Include="Tools\网络\刷新DNS.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
