@@ -23,6 +23,7 @@ namespace VicoldUtility.FastLink
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ToolListPage toolListPage;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,8 +33,9 @@ namespace VicoldUtility.FastLink
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var toolListPage = new ToolListPage();
+            toolListPage = new ToolListPage();
             ToolsBtnFrame.Navigate(toolListPage);
+            toolListPage.OnWindowShow();
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -50,6 +52,7 @@ namespace VicoldUtility.FastLink
         {
             if (RestoreBounds.Top < 0)
             {
+                toolListPage.OnWindowShow();
                 var self = sender as MainWindow;
                 if (self != null)
                 {
@@ -58,7 +61,7 @@ namespace VicoldUtility.FastLink
 
                     DoubleAnimation animation = new DoubleAnimation();
                     animation.Duration = new Duration(TimeSpan.FromMilliseconds(150));//设置动画的持续时间
-                    animation.From =  -height + 4;
+                    animation.From = -height + 4;
                     animation.To = 0;
                     self.BeginAnimation(TopProperty, animation);//设定动画应用于窗体的Left属性
                 }
@@ -69,6 +72,7 @@ namespace VicoldUtility.FastLink
         {
             if (RestoreBounds.Top == 0)
             {
+                toolListPage.OnWindowClose();
                 var self = sender as MainWindow;
                 if (self != null)
                 {

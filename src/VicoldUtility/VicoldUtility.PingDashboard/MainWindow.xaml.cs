@@ -83,7 +83,7 @@ namespace VicoldUtility.PingDashboard
             Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
             sldBgTrans.Value = Settings.Default.BgTrans;
         }
-
+        
         #region 窗体事件
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

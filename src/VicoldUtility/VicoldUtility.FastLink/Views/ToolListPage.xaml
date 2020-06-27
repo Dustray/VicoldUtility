@@ -9,12 +9,22 @@
       Title="ToolListPage">
 
     <Grid>
-        <ListBox Name="lbLinkList" Margin="0" SelectionChanged="lbLinkList_SelectionChanged" SelectionMode="Single" Background="#1fff" BorderThickness="0">
+        <ListBox Name="lbLinkList" Margin="0" Padding="0" SelectionChanged="lbLinkList_SelectionChanged" SelectionMode="Single" 
+                 Background="#1fff" BorderThickness="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="Transparent" Width="238" Cursor="Hand" ToolTip="{Binding Tint}">
-                        <TextBlock Text="{Binding Display}" Foreground="#ccc" Margin="1 5" TextWrapping="WrapWithOverflow" FontSize="17"
-                                   TextTrimming="CharacterEllipsis" />
+                    <Border Background="Transparent" Width="238" Cursor="Hand" ToolTip="{Binding Tint}" 
+                            BorderThickness="3 0 0 0" BorderBrush="{Binding TagColor}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Display}" Foreground="#ccc" Margin="5" TextWrapping="WrapWithOverflow" 
+                                   FontSize="17" TextTrimming="CharacterEllipsis" />
+                            <Button Grid.Column="1" Content="{Binding SignalContent}" FontFamily="Segoe MDL2 Assets" Background="Transparent" 
+                                    BorderThickness="0" Foreground="{Binding SignalColor}"/>
+                        </Grid>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
