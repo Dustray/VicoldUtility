@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
-        <ListBox Name="lboxMain" BorderThickness="0" ItemsSource="{Binding DataSource}">
+        <ListBox Name="lboxMain" BorderThickness="0" ScrollViewer.CanContentScroll="True" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" ItemsSource="{Binding DataSource}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="{Binding Colums}" IsItemsHost="True"/>

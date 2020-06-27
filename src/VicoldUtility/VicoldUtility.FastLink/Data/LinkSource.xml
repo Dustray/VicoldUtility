@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Root>
+    <Groups>
+        <Display>网站</Display>
+        <Links>
+            <Display>192.168.0.1</Display>
+            <Tint>TP-Link</Tint>
+            <Url>http://192.168.0.1/</Url>
+        </Links>
+        <Links>
+            <Display>192.168.1.1</Display>
+            <Tint>光猫</Tint>
+            <Url>http://192.168.0.1/</Url>
+        </Links>
+    </Groups>
+    <Groups>
+        <Display>MDFS</Display>
+        <Links>
+            <Display>192.168.0.1</Display>
+            <Tint>TP-Link</Tint>
+            <Url>http://192.168.0.1/</Url>
+        </Links>
+        <Links>
+            <Display>192.168.1.1</Display>
+            <Tint>光猫</Tint>
+            <Url>http://192.168.0.1/</Url>
+        </Links>
+    </Groups>
+</Root>

@@ -1,0 +1,29 @@
+﻿<Window x:Class="VicoldUtility.FastLink.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VicoldUtility.FastLink"
+        mc:Ignorable="d"
+        Title="MainWindow" SizeToContent="Height" Width="250" Topmost="True" AllowsTransparency="True" ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove" Background="#e333">
+    <StackPanel Orientation="Vertical">
+        <Grid Name="gridTools" Margin="5" Background="#0aaa">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="0 2" VerticalAlignment="Center" HorizontalAlignment="Left"  Foreground="#47b1ad" Text="快速链接" FontSize="13" />
+            <Button Grid.Column="1" Content="&#xE10A;"  Background="Transparent" Foreground="#fff" Cursor="Hand" BorderThickness="0"
+                    HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    FontFamily="Segoe MDL2 Assets" FontSize="17" Click="Button_Click"/>
+        </Grid>
+        
+        <Frame Name="ToolsBtnFrame" NavigationUIVisibility="Hidden"/>
+        
+        <Grid Name="gridTool" Margin="1" Background="#4aaa">
+            <TextBlock  Margin="0 4" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#47b1ad" Text="Designed by Dustray" FontSize="12"/>
+        </Grid>
+    </StackPanel>
+</Window>

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.HardDiskStuff
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.FastTool", "VicoldUtility.FastTool\VicoldUtility.FastTool.csproj", "{C332D291-83EF-44A0-814A-54FC0DA7021F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.FastLink", "VicoldUtility.FastLink\VicoldUtility.FastLink.csproj", "{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,14 @@ Global
 		{C332D291-83EF-44A0-814A-54FC0DA7021F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C332D291-83EF-44A0-814A-54FC0DA7021F}.Release|x64.ActiveCfg = Release|Any CPU
 		{C332D291-83EF-44A0-814A-54FC0DA7021F}.Release|x64.Build.0 = Release|Any CPU
+		{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}.Debug|x64.Build.0 = Debug|Any CPU
+		{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}.Release|x64.ActiveCfg = Release|Any CPU
+		{0DD2C0E7-68E9-490F-A44B-B654A8AA9CC4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

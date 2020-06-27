@@ -171,6 +171,9 @@
     <Content Include="Tools\开发相关程序下载\Android Studio官网.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Tools\必备程序下载\迅雷官网.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="logo.ico" />
     <Content Include="Tools\网络\刷新DNS.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
