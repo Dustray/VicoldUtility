@@ -59,11 +59,11 @@ namespace VicoldUtility.FastLink.Views
             var color = "#fff";
             if (url.StartsWith("http"))
             {
-                color = "#4169E1";
+                color = "#1E90FF";
             }
             else if (url.StartsWith(@"\\"))
             {
-                color = "#008B8B";
+                color = "#228B22";
             }
             return color;
         }

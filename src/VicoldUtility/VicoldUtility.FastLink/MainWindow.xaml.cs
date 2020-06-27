@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VicoldUtility.FastLink.Properties;
 using VicoldUtility.FastLink.Views;
 
 namespace VicoldUtility.FastLink
@@ -36,16 +37,24 @@ namespace VicoldUtility.FastLink
             toolListPage = new ToolListPage();
             ToolsBtnFrame.Navigate(toolListPage);
             toolListPage.OnWindowShow();
+            try
+            {
+                //设置位置、大小
+                Rect restoreBounds = Settings.Default.MainWindowPosition;
+                Left = restoreBounds.Left;
+                Top = restoreBounds.Top < 0 ? 0 : restoreBounds.Top;
+            }
+            catch { }
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-
+            Settings.Default.MainWindowPosition = RestoreBounds;
+            Settings.Default.Save();
         }
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
@@ -53,18 +62,7 @@ namespace VicoldUtility.FastLink
             if (RestoreBounds.Top < 0)
             {
                 toolListPage.OnWindowShow();
-                var self = sender as MainWindow;
-                if (self != null)
-                {
-                    self.UpdateLayout();
-                    var height = RestoreBounds.Height;
-
-                    DoubleAnimation animation = new DoubleAnimation();
-                    animation.Duration = new Duration(TimeSpan.FromMilliseconds(150));//设置动画的持续时间
-                    animation.From = -height + 4;
-                    animation.To = 0;
-                    self.BeginAnimation(TopProperty, animation);//设定动画应用于窗体的Left属性
-                }
+                ShowOrHide(true);
             }
         }
 
@@ -73,18 +71,7 @@ namespace VicoldUtility.FastLink
             if (RestoreBounds.Top == 0)
             {
                 toolListPage.OnWindowClose();
-                var self = sender as MainWindow;
-                if (self != null)
-                {
-                    self.UpdateLayout();
-                    var height = RestoreBounds.Height;
-
-                    DoubleAnimation animation = new DoubleAnimation();
-                    animation.Duration = new Duration(TimeSpan.FromMilliseconds(150));//设置动画的持续时间
-                    animation.From = 0;
-                    animation.To = -height + 4;
-                    self.BeginAnimation(TopProperty, animation);//设定动画应用于窗体的Left属性
-                }
+                ShowOrHide(false);
             }
         }
 
@@ -92,17 +79,29 @@ namespace VicoldUtility.FastLink
         {
         }
 
-        #endregion
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
-
         }
+
+        #endregion
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ShowOrHide(bool isShow)
+        {
+            this.UpdateLayout();
+            var height = RestoreBounds.Height;
+
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.Duration = new Duration(TimeSpan.FromMilliseconds(150));//设置动画的持续时间
+            animation.From = isShow ? -height + 4 : 0;
+            animation.To = isShow ? 0 : -height + 4;
+            this.BeginAnimation(TopProperty, animation);//设定动画应用于窗体的Left属性
         }
     }
 }

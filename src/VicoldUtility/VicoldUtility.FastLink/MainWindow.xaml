@@ -22,8 +22,8 @@
         
         <Frame Name="ToolsBtnFrame" NavigationUIVisibility="Hidden"/>
         
-        <Grid Name="gridTool" Margin="1" Background="#4aaa">
-            <TextBlock  Margin="0 4" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#47b1ad" Text="Designed by Dustray" FontSize="12"/>
+        <Grid Name="gridTool" Margin="2" Background="#4aaa">
+            <TextBlock  Margin="0 6" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#47b1ad" Text="Designed by Dustray" FontSize="12"/>
         </Grid>
     </StackPanel>
 </Window>
