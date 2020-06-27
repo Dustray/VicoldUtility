@@ -12,10 +12,11 @@ namespace VicoldUtility.FastLink.Entities
         /// 显示
         /// </summary>
         public string Display { get; set; }
+        private string _tint;
         /// <summary>
         /// 提示
         /// </summary>
-        public string Tint { get; set; }
+        public string Tint { get { return string.IsNullOrEmpty(_tint)? Display:_tint; } set { _tint = value; } }
         /// <summary>
         /// 链接
         /// </summary>
@@ -27,5 +28,6 @@ namespace VicoldUtility.FastLink.Entities
 
         public string SignalContent { get; set; }
         public string SignalColor { get; set; }
+        public string SignalTime { get; set; } = "6666ms";
     }
 }

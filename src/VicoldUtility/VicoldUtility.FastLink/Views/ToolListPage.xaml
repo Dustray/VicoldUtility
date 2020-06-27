@@ -23,7 +23,7 @@
                             <TextBlock Text="{Binding Display}" Foreground="#ccc" Margin="5" TextWrapping="WrapWithOverflow" 
                                    FontSize="17" TextTrimming="CharacterEllipsis" />
                             <Button Grid.Column="1" Content="{Binding SignalContent}" FontFamily="Segoe MDL2 Assets" Background="Transparent" 
-                                    BorderThickness="0" Foreground="{Binding SignalColor}"/>
+                                    BorderThickness="0" Foreground="{Binding SignalColor}" ToolTip="{Binding SignalTime}" />
                         </Grid>
                     </Border>
                 </DataTemplate>

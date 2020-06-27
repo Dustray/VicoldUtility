@@ -104,25 +104,21 @@ namespace VicoldUtility.FastLink.Views
         {
             var address = listDataEtt.Url.StartsWith(@"\\") ? listDataEtt.Url.Replace(@"\\", "") : listDataEtt.Url;
             PingReply p = null;
-            var time = 0;
+            var time =6666L;
             try
             {
                 p = ping.Send(address);
             }
-            catch (Exception e)
+            catch 
             {
-                time = 0;
             }
 
             var signalIndex = 1;
             if (p != null && p.Status == IPStatus.Success)
             {
+                time = p.RoundtripTime;
                 //成功的情况下
-                if (time == 0)
-                {
-                    signalIndex = 1;
-                }
-                else if (time < 61)
+                if (time < 61)
                 {
                     signalIndex = 5;
                 }
@@ -138,12 +134,17 @@ namespace VicoldUtility.FastLink.Views
                 {
                     signalIndex = 2;
                 }
+                else if (time >= 3000)
+                {
+                    signalIndex = 1;
+                }
             }
             this.Dispatcher.Invoke(() =>
             {
                 var a = address;
                 listDataEtt.SignalContent = signalColors[signalIndex].Item1;
                 listDataEtt.SignalColor = signalColors[signalIndex].Item2;
+                listDataEtt.SignalTime = $"{time}ms";
             });
         }
     }
