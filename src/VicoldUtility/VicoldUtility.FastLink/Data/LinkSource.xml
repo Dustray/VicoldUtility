@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Root>
+	<Groups>
+		<Display>光线顶点</Display>
+		<Links>
+			<Display>OMV网盘</Display>
+			<Tint>OMVSERVER</Tint>
+			<Url>\\OMVSERVER</Url>
+		</Links>
+		<Links>
+			<Display>数据服务</Display>
+			<Tint>gxddserver</Tint>
+			<Url>\\gxddserver</Url>
+		</Links>
+	</Groups>
     <Groups>
         <Display>网站</Display>
         <Links>
-            <Display>192.168.0.1</Display>
-            <Tint>TP-Link</Tint>
-            <Url>http://192.168.0.1/</Url>
+            <Display>Blender网站</Display>
+            <Tint>10.20.90.97</Tint>
+            <Url>http://10.20.90.97/</Url>
         </Links>
         <Links>
-            <Display>192.168.1.1</Display>
-            <Tint>光猫</Tint>
-            <Url>http://192.168.0.1/</Url>
+            <Display>强天气诊断分析平台</Display>
+            <Tint>10.1.64.146</Tint>
+            <Url>http://10.1.64.146/</Url>
         </Links>
     </Groups>
     <Groups>
-        <Display>MDFS</Display>
+        <Display>气象局网盘</Display>
+		<Links>
+			<Display>\\10.20.90.97</Display>
+			<Tint></Tint>
+			<Url>\\10.20.90.97</Url>
+		</Links>
         <Links>
-            <Display>192.168.0.1</Display>
-            <Tint>TP-Link</Tint>
-            <Url>http://192.168.0.1/</Url>
-        </Links>
-        <Links>
-            <Display>192.168.1.1</Display>
-            <Tint>光猫</Tint>
-            <Url>http://192.168.0.1/</Url>
+            <Display>\\10.10.34.158</Display>
+            <Tint></Tint>
+            <Url>\\10.10.34.158</Url>
         </Links>
     </Groups>
 </Root>
