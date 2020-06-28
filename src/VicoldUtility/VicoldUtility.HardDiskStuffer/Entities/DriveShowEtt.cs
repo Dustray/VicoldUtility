@@ -62,7 +62,7 @@ namespace VicoldUtility.HardDiskStuffer.Entities
             {
                 _stufferSpeed = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StufferSpeed"));
-            }
+            } 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,20 +80,19 @@ namespace VicoldUtility.FastLink.Views
         internal void OnWindowShow()
         {
             _isReflushSignalLoopFlag = true;
-            //var actionList = new List<Action<ListDataEtt, Ping>>();
-            foreach (var listDataEtt in _ettLists)
+            Task.Run(() =>
             {
-                //actionList.Add(ReflushSignal);
-                new Task(async () =>
+                Parallel.For(0, _ettLists.Count, async (index) =>
                 {
+                    //var pin = GCHandle.ToIntPtr(GCHandle.Alloc(listDataEtt));
                     var ping = new Ping();
                     while (_isReflushSignalLoopFlag)
                     {
-                        ReflushSignal(listDataEtt, ping);
+                        ReflushSignal(index, ping);
                         await Task.Delay(1000);
                     }
-                }).Start();
-            }
+                });
+            });
         }
         internal void OnWindowClose()
         {
@@ -104,8 +104,9 @@ namespace VicoldUtility.FastLink.Views
         /// </summary>
         /// <param name="listDataEtt"></param>
         /// <param name="ping"></param>
-        private void ReflushSignal(ListDataEtt listDataEtt, Ping ping)
+        private void ReflushSignal(int index, Ping ping)
         {
+            var listDataEtt = _ettLists[index];
             var address = listDataEtt.Url;
             if (address.StartsWith(@"\\"))
             {
@@ -154,13 +155,12 @@ namespace VicoldUtility.FastLink.Views
                 }
             }
 
-            this.Dispatcher.Invoke(() =>
+            lbLinkList.Dispatcher.BeginInvoke(new Action(() =>
             {
-                var a = address;
                 listDataEtt.SignalContent = signalColors[signalIndex].Item1;
                 listDataEtt.SignalColor = signalColors[signalIndex].Item2;
                 listDataEtt.SignalTime = $"{time}ms";
-            });
+            }),null);
         }
     }
 }
