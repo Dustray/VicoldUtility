@@ -16,7 +16,7 @@ namespace VicoldUtility.FastLink.Entities
         /// <summary>
         /// 提示
         /// </summary>
-        public string Tint { get { return string.IsNullOrEmpty(_tint)? Display:_tint; } set { _tint = value; } }
+        public string Tint { get { return string.IsNullOrEmpty(_tint) ? Display : _tint; } set { _tint = value; } }
         /// <summary>
         /// 链接
         /// </summary>

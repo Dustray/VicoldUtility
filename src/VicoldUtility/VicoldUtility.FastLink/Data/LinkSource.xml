@@ -12,6 +12,11 @@
 			<Tint>gxddserver</Tint>
 			<Url>\\gxddserver</Url>
 		</Links>
+		<Links>
+			<Display>OMV Git服务</Display>
+			<Tint>gxddgitserver</Tint>
+			<Url>https://gxddgitserver</Url>
+		</Links>
 	</Groups>
     <Groups>
         <Display>网站</Display>

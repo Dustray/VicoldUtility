@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using VicoldUtility.FastLink.Entities;
 using VicoldUtility.FastLink.Utilities;
 
@@ -76,8 +79,10 @@ namespace VicoldUtility.FastLink.Views
         internal void OnWindowShow()
         {
             _isReflushSignalLoopFlag = true;
+            //var actionList = new List<Action<ListDataEtt, Ping>>();
             foreach (var listDataEtt in _ettLists)
             {
+                //actionList.Add(ReflushSignal);
                 new Task(async () =>
                 {
                     var ping = new Ping();
@@ -92,7 +97,6 @@ namespace VicoldUtility.FastLink.Views
         internal void OnWindowClose()
         {
             _isReflushSignalLoopFlag = false;
-
         }
 
         /// <summary>
@@ -102,14 +106,24 @@ namespace VicoldUtility.FastLink.Views
         /// <param name="ping"></param>
         private void ReflushSignal(ListDataEtt listDataEtt, Ping ping)
         {
-            var address = listDataEtt.Url.StartsWith(@"\\") ? listDataEtt.Url.Replace(@"\\", "") : listDataEtt.Url;
+            var address = listDataEtt.Url;
+            if (address.StartsWith(@"\\"))
+            {
+                address = address.Replace(@"\\", "");
+            }
+            else if (address.StartsWith(@"http"))
+            {
+                address = address.Replace(@"http://", "");
+                address = address.Replace(@"https://", "");
+                address = address.Replace("/", "");
+            }
             PingReply p = null;
-            var time =6666L;
+            var time = 6666L;
             try
             {
                 p = ping.Send(address);
             }
-            catch 
+            catch
             {
             }
 
@@ -139,6 +153,7 @@ namespace VicoldUtility.FastLink.Views
                     signalIndex = 1;
                 }
             }
+
             this.Dispatcher.Invoke(() =>
             {
                 var a = address;
