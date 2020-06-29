@@ -21,10 +21,13 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition Width="20"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="32"></RowDefinition>
+                            </Grid.RowDefinitions>
                             <TextBlock Grid.Column="0" Text="{Binding LinkTypeIcon}" Foreground="#999" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   FontFamily="Segoe MDL2 Assets" FontSize="17"/>
+                                   FontFamily="Segoe MDL2 Assets" FontSize="16"/>
                             <TextBlock Grid.Column="1" Text="{Binding Display}" Foreground="#ccc" Margin="0 5 5 5" TextWrapping="WrapWithOverflow" 
-                                   FontSize="17" TextTrimming="CharacterEllipsis" />
+                                   FontSize="15" TextTrimming="CharacterEllipsis"  VerticalAlignment="Center"/>
                             <Button Grid.Column="2" Content="{Binding SignalContent}" Height="20" FontFamily="Segoe MDL2 Assets" Background="Transparent" 
                                     BorderThickness="0" Foreground="{Binding SignalColor}" ToolTip="{Binding SignalTime}" />
                         </Grid>
