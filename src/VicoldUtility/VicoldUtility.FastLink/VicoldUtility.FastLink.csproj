@@ -68,6 +68,10 @@
     <Compile Include="Views\ToolListPage.xaml.cs">
       <DependentUpon>ToolListPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="ListBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

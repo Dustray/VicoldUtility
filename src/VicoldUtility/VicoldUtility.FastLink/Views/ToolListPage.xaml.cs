@@ -23,15 +23,15 @@ namespace VicoldUtility.FastLink.Views
     {
         private (string, string)[] signalColors = new (string, string)[] {
             (((char)0xE871).ToString(), "#DCDCDC"),
-            (((char)0xEC37).ToString(), "#B22222"),
+            (((char)0xEC37).ToString(), "#D22222"),
             (((char)0xEC38).ToString(), "#FF8C00"),
             (((char)0xEC39).ToString(), "#FFD700"),
             (((char)0xEC3A).ToString(), "#7FFF00"),
             (((char)0xEC3B).ToString(), "#008000")
         };
 
-        private string[] _linkTypeChars = new string[] {((char)0xED25).ToString() ,((char)0xE128).ToString()  };
-        private string[] _linkGroupColors = new string[] { "#1E90FF", "#228B22","#FFC107","#1976D2", "#00796B","#FF5722"};
+        private string[] _linkTypeChars = new string[] { ((char)0xED25).ToString(), ((char)0xE128).ToString() };
+        private string[] _linkGroupColors = new string[] { "#1E90FF", "#228B22", "#FFC107", "#1976D2", "#00796B", "#FF5722" };
         private ObservableCollection<ListDataEtt> _ettLists;
         private bool _isReflushSignalLoopFlag = true;
         public ToolListPage()
@@ -82,7 +82,11 @@ namespace VicoldUtility.FastLink.Views
         private void lbLinkList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var ett = lbLinkList.SelectedItem as ListDataEtt;
-            Process.Start(ett.Url);
+            try
+            {
+                Process.Start(ett.Url);
+            }
+            catch { }
         }
 
         internal void OnWindowShow()
@@ -170,7 +174,7 @@ namespace VicoldUtility.FastLink.Views
                 listDataEtt.SignalContent = signalColors[signalIndex].Item1;
                 listDataEtt.SignalColor = signalColors[signalIndex].Item2;
                 listDataEtt.SignalTime = $"{time}ms";
-            }),null);
+            }), null);
         }
     }
 }

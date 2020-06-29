@@ -5,21 +5,28 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VicoldUtility.FastLink.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="430"  d:DesignWidth="250"
+      d:DesignHeight="430"  d:DesignWidth="250" 
       Title="ToolListPage">
 
-    <Grid>
+    <Grid MaxHeight="600">
         <ListBox Name="lbLinkList" Margin="0" Padding="0" SelectionChanged="lbLinkList_SelectionChanged" SelectionMode="Single" 
-                 Background="#1fff" BorderThickness="0">
+                 Background="#1fff" BorderThickness="0" Style="{DynamicResource DefaultListBox}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="Transparent" Width="238" Cursor="Hand" ToolTip="{Binding Tint}" 
+
+                    <Border Background="#4fff" Cursor="Hand" ToolTip="{Binding Tint}" 
                             BorderThickness="3 0 0 0" BorderBrush="{Binding TagColor}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition Width="16"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="32"></RowDefinition>
@@ -28,8 +35,8 @@
                                    FontFamily="Segoe MDL2 Assets" FontSize="16"/>
                             <TextBlock Grid.Column="1" Text="{Binding Display}" Foreground="#ccc" Margin="0 5 5 5" TextWrapping="WrapWithOverflow" 
                                    FontSize="15" TextTrimming="CharacterEllipsis"  VerticalAlignment="Center"/>
-                            <Button Grid.Column="2" Content="{Binding SignalContent}" Height="20" FontFamily="Segoe MDL2 Assets" Background="Transparent" 
-                                    BorderThickness="0" Foreground="{Binding SignalColor}" ToolTip="{Binding SignalTime}" />
+                            <TextBlock Grid.Column="2" Text="{Binding SignalContent}" FontFamily="Segoe MDL2 Assets" Background="Transparent" 
+                                   Foreground="{Binding SignalColor}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" ToolTip="{Binding SignalTime}" />
                         </Grid>
                     </Border>
                 </DataTemplate>
