@@ -29,6 +29,9 @@ namespace VicoldUtility.FastLink.Views
             (((char)0xEC3A).ToString(), "#7FFF00"),
             (((char)0xEC3B).ToString(), "#008000")
         };
+
+        private string[] _linkTypeChars = new string[] {((char)0xED25).ToString() ,((char)0xE128).ToString()  };
+        private string[] _linkGroupColors = new string[] { "#1E90FF", "#228B22","#FFC107","#1976D2", "#00796B","#FF5722"};
         private ObservableCollection<ListDataEtt> _ettLists;
         private bool _isReflushSignalLoopFlag = true;
         public ToolListPage()
@@ -43,8 +46,10 @@ namespace VicoldUtility.FastLink.Views
             var sourceConfig = await XMLUtil.LoadXMLToAsync<SourceConfigEtt>(configPath).ConfigureAwait(false);
 
             _ettLists = new ObservableCollection<ListDataEtt>();
+            var colorIndex = 0;
             foreach (var group in sourceConfig.Groups)
             {
+                if (colorIndex == _linkGroupColors.Length) colorIndex = 0;
                 foreach (var link in group.Links)
                 {
                     _ettLists.Add(new ListDataEtt()
@@ -52,25 +57,27 @@ namespace VicoldUtility.FastLink.Views
                         Display = link.Display,
                         Tint = link.Tint,
                         Url = link.Url,
-                        TagColor = GetLinkTypeColor(link.Url),
+                        TagColor = _linkGroupColors[colorIndex],
+                        LinkTypeIcon = GetLinkTypeChar(link.Url),
                     });
                 }
+                colorIndex++;
             }
             lbLinkList.ItemsSource = _ettLists;
         }
 
-        private string GetLinkTypeColor(string url)
+        private string GetLinkTypeChar(string url)
         {
-            var color = "#fff";
+            var icon = _linkTypeChars[0];
             if (url.StartsWith("http"))
             {
-                color = "#1E90FF";
+                icon = _linkTypeChars[1];
             }
             else if (url.StartsWith(@"\\"))
             {
-                color = "#228B22";
+                icon = _linkTypeChars[0];
             }
-            return color;
+            return icon;
         }
         private void lbLinkList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

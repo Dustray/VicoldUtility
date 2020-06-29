@@ -28,7 +28,10 @@ namespace VicoldUtility.FastLink.Entities
         /// 标记类型颜色
         /// </summary>
         public string TagColor { get; set; } = "#fff";
-
+        /// <summary>
+        /// 标记类型图标
+        /// </summary>
+        public string LinkTypeIcon { get; set; }
         private string _signalContent { get; set; }
         public string SignalContent
         {
