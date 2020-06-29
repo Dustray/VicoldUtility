@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- 文件路径使用‘\’ -->
+<!-- http(s)协议使用‘/’ -->
 <Root>
 	<Groups>
 		<Display>光线顶点</Display>
@@ -18,30 +20,35 @@
 			<Url>https://gxddgitserver</Url>
 		</Links>
 	</Groups>
-    <Groups>
-        <Display>网站</Display>
-        <Links>
-            <Display>Blender网站</Display>
-            <Tint>10.20.90.97</Tint>
-            <Url>http://10.20.90.97/</Url>
-        </Links>
-        <Links>
-            <Display>强天气诊断分析平台</Display>
-            <Tint>10.1.64.146</Tint>
-            <Url>http://10.1.64.146/</Url>
-        </Links>
-    </Groups>
-    <Groups>
-        <Display>气象局网盘</Display>
+	<Groups>
+		<Display>网站</Display>
+		<Links>
+			<Display>Blender网站</Display>
+			<Tint>10.20.90.97</Tint>
+			<Url>http://10.20.90.97/</Url>
+		</Links>
+		<Links>
+			<Display>强天气诊断分析平台</Display>
+			<Tint>10.1.64.146</Tint>
+			<Url>http://10.1.64.146/</Url>
+		</Links>
+		<Links>
+			<Display>RabbitMQ网站</Display>
+			<Tint>10.20.70.134:15672</Tint>
+			<Url>http://10.20.70.134:15672/</Url>
+		</Links>
+	</Groups>
+	<Groups>
+		<Display>气象局网盘</Display>
 		<Links>
 			<Display>\\10.20.90.97</Display>
 			<Tint></Tint>
 			<Url>\\10.20.90.97</Url>
 		</Links>
-        <Links>
-            <Display>\\10.10.34.158</Display>
-            <Tint></Tint>
-            <Url>\\10.10.34.158</Url>
-        </Links>
-    </Groups>
+		<Links>
+			<Display>\\10.10.34.158</Display>
+			<Tint></Tint>
+			<Url>\\10.10.34.158</Url>
+		</Links>
+	</Groups>
 </Root>

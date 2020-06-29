@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -111,12 +112,14 @@ namespace VicoldUtility.FastLink.Views
             if (address.StartsWith(@"\\"))
             {
                 address = address.Replace(@"\\", "");
+                address = address.Split('\\')[0];
             }
             else if (address.StartsWith(@"http"))
             {
                 address = address.Replace(@"http://", "");
                 address = address.Replace(@"https://", "");
-                address = address.Replace("/", "");
+                address = address.Split('/')[0];
+                address = address.Split(':')[0];
             }
             PingReply p = null;
             var time = 6666L;
