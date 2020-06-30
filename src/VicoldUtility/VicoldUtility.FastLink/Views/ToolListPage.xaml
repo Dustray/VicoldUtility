@@ -20,7 +20,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
 
-                    <Border Background="#4fff" Cursor="Hand" ToolTip="{Binding Tint}" 
+                    <Border Background="Transparent" Cursor="Hand" ToolTip="{Binding Tint}" 
                             BorderThickness="3 0 0 0" BorderBrush="{Binding TagColor}">
                         <Grid>
                             <Grid.ColumnDefinitions>
