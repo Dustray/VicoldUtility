@@ -30,8 +30,8 @@ namespace VicoldUtility.FastLink.Views
             (((char)0xEC3B).ToString(), "#008000")
         };
 
-        private string[] _linkTypeChars = new string[] { ((char)0xED25).ToString(), ((char)0xE128).ToString() };
-        private string[] _linkGroupColors = new string[] { "#1E90FF", "#228B22", "#FFC107", "#1976D2", "#00796B", "#FF5722" };
+        private string[] _linkTypeChars = new string[] { ((char)0xED25).ToString(), ((char)0xE128).ToString(), ((char)0xEC50).ToString() };
+        private string[] _linkGroupColors = new string[] { "#1E90FF", "#228B22", "#FFC107", "#D32F2F", "#00796B", "#512DA8", "#FF5722" };
         private ObservableCollection<ListDataEtt> _ettLists;
         private bool _isReflushSignalLoopFlag = true;
         public ToolListPage()
@@ -59,6 +59,7 @@ namespace VicoldUtility.FastLink.Views
                         Url = link.Url,
                         TagColor = _linkGroupColors[colorIndex],
                         LinkTypeIcon = GetLinkTypeChar(link.Url),
+                        LinkTypeContent = group.Display,
                     });
                 }
                 colorIndex++;
@@ -76,6 +77,10 @@ namespace VicoldUtility.FastLink.Views
             else if (url.StartsWith(@"\\"))
             {
                 icon = _linkTypeChars[0];
+            }
+            else
+            {
+                icon = _linkTypeChars[2];
             }
             return icon;
         }
@@ -131,6 +136,10 @@ namespace VicoldUtility.FastLink.Views
                 address = address.Replace(@"https://", "");
                 address = address.Split('/')[0];
                 address = address.Split(':')[0];
+            }
+            else
+            {
+                return;
             }
             PingReply p = null;
             var time = 6666L;

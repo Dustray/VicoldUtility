@@ -21,6 +21,19 @@
 		</Links>
 	</Groups>
 	<Groups>
+		<Display>本地路径</Display>
+		<Links>
+			<Display>SWAN项目</Display>
+			<Tint>E:\</Tint>
+			<Url>E:\</Url>
+		</Links>
+		<Links>
+			<Display>Blender项目</Display>
+			<Tint>E:\</Tint>
+			<Url>E:\</Url>
+		</Links>
+	</Groups>
+	<Groups>
 		<Display>网站</Display>
 		<Links>
 			<Display>Blender网站</Display>

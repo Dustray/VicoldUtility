@@ -106,8 +106,8 @@ namespace VicoldUtility.FastLink
 
             DoubleAnimation animation = new DoubleAnimation();
             animation.Duration = new Duration(TimeSpan.FromMilliseconds(150));//设置动画的持续时间
-            animation.From = isShow ? -height + 4 : 0;
-            animation.To = isShow ? 0 : -height + 4;
+            animation.From = isShow ? -height + 6 : 0;
+            animation.To = isShow ? 0 : -height + 6;
             this.BeginAnimation(TopProperty, animation);//设定动画应用于窗体的Left属性
         }
         #region Window styles

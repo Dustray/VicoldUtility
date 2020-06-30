@@ -19,7 +19,7 @@ namespace VicoldUtility.FastLink.Entities
         /// <summary>
         /// 提示
         /// </summary>
-        public string Tint { get { return string.IsNullOrEmpty(_tint) ? Display : _tint; } set { _tint = value; } }
+        public string Tint { get { return string.IsNullOrEmpty(_tint) ? Url : _tint; } set { _tint = value; } }
         /// <summary>
         /// 链接
         /// </summary>
@@ -32,6 +32,13 @@ namespace VicoldUtility.FastLink.Entities
         /// 标记类型图标
         /// </summary>
         public string LinkTypeIcon { get; set; }
+        /// <summary>
+        /// 标记类型内容
+        /// </summary>
+        public string LinkTypeContent { get; set; }
+
+
+
         private string _signalContent { get; set; }
         public string SignalContent
         {

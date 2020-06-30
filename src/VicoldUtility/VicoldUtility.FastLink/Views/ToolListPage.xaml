@@ -32,7 +32,7 @@
                                 <RowDefinition Height="32"></RowDefinition>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Column="0" Text="{Binding LinkTypeIcon}" Foreground="#999" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   FontFamily="Segoe MDL2 Assets" FontSize="16"/>
+                                   FontFamily="Segoe MDL2 Assets" FontSize="16" ToolTip="{Binding LinkTypeContent}"/>
                             <TextBlock Grid.Column="1" Text="{Binding Display}" Foreground="#ccc" Margin="0 5 5 5" TextWrapping="WrapWithOverflow" 
                                    FontSize="15" TextTrimming="CharacterEllipsis"  VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="2" Text="{Binding SignalContent}" FontFamily="Segoe MDL2 Assets" Background="Transparent" 

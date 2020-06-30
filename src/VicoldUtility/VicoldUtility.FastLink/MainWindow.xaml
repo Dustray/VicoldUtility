@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.FastLink"
         mc:Ignorable="d"
-        Title="MainWindow" SizeToContent="Height" Width="250" Topmost="True" AllowsTransparency="True" ResizeMode="NoResize"
+        Title="MainWindow" SizeToContent="Height" Width="260" Topmost="True" AllowsTransparency="True" ResizeMode="NoResize"
         MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
-        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove" Background="#e333">
-    <StackPanel Orientation="Vertical">
-        <Grid Name="gridTools" Margin="5" Background="#0aaa">
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove" 
+        Background="Transparent">
+    
+    <StackPanel Orientation="Vertical"  Background="#e333" Margin="6">
+        <StackPanel.Effect>
+            <DropShadowEffect Color="Black" Direction="270" ShadowDepth="0" BlurRadius="9"  Opacity="0.7" />
+        </StackPanel.Effect>
+        <Grid Name="gridTools" Margin="6" Background="#0aaa">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -22,7 +27,7 @@
         
         <Frame Name="ToolsBtnFrame" NavigationUIVisibility="Hidden"/>
         
-        <Grid Name="gridTool" Margin="2" Background="#4aaa">
+        <Grid Name="gridTool" Margin="5" Background="#4aaa">
             <TextBlock  Margin="0 6" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#47b1ad" Text="Designed by Dustray" FontSize="12"/>
         </Grid>
     </StackPanel>
