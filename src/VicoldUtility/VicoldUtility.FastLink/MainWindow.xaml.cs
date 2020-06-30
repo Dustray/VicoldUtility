@@ -94,9 +94,14 @@ namespace VicoldUtility.FastLink
 
         #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void ShowOrHide(bool isShow)
@@ -116,5 +121,6 @@ namespace VicoldUtility.FastLink
         private static extern Int32 SetWindowLong(IntPtr hWnd, int nIndex, Int32 dwNewLong);
 
         #endregion
+
     }
 }

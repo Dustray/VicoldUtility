@@ -9,26 +9,37 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove" 
         Background="Transparent">
-    
-    <StackPanel Orientation="Vertical"  Background="#e333" Margin="6">
-        <StackPanel.Effect>
-            <DropShadowEffect Color="Black" Direction="270" ShadowDepth="0" BlurRadius="9"  Opacity="0.7" />
-        </StackPanel.Effect>
-        <Grid Name="gridTools" Margin="6" Background="#0aaa">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Margin="0 2" VerticalAlignment="Center" HorizontalAlignment="Left"  Foreground="#47b1ad" Text="快速链接" FontSize="13" />
-            <Button Grid.Column="1" Content="&#xE10A;"  Background="Transparent" Foreground="#fff" Cursor="Hand" BorderThickness="0"
+
+    <Border CornerRadius="2" Background="#e333" Margin="6">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" Direction="270" ShadowDepth="0" BlurRadius="9"  Opacity="0.7"/>
+        </Border.Effect>
+        <StackPanel Orientation="Vertical" >
+            <Grid Name="gridTools" Margin="6" Background="#0aaa">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="0 2" VerticalAlignment="Center" HorizontalAlignment="Left"  Foreground="#47b1ad" Text="快速链接" FontSize="13" />
+                <Button Grid.Column="2" Content="&#xE10A;"  Background="Transparent" Foreground="#999" Cursor="Hand" BorderThickness="0"
                     HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    FontFamily="Segoe MDL2 Assets" FontSize="17" Click="Button_Click"/>
-        </Grid>
-        
-        <Frame Name="ToolsBtnFrame" NavigationUIVisibility="Hidden"/>
-        
-        <Grid Name="gridTool" Margin="5" Background="#4aaa">
-            <TextBlock  Margin="0 6" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#47b1ad" Text="Designed by Dustray" FontSize="12"/>
-        </Grid>
-    </StackPanel>
+                    FontFamily="Segoe MDL2 Assets" FontSize="17" Click="CloseButton_Click"/>
+            </Grid>
+
+            <Frame Name="ToolsBtnFrame" NavigationUIVisibility="Hidden"/>
+
+            <Grid Name="gridTool" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="&#xE109;"  Background="#4aaa" Foreground="#ccc" Cursor="Hand" BorderThickness="0"
+                    HorizontalAlignment="Center"  VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    FontFamily="Segoe MDL2 Assets" FontSize="13" Width="26" Height="26" ToolTip="添加链接" Click="AddButton_Click"/>
+                <Label Grid.Column="1" Margin="5 0 0 0" Background="#4aaa" Height="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                       FontSize="12" Foreground="#47b1ad" Content="Designed by Dustray"/>
+            </Grid>
+        </StackPanel>
+    </Border>
 </Window>
