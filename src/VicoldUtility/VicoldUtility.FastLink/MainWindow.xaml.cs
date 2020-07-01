@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Vicold.Popup;
 using VicoldUtility.FastLink.Properties;
 using VicoldUtility.FastLink.Views;
 
@@ -27,6 +19,7 @@ namespace VicoldUtility.FastLink
     public partial class MainWindow : Window
     {
         private ToolListPage toolListPage;
+        private bool _isOpeningChildFolder = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,7 +34,8 @@ namespace VicoldUtility.FastLink
             SetWindowLong(wndHelper.Handle, (-20), 0x80);
 
 
-            toolListPage = new ToolListPage();
+            toolListPage = new ToolListPage((isOpeningChildFolder) => {
+                _isOpeningChildFolder = isOpeningChildFolder; });
             ToolsBtnFrame.Navigate(toolListPage);
             toolListPage.OnWindowShow();
             try
@@ -62,6 +56,7 @@ namespace VicoldUtility.FastLink
         {
             Settings.Default.MainWindowPosition = RestoreBounds;
             Settings.Default.Save();
+            toolListPage.OnWindowClose();
         }
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
@@ -69,6 +64,7 @@ namespace VicoldUtility.FastLink
             if (RestoreBounds.Top < 0)
             {
                 toolListPage.OnWindowShow();
+
                 ShowOrHide(true);
             }
         }
@@ -77,8 +73,9 @@ namespace VicoldUtility.FastLink
         {
             if (RestoreBounds.Top == 0)
             {
-                toolListPage.OnWindowClose();
-                ShowOrHide(false);
+                toolListPage.OnWindowHide();
+                if (!_isOpeningChildFolder)
+                    ShowOrHide(false);
             }
         }
 
@@ -101,7 +98,9 @@ namespace VicoldUtility.FastLink
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var configPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, @"Data\LinkSource.xml");
+            Process.Start(configPath);
+            Alert.Show("是的，添加就是让你修改配置文件", "修改配置文件后重启应用。", AlertTheme.Default, new AlertConfig() { AlertShowDuration = 7000 });
         }
 
         private void ShowOrHide(bool isShow)

@@ -9,6 +9,8 @@ namespace VicoldUtility.FastLink.Entities
 {
     internal class ListDataEtt : INotifyPropertyChanged
     {
+        internal string ID { get; set; }
+
         /// <summary>
         /// 显示
         /// </summary>

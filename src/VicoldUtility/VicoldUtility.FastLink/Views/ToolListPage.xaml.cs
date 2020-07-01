@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -12,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Vicold.Popup;
 using VicoldUtility.FastLink.Entities;
 using VicoldUtility.FastLink.Utilities;
 
@@ -35,26 +37,32 @@ namespace VicoldUtility.FastLink.Views
         private string[] _linkGroupColors = new string[] { "#1E90FF", "#228B22", "#FFC107", "#D32F2F", "#00796B", "#512DA8", "#FF5722" };
         private ObservableCollection<ListDataEtt> _ettLists;
         private bool _isReflushSignalLoopFlag = true;
-        public ToolListPage()
+        private Queue<PopupListWindow> _childWindowQueue;
+        private SourceConfigEtt _sourceConfigEtt;
+        private Action<bool> _isOpeningChildFolderCallback;
+
+        public ToolListPage(Action<bool> isOpeningChildFolderCallback)
         {
             InitializeComponent();
             InitData();
+            _isOpeningChildFolderCallback = isOpeningChildFolderCallback;
         }
 
         private async void InitData()
         {
             var configPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, @"Data\LinkSource.xml");
-            var sourceConfig = await XMLUtil.LoadXMLToAsync<SourceConfigEtt>(configPath).ConfigureAwait(false);
-
+            _sourceConfigEtt = await XMLUtil.LoadXMLToAsync<SourceConfigEtt>(configPath).ConfigureAwait(false);
+            _childWindowQueue = new Queue<PopupListWindow>();
             _ettLists = new ObservableCollection<ListDataEtt>();
             var colorIndex = 0;
-            foreach (var group in sourceConfig.Groups)
+            foreach (var group in _sourceConfigEtt.Groups)
             {
                 if (colorIndex == _linkGroupColors.Length) colorIndex = 0;
                 foreach (var link in group.Links)
                 {
                     _ettLists.Add(new ListDataEtt()
                     {
+                        ID = link.ID,
                         Display = link.Display,
                         Tint = link.Tint,
                         Url = link.Url,
@@ -112,11 +120,35 @@ namespace VicoldUtility.FastLink.Views
                 });
             });
         }
-        internal void OnWindowClose()
+        internal void OnWindowHide()
         {
             _isReflushSignalLoopFlag = false;
+            if (null != _childWindowQueue)
+            {
+                while (_childWindowQueue.Count > 0)
+                {
+                    var win = _childWindowQueue.Dequeue();
+                    win.Close();
+                }
+            }
         }
 
+        internal void OnLinkOpened()
+        {
+            if (null != _childWindowQueue)
+            {
+                while (_childWindowQueue.Count > 0)
+                {
+                    var win = _childWindowQueue.Dequeue();
+                    win.Close();
+                }
+            }
+        }
+        internal void OnWindowClose()
+        {
+            _childWindowQueue?.Clear();
+            _childWindowQueue = null;
+        }
         /// <summary>
         /// 刷新信号量
         /// </summary>
@@ -189,20 +221,68 @@ namespace VicoldUtility.FastLink.Views
 
         private void lbLinkList_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
             var thisBorder = sender as Border;
+            var ett = thisBorder.DataContext as ListDataEtt;
             if (e.ChangedButton == MouseButton.Left)
             {
-                var ett = thisBorder.DataContext as ListDataEtt;
                 try
                 {
                     Process.Start(ett.Url);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Alert.Show("错误", ex.Message.ToString(), AlertTheme.Error);
+                }
             }
             else
             {
-
+                Point pp = Mouse.GetPosition(e.Source as FrameworkElement);//WPF方法
+                var pointPosition = (e.Source as FrameworkElement).PointToScreen(pp);
+                var linkEtt = _sourceConfigEtt.FindLink(ett.ID);
+                if (null == linkEtt.Links)
+                {
+                    if (!ett.Url.StartsWith("http"))
+                    {
+                        if (!Directory.Exists(ett.Url))
+                        {
+                            Alert.Show("错误", "找不到路径", AlertTheme.Error);
+                            return;
+                        }
+                        var root = new DirectoryInfo(ett.Url);
+                        var files = root.GetDirectories();
+                        if (0 == files.Length) return;
+                        var ettLists = new List<SourceConfigLinkEtt>();
+                        foreach (var dir in files)
+                        {
+                            ettLists.Add(new SourceConfigLinkEtt()
+                            {
+                                Display = dir.Name,
+                                Url = dir.FullName,
+                                Tint = dir.FullName,
+                            });
+                        }
+                        _isOpeningChildFolderCallback?.Invoke(true);
+                        var window = new PopupListWindow(ettLists, pointPosition.X, pointPosition.Y, _childWindowQueue, OnLinkOpened);
+                        window.OnWindowClosed = () =>
+                        {
+                            //_isHasChildFolder = false;
+                            _isOpeningChildFolderCallback?.Invoke(false);
+                        };
+                        _childWindowQueue.Enqueue(window);
+                        window.Show();
+                    }
+                }
+                else
+                {
+                    _isOpeningChildFolderCallback?.Invoke(true);
+                    var window = new PopupListWindow(linkEtt.Links, pointPosition.X, pointPosition.Y, _childWindowQueue, OnLinkOpened);
+                    window.OnWindowClosed = () =>
+                    {
+                        _isOpeningChildFolderCallback?.Invoke(false);
+                    };
+                    _childWindowQueue.Enqueue(window);
+                    window.Show();
+                }
             }
         }
     }

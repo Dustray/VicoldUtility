@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace VicoldUtility.FastLink.Entities
 {
-    public class SourceConfigLinkEtt
+    public class PopupListDataEtt 
     {
-        public SourceConfigLinkEtt()
-        {
-            ID = Guid.NewGuid().ToString("N");
-        }
-        internal string ID { get; set; }
         private string _display;
         /// <summary>
         /// 显示
@@ -28,10 +24,5 @@ namespace VicoldUtility.FastLink.Entities
         /// 链接
         /// </summary>
         public string Url { get; set; }
-        /// <summary>
-        /// 子成员
-        /// </summary>
-        public IList<SourceConfigLinkEtt> Links { get; set; }
-
     }
 }

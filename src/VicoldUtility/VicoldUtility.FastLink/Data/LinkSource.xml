@@ -37,6 +37,21 @@
 			<Tint>..\src目录</Tint>
 			<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.OptimumWeights\src</Url>
 		</Links>
+		<Links>
+			<Display>测试</Display>
+			<Tint>..\src目录</Tint>
+			<Url>F:\临时下载文件夹</Url>
+			<Links>
+				<Display>博客</Display>
+				<Tint></Tint>
+				<Url>G:\博客图片</Url>
+			</Links>
+			<Links>
+				<Display>镜像</Display>
+				<Tint>..\src目录</Tint>
+				<Url>G:\系统镜像</Url>
+			</Links>
+		</Links>
 	</Groups>
 	<Groups>
 		<Display>网站</Display>

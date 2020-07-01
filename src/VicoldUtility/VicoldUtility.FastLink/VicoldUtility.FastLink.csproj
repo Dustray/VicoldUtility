@@ -60,11 +60,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entities\PopupListDataEtt.cs" />
     <Compile Include="Entities\ListDataEtt.cs" />
     <Compile Include="Entities\SourceConfigEtt.cs" />
     <Compile Include="Entities\SourceConfigGroupEtt.cs" />
     <Compile Include="Entities\SourceConfigLinkEtt.cs" />
     <Compile Include="Utilities\XMLUtil.cs" />
+    <Compile Include="Views\PopupListWindow.xaml.cs">
+      <DependentUpon>PopupListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToolListPage.xaml.cs">
       <DependentUpon>ToolListPage.xaml</DependentUpon>
     </Compile>
@@ -84,6 +88,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PopupListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ToolListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,6 +132,9 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Vicold.Popup">
+      <Version>1.0.1.6</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
