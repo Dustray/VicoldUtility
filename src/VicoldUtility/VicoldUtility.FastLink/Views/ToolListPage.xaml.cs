@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using VicoldUtility.FastLink.Entities;
 using VicoldUtility.FastLink.Utilities;
 
@@ -86,12 +87,12 @@ namespace VicoldUtility.FastLink.Views
         }
         private void lbLinkList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var ett = lbLinkList.SelectedItem as ListDataEtt;
-            try
-            {
-                Process.Start(ett.Url);
-            }
-            catch { }
+            //var ett = lbLinkList.SelectedItem as ListDataEtt;
+            //try
+            //{
+            //    Process.Start(ett.Url);
+            //}
+            //catch { }
         }
 
         internal void OnWindowShow()
@@ -184,6 +185,25 @@ namespace VicoldUtility.FastLink.Views
                 listDataEtt.SignalColor = signalColors[signalIndex].Item2;
                 listDataEtt.SignalTime = $"{time}ms";
             }), null);
+        }
+
+        private void lbLinkList_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+            var thisBorder = sender as Border;
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                var ett = thisBorder.DataContext as ListDataEtt;
+                try
+                {
+                    Process.Start(ett.Url);
+                }
+                catch { }
+            }
+            else
+            {
+
+            }
         }
     }
 }

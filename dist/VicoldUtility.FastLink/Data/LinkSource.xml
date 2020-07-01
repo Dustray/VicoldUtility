@@ -21,6 +21,24 @@
 		</Links>
 	</Groups>
 	<Groups>
+		<Display>本地项目</Display>
+		<Links>
+			<Display>SWAN 3.0项目</Display>
+			<Tint>..\src\Porject目录</Tint>
+			<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject</Url>
+		</Links>
+		<Links>
+			<Display>SWAN 2.1项目</Display>
+			<Tint>..\src目录</Tint>
+			<Url>E:\DevProject\CMA.NMC.SWANPlus\src</Url>
+		</Links>
+		<Links>
+			<Display>Blender网站项目</Display>
+			<Tint>..\src目录</Tint>
+			<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.OptimumWeights\src</Url>
+		</Links>
+	</Groups>
+	<Groups>
 		<Display>网站</Display>
 		<Links>
 			<Display>Blender网站</Display>

@@ -20,5 +20,10 @@ namespace VicoldUtility.FastLink.Entities
         /// 链接
         /// </summary>
         public string Url { get; set; }
+        /// <summary>
+        /// 子成员
+        /// </summary>
+        public IList<SourceConfigLinkEtt> Links { get; set; }
+
     }
 }
