@@ -292,7 +292,7 @@ namespace VicoldUtility.FastLink.Views
                 var linkEtt = _sourceConfigEtt.FindLink(ett.ID);
                 if (null == linkEtt.Links)
                 {
-                    if (!ett.Url.StartsWith("http"))
+                    if (!ett.Url.StartsWith("http")&& !ett.Url.StartsWith(@"\\"))
                     {
                         if (!Directory.Exists(ett.Url))
                         {
