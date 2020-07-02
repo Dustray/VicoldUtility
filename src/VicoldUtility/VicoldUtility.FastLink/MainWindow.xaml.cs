@@ -34,8 +34,10 @@ namespace VicoldUtility.FastLink
             SetWindowLong(wndHelper.Handle, (-20), 0x80);
 
 
-            toolListPage = new ToolListPage((isOpeningChildFolder) => {
-                _isOpeningChildFolder = isOpeningChildFolder; });
+            toolListPage = new ToolListPage((isOpeningChildFolder) =>
+            {
+                _isOpeningChildFolder = isOpeningChildFolder;
+            });
             ToolsBtnFrame.Navigate(toolListPage);
             toolListPage.OnWindowShow();
             try
@@ -73,9 +75,11 @@ namespace VicoldUtility.FastLink
         {
             if (RestoreBounds.Top == 0)
             {
-                toolListPage.OnWindowHide();
                 if (!_isOpeningChildFolder)
+                {
+                    toolListPage.OnWindowHide();
                     ShowOrHide(false);
+                }
             }
         }
 
