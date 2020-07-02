@@ -8,7 +8,7 @@
         Title="PopupListWindow"  SizeToContent="Height" Width="260" Topmost="True" AllowsTransparency="True" ResizeMode="NoResize"
         WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Background="Transparent">
-    <Border  CornerRadius="2" Background="#e333" Margin="6">
+    <Border  CornerRadius="0" Background="#e333" Margin="6">
         <Border.Effect>
             <DropShadowEffect Color="Black" Direction="270" ShadowDepth="0" BlurRadius="9"  Opacity="0.7"/>
         </Border.Effect>

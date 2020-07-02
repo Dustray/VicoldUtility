@@ -9,7 +9,7 @@
       Title="ToolListPage">
 
     <Grid MaxHeight="600">
-        <ListBox Name="lbLinkList" Margin="0" Padding="0" SelectionChanged="lbLinkList_SelectionChanged" SelectionMode="Single" 
+        <ListBox Name="lbLinkList" Margin="0" Padding="0" SelectionMode="Single" 
                  Background="#1fff" BorderThickness="0" Style="{DynamicResource DefaultListBox}"
                  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
             <ListBox.ItemContainerStyle>

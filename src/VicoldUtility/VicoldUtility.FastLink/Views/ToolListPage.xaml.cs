@@ -20,10 +20,13 @@ using VicoldUtility.FastLink.Utilities;
 namespace VicoldUtility.FastLink.Views
 {
     /// <summary>
-    /// ToolListPage.xaml 的交互逻辑
+    /// 主List页面
     /// </summary>
     public partial class ToolListPage : Page
     {
+        /// <summary>
+        /// 信号颜色列表
+        /// </summary>
         private (string, string)[] signalColors = new (string, string)[] {
             (((char)0xE871).ToString(), "#DCDCDC"),
             (((char)0xEC37).ToString(), "#D22222"),
@@ -32,15 +35,39 @@ namespace VicoldUtility.FastLink.Views
             (((char)0xEC3A).ToString(), "#7FFF00"),
             (((char)0xEC3B).ToString(), "#008000")
         };
-
+        /// <summary>
+        /// 连接类型图标
+        /// </summary>
         private string[] _linkTypeChars = new string[] { ((char)0xED25).ToString(), ((char)0xE128).ToString(), ((char)0xEC50).ToString() };
+        /// <summary>
+        /// 分组颜色标识
+        /// </summary>
         private string[] _linkGroupColors = new string[] { "#1E90FF", "#228B22", "#FFC107", "#D32F2F", "#00796B", "#512DA8", "#FF5722" };
+        /// <summary>
+        /// 分组实体类
+        /// </summary>
         private ObservableCollection<ListDataEtt> _ettLists;
+        /// <summary>
+        /// 刷新信号量循环标识
+        /// </summary>
         private bool _isReflushSignalLoopFlag = true;
+        /// <summary>
+        /// 子菜单窗体队列
+        /// </summary>
         private Queue<PopupListWindow> _childWindowQueue;
+        /// <summary>
+        /// 源配置实体
+        /// </summary>
         private SourceConfigEtt _sourceConfigEtt;
+        /// <summary>
+        /// 打开菜单回调事件
+        /// </summary>
         private Action<bool> _isOpeningChildFolderCallback;
 
+        /// <summary>
+        /// 主List页面
+        /// </summary>
+        /// <param name="isOpeningChildFolderCallback"></param>
         public ToolListPage(Action<bool> isOpeningChildFolderCallback)
         {
             InitializeComponent();
@@ -48,6 +75,9 @@ namespace VicoldUtility.FastLink.Views
             _isOpeningChildFolderCallback = isOpeningChildFolderCallback;
         }
 
+        /// <summary>
+        /// 初始化数据
+        /// </summary>
         private async void InitData()
         {
             var configPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, @"Data\LinkSource.xml");
@@ -76,6 +106,11 @@ namespace VicoldUtility.FastLink.Views
             lbLinkList.ItemsSource = _ettLists;
         }
 
+        /// <summary>
+        /// 根据链接获取对应类型图标
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         private string GetLinkTypeChar(string url)
         {
             var icon = _linkTypeChars[0];
@@ -93,16 +128,11 @@ namespace VicoldUtility.FastLink.Views
             }
             return icon;
         }
-        private void lbLinkList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //var ett = lbLinkList.SelectedItem as ListDataEtt;
-            //try
-            //{
-            //    Process.Start(ett.Url);
-            //}
-            //catch { }
-        }
+        #region 主窗体响应方法
 
+        /// <summary>
+        /// 窗体显示时
+        /// </summary>
         internal void OnWindowShow()
         {
             _isReflushSignalLoopFlag = true;
@@ -120,6 +150,9 @@ namespace VicoldUtility.FastLink.Views
                 });
             });
         }
+        /// <summary>
+        /// 窗体隐藏时
+        /// </summary>
         internal void OnWindowHide()
         {
             _isReflushSignalLoopFlag = false;
@@ -133,6 +166,9 @@ namespace VicoldUtility.FastLink.Views
             }
         }
 
+        /// <summary>
+        /// 链接打开时
+        /// </summary>
         internal void OnLinkOpened()
         {
             if (null != _childWindowQueue)
@@ -144,11 +180,17 @@ namespace VicoldUtility.FastLink.Views
                 }
             }
         }
+        /// <summary>
+        /// 窗体关闭时
+        /// </summary>
         internal void OnWindowClose()
         {
             _childWindowQueue?.Clear();
             _childWindowQueue = null;
         }
+
+        #endregion
+
         /// <summary>
         /// 刷新信号量
         /// </summary>
@@ -219,6 +261,11 @@ namespace VicoldUtility.FastLink.Views
             }), null);
         }
 
+        /// <summary>
+        /// 链接列表鼠标抬起事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lbLinkList_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var thisBorder = sender as Border;
@@ -238,6 +285,10 @@ namespace VicoldUtility.FastLink.Views
             {
                 Point pp = Mouse.GetPosition(e.Source as FrameworkElement);//WPF方法
                 var pointPosition = (e.Source as FrameworkElement).PointToScreen(pp);
+                //if (pointPosition.X > 1200)
+                //{
+                //    pointPosition.X -= this.WindowWidth-12;
+                //}
                 var linkEtt = _sourceConfigEtt.FindLink(ett.ID);
                 if (null == linkEtt.Links)
                 {

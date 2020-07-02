@@ -14,11 +14,17 @@ using VicoldUtility.FastLink.Views;
 namespace VicoldUtility.FastLink
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// 主窗体
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// 内嵌List页面
+        /// </summary>
         private ToolListPage toolListPage;
+        /// <summary>
+        /// 是否正在打开子菜单
+        /// </summary>
         private bool _isOpeningChildFolder = false;
         public MainWindow()
         {
@@ -27,12 +33,16 @@ namespace VicoldUtility.FastLink
 
         #region  窗体事件
 
+        /// <summary>
+        /// 窗体加载事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             WindowInteropHelper wndHelper = new WindowInteropHelper(this);
 
             SetWindowLong(wndHelper.Handle, (-20), 0x80);
-
 
             toolListPage = new ToolListPage((isOpeningChildFolder) =>
             {
@@ -49,11 +59,19 @@ namespace VicoldUtility.FastLink
             }
             catch { }
         }
-
+        /// <summary>
+        /// 窗体关闭完毕事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
         }
-
+        /// <summary>
+        /// 窗体关闭事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             Settings.Default.MainWindowPosition = RestoreBounds;
@@ -61,6 +79,11 @@ namespace VicoldUtility.FastLink
             toolListPage.OnWindowClose();
         }
 
+        /// <summary>
+        /// 鼠标进入窗体事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
             if (RestoreBounds.Top < 0)
@@ -71,6 +94,11 @@ namespace VicoldUtility.FastLink
             }
         }
 
+        /// <summary>
+        /// 鼠标离开窗体事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
             if (RestoreBounds.Top == 0)
@@ -83,11 +111,20 @@ namespace VicoldUtility.FastLink
             }
         }
 
+        /// <summary>
+        /// 鼠标移动事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
         }
 
-
+        /// <summary>
+        /// 左键按下事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -95,11 +132,21 @@ namespace VicoldUtility.FastLink
 
         #endregion
 
+        /// <summary>
+        /// 关闭按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// 添加名字
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var configPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, @"Data\LinkSource.xml");
@@ -107,6 +154,10 @@ namespace VicoldUtility.FastLink
             Alert.Show("是的，添加就是让你修改配置文件", "修改配置文件后重启应用。", AlertTheme.Default, new AlertConfig() { AlertShowDuration = 7000 });
         }
 
+        /// <summary>
+        /// 显示或隐藏窗体
+        /// </summary>
+        /// <param name="isShow"></param>
         private void ShowOrHide(bool isShow)
         {
             this.UpdateLayout();
@@ -118,6 +169,7 @@ namespace VicoldUtility.FastLink
             animation.To = isShow ? 0 : -height + 6;
             this.BeginAnimation(TopProperty, animation);//设定动画应用于窗体的Left属性
         }
+
         #region Window styles
 
         [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]

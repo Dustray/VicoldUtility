@@ -11,7 +11,7 @@ using VicoldUtility.FastLink.Entities;
 namespace VicoldUtility.FastLink.Views
 {
     /// <summary>
-    /// PopupListWindow.xaml 的交互逻辑
+    /// 菜单窗体
     /// </summary>
     public partial class PopupListWindow : Window
     {
@@ -34,18 +34,34 @@ namespace VicoldUtility.FastLink.Views
             _onLinkOpened = onLinkOpened;
         }
 
+        #region 窗体事件
+
+        /// <summary>
+        /// 窗体加载事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
             lbLinkList.ItemsSource = _ettLists;
 
         }
-
+        /// <summary>
+        /// 窗体关闭事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// 窗体关闭事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _beginClose = true;
@@ -53,17 +69,30 @@ namespace VicoldUtility.FastLink.Views
 
         }
 
+        /// <summary>
+        /// 鼠标进入事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
 
         }
-
+        /// <summary>
+        /// 鼠标移出事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
             if (!_isHasChildFolder && !_beginClose)
                 Close();
         }
-
+        /// <summary>
+        /// 是鼠标抬起事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var thisBorder = sender as Border;
@@ -84,10 +113,12 @@ namespace VicoldUtility.FastLink.Views
             {
                 Point pp = Mouse.GetPosition(e.Source as FrameworkElement);//WPF方法
                 var pointPosition = (e.Source as FrameworkElement).PointToScreen(pp);
+                //if (pointPosition.X > 1200)
+                //{
+                //    pointPosition.X -= this.Width - 12;
+                //}
                 if (null == ett.Links)
                 {
-
-
                     if (!ett.Url.StartsWith("http"))
                     {
                         if (!Directory.Exists(ett.Url))
@@ -131,5 +162,7 @@ namespace VicoldUtility.FastLink.Views
                 }
             }
         }
+
+        #endregion
     }
 }
