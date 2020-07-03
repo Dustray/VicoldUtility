@@ -9,6 +9,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using Vicold.Popup;
 using VicoldUtility.FastLink.Properties;
+using VicoldUtility.FastLink.Utilities;
 using VicoldUtility.FastLink.Views;
 
 namespace VicoldUtility.FastLink
@@ -26,9 +27,13 @@ namespace VicoldUtility.FastLink
         /// 是否正在打开子菜单
         /// </summary>
         private bool _isOpeningChildFolder = false;
+
+        //设置托盘图标
+        private TaskBarUtil taskBarUtil;
         public MainWindow()
         {
             InitializeComponent();
+            taskBarUtil = new TaskBarUtil(this);
         }
 
         #region  窗体事件
@@ -66,6 +71,7 @@ namespace VicoldUtility.FastLink
         /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
+            taskBarUtil.Dispose();
         }
         /// <summary>
         /// 窗体关闭事件
@@ -158,7 +164,7 @@ namespace VicoldUtility.FastLink
         /// 显示或隐藏窗体
         /// </summary>
         /// <param name="isShow"></param>
-        private void ShowOrHide(bool isShow)
+        public void ShowOrHide(bool isShow)
         {
             this.UpdateLayout();
             var height = RestoreBounds.Height;

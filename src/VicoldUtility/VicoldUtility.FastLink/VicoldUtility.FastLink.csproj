@@ -65,6 +65,7 @@
     <Compile Include="Entities\SourceConfigEtt.cs" />
     <Compile Include="Entities\SourceConfigGroupEtt.cs" />
     <Compile Include="Entities\SourceConfigLinkEtt.cs" />
+    <Compile Include="Utilities\TaskBarUtil.cs" />
     <Compile Include="Utilities\XMLUtil.cs" />
     <Compile Include="Views\PopupListWindow.xaml.cs">
       <DependentUpon>PopupListWindow.xaml</DependentUpon>
