@@ -39,6 +39,9 @@ namespace VicoldUtility.FastLink.Utilities
 
         private void LoadMenu()
         {
+            var settingBtn = _notifyContextMenu.Items.Add("编辑目录配置");
+            settingBtn.Click += new EventHandler(EditConfig);
+
             var closeBtn = _notifyContextMenu.Items.Add("退出");
             closeBtn.Click += new EventHandler(Shutdown);
             _notifyicon.ContextMenuStrip = _notifyContextMenu;
@@ -51,6 +54,7 @@ namespace VicoldUtility.FastLink.Utilities
             if (e.Button == MouseButtons.Left)
             {
                 _mainWindow.ShowOrHide(true);
+                _mainWindow.Activate();
             }
         }
         private void Shutdown(object sender, EventArgs e)
@@ -58,6 +62,10 @@ namespace VicoldUtility.FastLink.Utilities
             System.Windows.Application.Current.Shutdown();
         }
 
+        private void EditConfig(object sender, EventArgs e)
+        {
+            _mainWindow.EditConfig();
+        }
 
         #endregion
 

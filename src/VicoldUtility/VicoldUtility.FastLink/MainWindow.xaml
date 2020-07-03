@@ -34,9 +34,9 @@
                     <ColumnDefinition Width="25"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="&#xE109;"  Background="#4aaa" Foreground="#ccc" Cursor="Hand" BorderThickness="0"
+                <Button Grid.Column="0" Content="&#xF168;"  Background="#4aaa" Foreground="#ccc" Cursor="Hand" BorderThickness="0"
                     HorizontalAlignment="Center"  VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    FontFamily="Segoe MDL2 Assets" FontSize="13" Width="26" Height="26" ToolTip="添加链接" Click="AddButton_Click"/>
+                    FontFamily="Segoe MDL2 Assets" FontSize="18" Width="26" Height="26" ToolTip="编辑目录配置" Click="AddButton_Click"/>
                 <Label Grid.Column="1" Margin="5 0 0 0" Background="#4aaa" Height="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                        FontSize="12" Foreground="#47b1ad" Content="Designed by Dustray"/>
             </Grid>

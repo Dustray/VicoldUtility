@@ -149,11 +149,19 @@ namespace VicoldUtility.FastLink
         }
 
         /// <summary>
-        /// 添加名字
+        /// 添加事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditConfig();
+        }
+
+        /// <summary>
+        /// 编辑配置文件
+        /// </summary>
+        public void EditConfig()
         {
             var configPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, @"Data\LinkSource.xml");
             Process.Start(configPath);
