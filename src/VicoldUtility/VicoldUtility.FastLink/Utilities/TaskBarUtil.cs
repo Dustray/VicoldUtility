@@ -31,14 +31,15 @@ namespace VicoldUtility.FastLink.Utilities
             Icon ico = Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             _notifyicon.Icon = ico;
             _notifyicon.Visible = true;
-            //_notifyicon.BalloonTipText = "必应每日壁纸1";
-            //_notifyicon.ShowBalloonTip(2000);
             _notifyicon.MouseClick += notifyIcon_MouseClick;
             LoadMenu();
         }
 
         private void LoadMenu()
         {
+            var launcherBtn = _notifyContextMenu.Items.Add("开机自启");
+            launcherBtn.Click += new EventHandler(AutoLauncher);
+
             var settingBtn = _notifyContextMenu.Items.Add("编辑目录配置");
             settingBtn.Click += new EventHandler(EditConfig);
 
@@ -57,9 +58,15 @@ namespace VicoldUtility.FastLink.Utilities
                 _mainWindow.Activate();
             }
         }
+
         private void Shutdown(object sender, EventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void AutoLauncher(object sender, EventArgs e)
+        {
+            DesktopLinkUtil.CreateLauncherLink();
         }
 
         private void EditConfig(object sender, EventArgs e)

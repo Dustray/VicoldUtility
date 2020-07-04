@@ -65,6 +65,7 @@
     <Compile Include="Entities\SourceConfigEtt.cs" />
     <Compile Include="Entities\SourceConfigGroupEtt.cs" />
     <Compile Include="Entities\SourceConfigLinkEtt.cs" />
+    <Compile Include="Utilities\DesktopLinkUtil.cs" />
     <Compile Include="Utilities\TaskBarUtil.cs" />
     <Compile Include="Utilities\XMLUtil.cs" />
     <Compile Include="Views\PopupListWindow.xaml.cs">
@@ -125,6 +126,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\logo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\LinkSource.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -137,6 +141,17 @@
     <PackageReference Include="Vicold.Popup">
       <Version>1.0.1.6</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
