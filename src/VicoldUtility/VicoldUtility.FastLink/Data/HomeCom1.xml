@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 文件路径使用‘\’ -->
+<!-- http(s)协议使用‘/’ -->
+<Root xmlns:json='http://james.newtonking.com/projects/json'>
+	<Groups>
+		<Display>普通文件</Display>
+		<Links json:Array="true">
+			<Display>电影</Display>
+			<Tint></Tint>
+			<Url>H:\电影</Url>
+		</Links>
+		<Links>
+			<Display>照片</Display>
+			<Tint></Tint>
+			<Url>F:\照片</Url>
+		</Links>
+		<Links>
+			<Display>OMV Git服务</Display>
+			<Tint>gxddgitserver</Tint>
+			<Url>https://gxddgitserver</Url>
+		</Links>
+	</Groups>
+	<Groups>
+		<Display>公司</Display>
+		<Links>
+			<Display>SWAN 3.0项目</Display>
+			<Tint>..\src\Porject目录</Tint>
+			<Url>J:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject</Url>
+			<Links>
+				<Display>配置目录</Display>
+				<Tint>..\Appx\config\swan</Tint>
+				<Url>J:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\config\swan</Url>
+			</Links>
+			<Links>
+				<Display>样式目录</Display>
+				<Tint>..\Appx\data\styles\dark\swan</Tint>
+				<Url>J:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\data\styles\dark\swan</Url>
+			</Links>
+			<Links>
+				<Display>调色板目录</Display>
+				<Tint>..\Appx\data\palettes\dark\swan</Tint>
+				<Url>J:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\data\palettes\dark\swan</Url>
+			</Links>
+		</Links>
+		<Links>
+			<Display>SWAN 2.1项目</Display>
+			<Tint>..\src目录</Tint>
+			<Url>J:\ProjectDev\NMCCollection\CMA.NMC.SWANPlus\src</Url>
+		</Links>
+	</Groups>
+	<Groups>
+		<Display>网站</Display>
+		<Links>
+			<Display>IT之家</Display>
+			<Tint>ithome.com</Tint>
+			<Url>https://www.ithome.com/</Url>
+		</Links>
+		<Links>
+			<Display>微博热搜</Display>
+			<Tint></Tint>
+			<Url>https://s.weibo.com/top/summary?cate=realtimehot</Url>
+		</Links>
+		<Links>
+			<Display>BD影视</Display>
+			<Tint>bd-film.cc</Tint>
+			<Url>https://www.bd-film.cc/</Url>
+		</Links>
+	</Groups>
+</Root>

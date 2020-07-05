@@ -5,5 +5,8 @@
     <Setting Name="MainWindowPosition" Type="System.Windows.Rect" Scope="User">
       <Value Profile="(Default)">500,200,0,0</Value>
     </Setting>
+    <Setting Name="CurrentFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

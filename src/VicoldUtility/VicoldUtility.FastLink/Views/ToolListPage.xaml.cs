@@ -68,20 +68,27 @@ namespace VicoldUtility.FastLink.Views
         /// 主List页面
         /// </summary>
         /// <param name="isOpeningChildFolderCallback"></param>
-        public ToolListPage(Action<bool> isOpeningChildFolderCallback)
+        public ToolListPage(Action<bool> isOpeningChildFolderCallback, string configPath)
         {
             InitializeComponent();
-            InitData();
+            InitData(configPath);
             _isOpeningChildFolderCallback = isOpeningChildFolderCallback;
         }
 
         /// <summary>
         /// 初始化数据
         /// </summary>
-        private async void InitData()
+        public async void InitData(string configPath)
         {
-            var configPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, @"Data\LinkSource.xml");
-            _sourceConfigEtt = await XMLUtil.LoadXMLToAsync<SourceConfigEtt>(configPath).ConfigureAwait(false);
+            if (string.IsNullOrWhiteSpace(configPath)) return;
+            try
+            {
+                _sourceConfigEtt = await XMLUtil.LoadXMLToAsync<SourceConfigEtt>(configPath).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Alert.Show("配置文件读取错误", "不是正确的配置格式。", AlertTheme.Error);
+            }
             _childWindowQueue = new Queue<PopupListWindow>();
             _ettLists = new ObservableCollection<ListDataEtt>();
             var colorIndex = 0;
@@ -185,6 +192,7 @@ namespace VicoldUtility.FastLink.Views
         /// </summary>
         internal void OnWindowClose()
         {
+            _isReflushSignalLoopFlag = false;
             _childWindowQueue?.Clear();
             _childWindowQueue = null;
         }
@@ -292,7 +300,7 @@ namespace VicoldUtility.FastLink.Views
                 var linkEtt = _sourceConfigEtt.FindLink(ett.ID);
                 if (null == linkEtt.Links)
                 {
-                    if (!ett.Url.StartsWith("http")&& !ett.Url.StartsWith(@"\\"))
+                    if (!ett.Url.StartsWith("http") && !ett.Url.StartsWith(@"\\"))
                     {
                         if (!Directory.Exists(ett.Url))
                         {
@@ -314,6 +322,7 @@ namespace VicoldUtility.FastLink.Views
                         }
                         _isOpeningChildFolderCallback?.Invoke(true);
                         var window = new PopupListWindow(ettLists, pointPosition.X, pointPosition.Y, _childWindowQueue, OnLinkOpened);
+                        window.Owner = Window.GetWindow(this);
                         window.OnWindowClosed = () =>
                         {
                             //_isHasChildFolder = false;
@@ -327,6 +336,7 @@ namespace VicoldUtility.FastLink.Views
                 {
                     _isOpeningChildFolderCallback?.Invoke(true);
                     var window = new PopupListWindow(linkEtt.Links, pointPosition.X, pointPosition.Y, _childWindowQueue, OnLinkOpened);
+                    window.Owner = Window.GetWindow(this);
                     window.OnWindowClosed = () =>
                     {
                         _isOpeningChildFolderCallback?.Invoke(false);

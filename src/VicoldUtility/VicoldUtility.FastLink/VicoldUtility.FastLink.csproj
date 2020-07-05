@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entities\ConfigListDataEtt.cs" />
     <Compile Include="Entities\PopupListDataEtt.cs" />
     <Compile Include="Entities\ListDataEtt.cs" />
     <Compile Include="Entities\SourceConfigEtt.cs" />
@@ -68,6 +69,9 @@
     <Compile Include="Utilities\DesktopLinkUtil.cs" />
     <Compile Include="Utilities\TaskBarUtil.cs" />
     <Compile Include="Utilities\XMLUtil.cs" />
+    <Compile Include="Views\ConfigListPage.xaml.cs">
+      <DependentUpon>ConfigListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PopupListWindow.xaml.cs">
       <DependentUpon>PopupListWindow.xaml</DependentUpon>
     </Compile>
@@ -91,6 +95,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ToolBtnStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConfigListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\logo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\HomeCom1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\LinkSource.xml">

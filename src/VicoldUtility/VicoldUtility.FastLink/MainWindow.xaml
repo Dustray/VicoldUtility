@@ -29,15 +29,16 @@
 
             <Frame Name="ToolsBtnFrame" NavigationUIVisibility="Hidden"/>
 
+            <Frame Name="ConfigListFrame" NavigationUIVisibility="Hidden"/>
             <Grid Name="gridTool" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="26"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="26"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="&#xEC12;"  Background="#4aaa" Foreground="#ccc" Cursor="Hand" BorderThickness="0" Style="{DynamicResource ButtonStyle1}"
+                <Button Name="ChangeConfigBtn" Grid.Column="0" Content="&#xEC12;"  Background="#4aaa" Foreground="#ccc" Cursor="Hand" BorderThickness="0" Style="{DynamicResource ButtonStyle1}"
                     HorizontalAlignment="Center"  VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    FontFamily="Segoe MDL2 Assets" FontSize="18" Width="26" Height="26" ToolTip="编辑目录配置" Click="Tmp_Click"/>
+                    FontFamily="Segoe MDL2 Assets" FontSize="18" Width="26" Height="26" ToolTip="切换配置文件" Click="ChangeConfigBtn_Click"/>
                 <Label Grid.Column="1" Margin="5 0 5 0" Background="#4aaa" Height="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                        FontSize="12" Foreground="#47b1ad" Content="Designed by Dustray"/>
                 <Button Grid.Column="2" Content="&#xF168;"  Background="#4aaa" Foreground="#ccc" Cursor="Hand" BorderThickness="0" Style="{DynamicResource ButtonStyle1}"

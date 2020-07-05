@@ -6,8 +6,27 @@
         xmlns:local="clr-namespace:VicoldUtility.FastLink.Views"
         mc:Ignorable="d"
         Title="PopupListWindow"  SizeToContent="Height" Width="260" Topmost="True" AllowsTransparency="True" ResizeMode="NoResize"
-        WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
+        WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing" Name="win"
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Background="Transparent">
+    <Window.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform CenterX="0" CenterY="0"></ScaleTransform>
+        </TransformGroup>
+    </Window.RenderTransform>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Name="StartStoryboard">
+                <Storyboard Timeline.DesiredFrameRate="60">
+                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="00:00:0.07" />
+                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleX" Storyboard.TargetName="win" From="0.7" To="1" Duration="0:0:0.07"/>
+                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleY" Storyboard.TargetName="win" From="0.7" To="1" Duration="0:0:0.07"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <ResumeStoryboard BeginStoryboardName="StartStoryboard" />
+        </EventTrigger>
+    </Window.Triggers>
     <Border  CornerRadius="0" Background="#e333" Margin="6">
         <Border.Effect>
             <DropShadowEffect Color="Black" Direction="270" ShadowDepth="0" BlurRadius="9"  Opacity="0.7"/>

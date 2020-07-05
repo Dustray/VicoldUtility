@@ -141,6 +141,7 @@ namespace VicoldUtility.FastLink.Views
                         }
                         _isHasChildFolder = true;
                         var window = new PopupListWindow(ettLists, pointPosition.X, pointPosition.Y, _windowQueue, _onLinkOpened);
+                        window.Owner = this;
                         window.OnWindowClosed = () =>
                         {
                             _isHasChildFolder = false;
@@ -153,6 +154,7 @@ namespace VicoldUtility.FastLink.Views
                 {
                     _isHasChildFolder = true;
                     var window = new PopupListWindow(ett.Links, pointPosition.X, pointPosition.Y, _windowQueue, _onLinkOpened);
+                    window.Owner = this;
                     window.OnWindowClosed = () =>
                     {
                         _isHasChildFolder = false;
