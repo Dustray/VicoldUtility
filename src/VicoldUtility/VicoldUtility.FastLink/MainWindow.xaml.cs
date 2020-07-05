@@ -28,6 +28,8 @@ namespace VicoldUtility.FastLink
         /// </summary>
         private bool _isOpeningChildFolder = false;
 
+        private bool _isActivate = false;
+
         //设置托盘图标
         private TaskBarUtil taskBarUtil;
         public MainWindow()
@@ -191,5 +193,11 @@ namespace VicoldUtility.FastLink
 
         #endregion
 
+        private void Tmp_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as System.Windows.Controls.Button;
+            btn.Content = _isActivate ? ((char)0xEC12).ToString() : ((char)0xEC11).ToString();
+            _isActivate = !_isActivate;
+        }
     }
 }
