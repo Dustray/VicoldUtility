@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- 文件路径使用‘\’ -->
 <!-- http(s)协议使用‘/’ -->
-<Root>
+<Root xmlns:json='http://james.newtonking.com/projects/json'>
 	<Groups>
 		<Display>光线顶点</Display>
 		<Links>
 			<Display>OMV网盘</Display>
 			<Tint>OMVSERVER</Tint>
 			<Url>\\OMVSERVER</Url>
+			<Links>
+				<Display>技术文档</Display>
+				<Tint>..\docs\technical(技术文档)</Tint>
+				<Url>\\OMVSERVER\docs\technical(技术文档)</Url>
+			</Links>
+			<Links>
+				<Display>研发管理与规范</Display>
+				<Tint>..\docs\management(管培文档)\研发管理与规范</Tint>
+				<Url>\\OMVSERVER\docs\management(管培文档)\研发管理与规范</Url>
+			</Links>
 		</Links>
 		<Links>
 			<Display>数据服务</Display>
@@ -26,6 +36,21 @@
 			<Display>SWAN 3.0项目</Display>
 			<Tint>..\src\Porject目录</Tint>
 			<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject</Url>
+			<Links>
+				<Display>配置目录</Display>
+				<Tint>..\Appx\config\swan</Tint>
+				<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\config\swan</Url>
+			</Links>
+			<Links>
+				<Display>样式目录</Display>
+				<Tint>..\Appx\data\styles\dark\swan</Tint>
+				<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\data\styles\dark\swan</Url>
+			</Links>
+			<Links>
+				<Display>调色板目录</Display>
+				<Tint>..\Appx\data\palettes\dark\swan</Tint>
+				<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\data\palettes\dark\swan</Url>
+			</Links>
 		</Links>
 		<Links>
 			<Display>SWAN 2.1项目</Display>
@@ -51,9 +76,14 @@
 			<Url>http://10.1.64.146/</Url>
 		</Links>
 		<Links>
-			<Display>RabbitMQ网站</Display>
+			<Display>RabbitMQ网站(134)</Display>
 			<Tint>10.20.70.134:15672</Tint>
 			<Url>http://10.20.70.134:15672/</Url>
+			<Links json:Array="true">
+				<Display>RabbitMQ网站(135)</Display>
+				<Tint>10.20.70.135:15672</Tint>
+				<Url>http://10.20.70.135:15672/</Url>
+			</Links>
 		</Links>
 	</Groups>
 	<Groups>

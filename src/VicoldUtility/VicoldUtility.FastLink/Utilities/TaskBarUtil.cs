@@ -37,6 +37,9 @@ namespace VicoldUtility.FastLink.Utilities
 
         private void LoadMenu()
         {
+            var linkBtn = _notifyContextMenu.Items.Add("创建桌面快捷方式");
+            linkBtn.Click += new EventHandler(DesktopLink);
+
             var launcherBtn = _notifyContextMenu.Items.Add("开机自启");
             launcherBtn.Click += new EventHandler(AutoLauncher);
 
@@ -72,6 +75,11 @@ namespace VicoldUtility.FastLink.Utilities
         private void EditConfig(object sender, EventArgs e)
         {
             _mainWindow.EditConfig();
+        }
+
+        private void DesktopLink(object sender, EventArgs e)
+        {
+            DesktopLinkUtil.FastCreate(true);
         }
 
         #endregion

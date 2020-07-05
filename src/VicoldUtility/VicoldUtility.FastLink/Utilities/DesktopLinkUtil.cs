@@ -11,15 +11,17 @@ namespace VicoldUtility.FastLink.Utilities
 {
     class DesktopLinkUtil
     {
+
         /// <summary>
         /// 快速创建
         /// </summary>
         /// <returns></returns>
         public static bool FastCreate(bool forceCreate = false)
         {
+            var appName = Assembly.GetExecutingAssembly().GetName().Name;
             string deskTop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var lu = new DesktopLinkUtil();
-            var b1 = lu.CreateDeskTopLik("快速链接", "快速打开配置好的链接", Path.Combine(System.Windows.Forms.Application.StartupPath, $"快速链接.exe"), deskTop, "logo", forceCreate);
+            var b1 = lu.CreateDeskTopLik("快速链接", "快速打开配置好的链接", Path.Combine(System.Windows.Forms.Application.StartupPath, $"{appName}.exe"), deskTop, "logo", forceCreate);
             return b1;
         }
         /// <summary>
@@ -28,9 +30,10 @@ namespace VicoldUtility.FastLink.Utilities
         /// <returns></returns>
         public static bool CreateLauncherLink()
         {
+            var appName = Assembly.GetExecutingAssembly().GetName().Name;
             string deskTop = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
             var lu = new DesktopLinkUtil();
-            var b1 = lu.CreateDeskTopLik("快速链接", "快速打开配置好的链接", Path.Combine(System.Windows.Forms.Application.StartupPath, $"快速链接.exe"), deskTop, "logo", false);
+            var b1 = lu.CreateDeskTopLik("快速链接", "快速打开配置好的链接", Path.Combine(System.Windows.Forms.Application.StartupPath, $"{appName}.exe"), deskTop, "logo", false);
             return b1;
         }
         /// <summary>
