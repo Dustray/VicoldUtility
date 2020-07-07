@@ -43,7 +43,6 @@ namespace VicoldUtility.FastLink.Views
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             lbLinkList.ItemsSource = _ettLists;
 
         }
@@ -127,7 +126,16 @@ namespace VicoldUtility.FastLink.Views
                             return;
                         }
                         var root = new DirectoryInfo(ett.Url);
-                        var files = root.GetDirectories();
+                        DirectoryInfo[] files;
+                        try
+                        {
+                            files = root.GetDirectories();
+                        }
+                        catch (Exception ex)
+                        {
+                            Alert.Show("错误", ex.Message.ToString(), AlertTheme.Error);
+                            return;
+                        }
                         if (0 == files.Length) return;
                         var ettLists = new List<SourceConfigLinkEtt>();
                         foreach (var dir in files)

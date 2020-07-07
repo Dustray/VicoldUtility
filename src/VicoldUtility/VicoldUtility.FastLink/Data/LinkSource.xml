@@ -3,11 +3,44 @@
 <!-- http(s)协议使用‘/’ -->
 <Root xmlns:json='http://james.newtonking.com/projects/json'>
 	<Groups>
+		<Display>本地目录</Display>
+		<Links>
+			<Display>桌面</Display>
+			<Tint>C:\Users\Dustray\Desktop</Tint>
+			<Url>C:\Users\Dustray\Desktop</Url>
+		</Links>
+		<Links>
+			<Display>此电脑</Display>
+			<Tint>..\src目录</Tint>
+			<Url></Url>
+			<Links>
+				<Display>C盘:系统盘</Display>
+				<Tint></Tint>
+				<Url>C:\</Url>
+			</Links>
+			<Links>
+				<Display>D盘：程序盘</Display>
+				<Tint></Tint>
+				<Url>D:\</Url>
+			</Links>
+			<Links>
+				<Display>E盘：项目盘</Display>
+				<Tint></Tint>
+				<Url>E:\</Url>
+			</Links>
+		</Links>
+	</Groups>
+	<Groups>
 		<Display>光线顶点</Display>
 		<Links>
 			<Display>OMV网盘</Display>
 			<Tint>OMVSERVER</Tint>
 			<Url>\\OMVSERVER</Url>
+			<Links>
+				<Display>OKR/周计划</Display>
+				<Tint>Q3 OKR</Tint>
+				<Url>\\OMVSERVER\docs\OKR(OKR目录)\2020年度\Q3(202007-202009)</Url>
+			</Links>
 			<Links>
 				<Display>技术文档</Display>
 				<Tint>..\docs\technical(技术文档)</Tint>
