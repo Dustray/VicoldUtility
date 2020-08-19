@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VicoldUtility.ColorBoard.Views;
 
 namespace VicoldUtility.ColorBoard
 {
@@ -23,6 +24,11 @@ namespace VicoldUtility.ColorBoard
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void colorModemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new ColorModemWindow().Show();
         }
     }
 }
