@@ -58,37 +58,60 @@
 			<Url>\\gxddserver</Url>
 		</Links>
 		<Links>
-			<Display>OMV Git服务</Display>
-			<Tint>gxddgitserver</Tint>
-			<Url>https://gxddgitserver</Url>
+			<Display>OMV GitLab服务</Display>
+			<Tint>gitserver</Tint>
+			<Url>https://gitserver</Url>
+		</Links>
+	</Groups>
+	<Groups>
+		<Display>本地程序</Display>
+		<Links>
+			<Display>MICAPS 4.5</Display>
+			<Tint>..\src\Project\Release\X64_Bin\MICAPS.exe</Tint>
+			<Url>E:\DevProject\LVT2PUBLIC\CMA.NMC.MICAPSX\src\Project\Release\X64_Bin\MICAPS.exe</Url>
+		</Links>
+		<Links>
+			<Display>SWAN 3.0 Release</Display>
+			<Tint>SWAN_Release_20200731</Tint>
+			<Url>E:\SWAN_Release_20200731\SWAN.exe</Url>
 		</Links>
 	</Groups>
 	<Groups>
 		<Display>本地项目</Display>
 		<Links>
+			<Display>SWAN数据目录</Display>
+			<Tint>E:\Data\DB_SWAN\SwanLocalData\LOCAL</Tint>
+			<Url>E:\Data\DB_SWAN\SwanLocalData\LOCAL</Url>
+		</Links>
+		<Links>
 			<Display>SWAN 3.0项目</Display>
 			<Tint>..\src\Porject目录</Tint>
-			<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject</Url>
+			<Url>E:\DevProject\LVT2NMC4SWAN\CMA.NMC.SWAN\src\SWAN3\</Url>
+			<Links>
+				<Display>数据目录</Display>
+				<Tint>..\Appx\data</Tint>
+				<Url>E:\DevProject\LVT2NMC4SWAN\CMA.NMC.SWAN\src\SWAN3\\Appx\data</Url>
+			</Links>
 			<Links>
 				<Display>配置目录</Display>
 				<Tint>..\Appx\config\swan</Tint>
-				<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\config\swan</Url>
+				<Url>E:\DevProject\LVT2NMC4SWAN\CMA.NMC.SWAN\src\SWAN3\\Appx\config\swan</Url>
 			</Links>
 			<Links>
 				<Display>样式目录</Display>
 				<Tint>..\Appx\data\styles\dark\swan</Tint>
-				<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\data\styles\dark\swan</Url>
+				<Url>E:\DevProject\LVT2NMC4SWAN\CMA.NMC.SWAN\src\SWAN3\\Appx\data\styles\dark\swan</Url>
 			</Links>
 			<Links>
 				<Display>调色板目录</Display>
 				<Tint>..\Appx\data\palettes\dark\swan</Tint>
-				<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN\src\Porject\Appx\data\palettes\dark\swan</Url>
+				<Url>E:\DevProject\LVT2NMC4SWAN\CMA.NMC.SWAN\src\SWAN3\\Appx\data\palettes\dark\swan</Url>
 			</Links>
 		</Links>
 		<Links>
 			<Display>SWAN 2.1项目</Display>
 			<Tint>..\src目录</Tint>
-			<Url>E:\DevProject\CMA.NMC.SWANPlus\src</Url>
+			<Url>E:\DevProject\NMCCollectionOfSunny\CMA.NMC.SWAN4M42\src</Url>
 		</Links>
 		<Links>
 			<Display>Blender网站项目</Display>

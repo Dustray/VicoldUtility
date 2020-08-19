@@ -282,7 +282,13 @@ namespace VicoldUtility.FastLink.Views
             {
                 try
                 {
-                    Process.Start(ett.Url);
+                    //Process.Start(ett.Url);
+                    Process p = new Process();
+                    p.StartInfo.UseShellExecute = true;
+                    p.StartInfo.FileName = ett.Url;
+                    p.StartInfo.WorkingDirectory = "C:\\";
+                    p.Start();
+                    p.Dispose();
                 }
                 catch (Exception ex)
                 {
