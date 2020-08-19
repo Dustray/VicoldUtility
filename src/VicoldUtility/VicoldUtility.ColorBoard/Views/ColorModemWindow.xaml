@@ -5,14 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.ColorBoard.Views"
         mc:Ignorable="d"
-        Title="ColorModemWindow" Height="450" Width="800">
+        Title="ColorModemWindow" Height="450" Width="600">
     <Grid>
         <Grid VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border Width="60" Height="60" Margin="5" Background="#4050fd"></Border>
+            <Border Width="60" Height="60" Margin="10" Background="#4050ff" BorderBrush="#101010" BorderThickness="3">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black"  ShadowDepth="0" BlurRadius="10" Opacity="1" />
+                </Border.Effect>
+            </Border>
+            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
