@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.Scr.ImageSlider"
         mc:Ignorable="d"
-        Title="MainWindow" Topmost="True" Height="450" Width="800" WindowState="Maximized"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" MouseMove="Window_MouseMove" Loaded="Window_Loaded"  >
+        Title="MainWindow"  Height="450" Width="800" WindowState="Maximized"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" MouseMove="Window_MouseMove" Loaded="Window_Loaded" Closed="Window_Closed"  >
     <Grid>
-        <Image x:Name="imgBase"/>
+        <Image x:Name="imgBase" Stretch="Fill" />
     </Grid>
 </Window>
