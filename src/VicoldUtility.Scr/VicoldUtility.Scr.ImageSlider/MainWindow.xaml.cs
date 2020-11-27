@@ -98,22 +98,22 @@ namespace VicoldUtility.Scr.ImageSlider
 
         void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            if (isRendering)
-            {
-                if (index < bmList.Count)
-                {
-                    this.imgBase.Source = bmList[index];
-                    this.imgBase.Width = this.imgBase.Source.Width;
-                    this.imgBase.Height = this.imgBase.Source.Height;
+            //if (isRendering)
+            //{
+            //    if (index < bmList.Count)
+            //    {
+            //        this.imgBase.Source = bmList[index];
+            //        this.imgBase.Width = this.imgBase.Source.Width;
+            //        this.imgBase.Height = this.imgBase.Source.Height;
 
-                    index++;
-                }
-                else
-                {
-                    index = 0;
-                }
-                isRendering = false;
-            }
+            //        index++;
+            //    }
+            //    else
+            //    {
+            //        index = 0;
+            //    }
+            //    isRendering = false;
+            //}
         }
 
         private void Window_Closed(object sender, EventArgs e)
