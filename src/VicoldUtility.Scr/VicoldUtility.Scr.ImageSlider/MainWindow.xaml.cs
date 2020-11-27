@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace VicoldUtility.Scr.ImageSlider
 {
@@ -25,18 +19,24 @@ namespace VicoldUtility.Scr.ImageSlider
     public partial class MainWindow : Window
     {
         private bool _firstMoving = false;
-        ObservableCollection<BitmapImage> bmList;
-
         private LoopQueue<string> _loopQueue;
+        private ImageManager _imageManager;
+        private double _x;
+        private double _y;
 
-        int index = 0;  //记录索引
-        bool isRendering = false;
         public MainWindow()
         {
             InitializeComponent();
-            var files = Directory.GetFiles(@"F:\壁纸剪切好\Note9_Default_Wallpaper", "(.jpg|.png|.jpeg|.bmp)");
+            _loopQueue = new LoopQueue<string>();
+            _imageManager = new ImageManager();
+            Mouse.OverrideCursor = Cursors.None;
+            //var fi = new string[] { "*.jpg", "*.png", "*.jpeg", "*.bmp" };
+            var files = Directory.GetFiles(@"F:\壁纸剪切好\Note9_Default_Wallpaper")
+                .Where(file => file.ToLower().EndsWith("jpg")
+                || file.ToLower().EndsWith("png")
+                || file.ToLower().EndsWith("jpeg")
+                || file.ToLower().EndsWith("bmp")).ToArray();
             _loopQueue.Add(files);
-            InitList();
             CompositionTarget.Rendering += new EventHandler(CompositionTarget_Rendering);
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
@@ -45,55 +45,25 @@ namespace VicoldUtility.Scr.ImageSlider
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_firstMoving)
-            {
-                Close();
-            }
-            _firstMoving = true;
+            CloseWindow(e.GetPosition(this));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         }
 
-        void bw_DoWork(object sender, DoWorkEventArgs e)
+        private async void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
-                isRendering = true;
-                Thread.Sleep(1000); 
+                ChangeImage(_loopQueue.Next());
+                await Task.Delay(3000);
             }
         }
 
-        public static BitmapImage GetImage(string imagePath)
+        public BitmapSource GetImage(string imagePath)
         {
-            BitmapImage bitmap = new BitmapImage();
-
-            if (File.Exists(imagePath))
-            {
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-
-                using (Stream ms = new MemoryStream(File.ReadAllBytes(imagePath)))
-                {
-                    bitmap.StreamSource = ms;
-                    bitmap.EndInit();
-                    bitmap.Freeze();
-                }
-            }
-
-            return bitmap;
-        }
-
-        public void InitList()
-        {
-            //bmList = new ObservableCollection<BitmapImage>();
-            //var length = files.Length;
-            //for (int i = 0; i < length; i++)
-            //{
-            //    BitmapImage bmImg = new BitmapImage(new Uri(files[i]));
-            //    bmList.Add(bmImg);
-            //}
+            return _imageManager.GetSource(imagePath);
         }
 
         void CompositionTarget_Rendering(object sender, EventArgs e)
@@ -119,6 +89,83 @@ namespace VicoldUtility.Scr.ImageSlider
         private void Window_Closed(object sender, EventArgs e)
         {
 
+        }
+
+        private void ChangeImage(string newUrl)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                var newImage = new Image();
+                newImage.Stretch = Stretch.Fill;
+                newImage.Source = GetImage(newUrl);
+                if (baseGrid.Children.Count > 0)
+                {
+                    var lastImage = baseGrid.Children[0] as Image;
+                    Panel.SetZIndex(lastImage, 1);
+                    FloatElement(lastImage, 0);
+                }
+
+                Panel.SetZIndex(newImage, 0);
+                baseGrid.Children.Add(newImage);
+            });
+        }
+
+        /// <summary>
+        /// 透明度动画
+        /// </summary>
+        /// <param name="elem"></param>
+        /// <param name="to"></param>
+        public void FloatElement(Image elem, double to)
+        {
+            if (to == 1)
+            {
+                elem.Visibility = Visibility.Visible;
+            }
+            DoubleAnimation opacity = new DoubleAnimation()
+            {
+                To = to,
+                Duration = new TimeSpan(0, 0, 0, 0, 500)
+            };
+            EventHandler handler = null;
+            opacity.Completed += handler = (s, e) =>
+            {
+                opacity.Completed -= handler;
+                if (to == 0)
+                {
+                    elem.Visibility = Visibility.Collapsed;
+                    baseGrid.Children.Remove(elem);
+                    //if (elem.Source is BitmapImage bi)
+                    //{
+                    //    bi.StreamSource.Dispose();
+                    //}
+                    elem.Source = null;
+                }
+                opacity = null;
+                //GC.Collect();
+            };
+            elem.BeginAnimation(UIElement.OpacityProperty, opacity);
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Close();
+        }
+
+        private void CloseWindow(Point posi)
+        {
+            if (_firstMoving)
+            {
+                if (_x != posi.X && _y != posi.Y)
+                {
+                    // Close();
+                }
+            }
+            else
+            {
+                _x = posi.X;
+                _y = posi.Y;
+            }
+            _firstMoving = true;
         }
     }
 }
