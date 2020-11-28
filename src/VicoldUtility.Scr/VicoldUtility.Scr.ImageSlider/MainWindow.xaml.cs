@@ -27,16 +27,34 @@ namespace VicoldUtility.Scr.ImageSlider
         public MainWindow()
         {
             InitializeComponent();
+            Properties.Settings.Default.Upgrade();
             _loopQueue = new LoopQueue<string>();
-            _imageManager = new ImageManager();
-            Mouse.OverrideCursor = Cursors.None;
+            _imageManager = new ImageManager(this);
+            _imageManager.AddToContainer(baseGrid);
+            var folderPath = Properties.Settings.Default.FolderPath;
+            if (!Directory.Exists(folderPath))
+            {
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            }
+
+            // Mouse.OverrideCursor = Cursors.None;
             //var fi = new string[] { "*.jpg", "*.png", "*.jpeg", "*.bmp" };
-            var files = Directory.GetFiles(@"F:\壁纸剪切好\Note9_Default_Wallpaper")
+            var files = Directory.GetFiles(folderPath)
                 .Where(file => file.ToLower().EndsWith("jpg")
                 || file.ToLower().EndsWith("png")
                 || file.ToLower().EndsWith("jpeg")
                 || file.ToLower().EndsWith("bmp")).ToArray();
+            if (files.Length == 0)
+            {
+                files = new string[6];
+                for (var i = 1; i < 7; i++)
+                {
+                    files[i - 1] = $@"./Asserts/default{i}.jpg";
+                }
+            }
+
             _loopQueue.Add(files);
+            _loopQueue.IsRandom = Properties.Settings.Default.IsRandom;
             CompositionTarget.Rendering += new EventHandler(CompositionTarget_Rendering);
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
@@ -50,14 +68,32 @@ namespace VicoldUtility.Scr.ImageSlider
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
+            var f = string.Join(Environment.NewLine, args);
+            if (args.Length == 0)
+            {
+                return;
+            }
+
+            switch (args[0])
+            {
+                case "/s": // 预览
+                    break;
+                case "/c": // 设置
+                    new SettingWindow().Show();
+                    break;
+                case "/p": // 预览窗格
+                    break;
+            }
         }
 
         private async void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
-                ChangeImage(_loopQueue.Next());
-                await Task.Delay(3000);
+                //ChangeImage(_loopQueue.Next());
+                _imageManager.Next(_loopQueue.Next());
+                await Task.Delay(Properties.Settings.Default.ExchangeSpeed * 1000);
             }
         }
 
@@ -93,62 +129,35 @@ namespace VicoldUtility.Scr.ImageSlider
 
         private void ChangeImage(string newUrl)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                var newImage = new Image();
-                newImage.Stretch = Stretch.Fill;
-                newImage.Source = GetImage(newUrl);
-                if (baseGrid.Children.Count > 0)
-                {
-                    var lastImage = baseGrid.Children[0] as Image;
-                    Panel.SetZIndex(lastImage, 1);
-                    FloatElement(lastImage, 0);
-                }
 
-                Panel.SetZIndex(newImage, 0);
-                baseGrid.Children.Add(newImage);
-            });
+            //this.Dispatcher.Invoke(() =>
+            //{
+            //    var newImage = new Image();
+            //    newImage.Stretch = Stretch.Fill;
+            //    newImage.Source = GetImage(newUrl);
+            //    if (baseGrid.Children.Count > 0)
+            //    {
+            //        var lastImage = baseGrid.Children[0] as Image;
+            //        Panel.SetZIndex(lastImage, 1);
+            //        FloatElement(lastImage, 0);
+            //    }
+
+            //    Panel.SetZIndex(newImage, 0);
+            //    baseGrid.Children.Add(newImage);
+            //});
         }
 
-        /// <summary>
-        /// 透明度动画
-        /// </summary>
-        /// <param name="elem"></param>
-        /// <param name="to"></param>
-        public void FloatElement(Image elem, double to)
-        {
-            if (to == 1)
-            {
-                elem.Visibility = Visibility.Visible;
-            }
-            DoubleAnimation opacity = new DoubleAnimation()
-            {
-                To = to,
-                Duration = new TimeSpan(0, 0, 0, 0, 500)
-            };
-            EventHandler handler = null;
-            opacity.Completed += handler = (s, e) =>
-            {
-                opacity.Completed -= handler;
-                if (to == 0)
-                {
-                    elem.Visibility = Visibility.Collapsed;
-                    baseGrid.Children.Remove(elem);
-                    //if (elem.Source is BitmapImage bi)
-                    //{
-                    //    bi.StreamSource.Dispose();
-                    //}
-                    elem.Source = null;
-                }
-                opacity = null;
-                //GC.Collect();
-            };
-            elem.BeginAnimation(UIElement.OpacityProperty, opacity);
-        }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            // Close();
+            if (e.Key == Key.S)
+            {
+                new SettingWindow().Show();
+            }
+            else
+            {
+                Close();
+            }
         }
 
         private void CloseWindow(Point posi)
@@ -157,7 +166,7 @@ namespace VicoldUtility.Scr.ImageSlider
             {
                 if (_x != posi.X && _y != posi.Y)
                 {
-                    // Close();
+                    Close();
                 }
             }
             else

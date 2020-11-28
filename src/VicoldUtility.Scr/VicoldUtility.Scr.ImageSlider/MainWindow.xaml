@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.Scr.ImageSlider"
         mc:Ignorable="d"
-        Title="MainWindow"  Height="450" Width="800" WindowState="Maximized" Background="Transparent" AllowsTransparency="True"
+        Title="MainWindow" Topmost="True" Height="450" Width="800" WindowState="Maximized" Background="Transparent" AllowsTransparency="True"
         WindowStyle="None" WindowStartupLocation="CenterScreen" MouseMove="Window_MouseMove" Loaded="Window_Loaded" Closed="Window_Closed"  
         KeyDown="Window_KeyDown">
     <Grid x:Name="baseGrid">
+        <Image Source="F:\壁纸备用\1 (1).jpg" Stretch="UniformToFill" StretchDirection="Both"/>
     </Grid>
 </Window>
