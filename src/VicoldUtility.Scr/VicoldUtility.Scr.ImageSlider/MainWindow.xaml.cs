@@ -69,22 +69,32 @@ namespace VicoldUtility.Scr.ImageSlider
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
-            var f = string.Join(Environment.NewLine, args);
             if (args.Length == 0)
             {
                 return;
             }
 
-            switch (args[0])
+            //switch (args[0].ToLower())
+            //{
+            //    case "/s": // 预览
+            //        break;
+            //    case "/c": // 设置
+            //        new SettingWindow().Show();
+            //        break;
+            //    case "/p": // 预览窗格
+            //        break;
+            //        Close();
+            //}
+            //MessageBox.Show(args[0]);
+            if (args[0].ToLower().StartsWith("/c"))
             {
-                case "/s": // 预览
-                    break;
-                case "/c": // 设置
-                    new SettingWindow().Show();
-                    break;
-                case "/p": // 预览窗格
-                    break;
+                new SettingWindow().Show();
+                Close();
+            }else if (args[0].ToLower().StartsWith("/p"))
+            {
+                Close();
             }
+            //MessageBox.Show(args[0]);
         }
 
         private async void bw_DoWork(object sender, DoWorkEventArgs e)
@@ -92,6 +102,7 @@ namespace VicoldUtility.Scr.ImageSlider
             while (true)
             {
                 //ChangeImage(_loopQueue.Next());
+                //MessageBox.Show(_loopQueue.Next());
                 _imageManager.Next(_loopQueue.Next());
                 await Task.Delay(Properties.Settings.Default.ExchangeSpeed * 1000);
             }

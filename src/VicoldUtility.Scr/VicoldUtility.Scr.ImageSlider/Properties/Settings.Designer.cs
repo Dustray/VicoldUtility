@@ -49,7 +49,7 @@ namespace VicoldUtility.Scr.ImageSlider.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IsRandom {
             get {
                 return ((bool)(this["IsRandom"]));

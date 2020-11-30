@@ -9,6 +9,5 @@
         WindowStyle="None" WindowStartupLocation="CenterScreen" MouseMove="Window_MouseMove" Loaded="Window_Loaded" Closed="Window_Closed"  
         KeyDown="Window_KeyDown">
     <Grid x:Name="baseGrid">
-        <Image Source="F:\壁纸备用\1 (1).jpg" Stretch="UniformToFill" StretchDirection="Both"/>
     </Grid>
 </Window>
