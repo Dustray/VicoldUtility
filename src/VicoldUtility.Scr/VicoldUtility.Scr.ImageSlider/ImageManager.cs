@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 
 namespace VicoldUtility.Scr.ImageSlider
@@ -20,15 +21,21 @@ namespace VicoldUtility.Scr.ImageSlider
 
         public ImageManager(Window thisWindow)
         {
+            var blur = new BlurEffect();
+            blur.Radius = 40;
+
             _thisWindow = thisWindow;
             _firstImage = new Image();
             _firstImage.Name = "first";
             _firstImage.Stretch = Stretch.UniformToFill;
             _firstImage.StretchDirection = StretchDirection.Both;
+            _firstImage.Effect = blur;
+
             _lastImage = new Image();
             _lastImage.Name = "last";
             _lastImage.Stretch = Stretch.UniformToFill;
             _lastImage.StretchDirection = StretchDirection.Both;
+            _lastImage.Effect = blur;
         }
 
         public void AddToContainer(Panel ui)
