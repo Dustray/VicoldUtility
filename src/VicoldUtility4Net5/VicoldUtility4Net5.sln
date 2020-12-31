@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VicoldUtility.FileConfuse", "VicoldUtility.FileConfuse\VicoldUtility.FileConfuse.csproj", "{216390BB-73E3-4359-B629-38727C43FF96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldUtility.ImageClip", "VicoldUtility.ImageClip\VicoldUtility.ImageClip.csproj", "{9DE95D4F-0878-45E8-9085-3D2F7EF5F3A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VicoldUtility.ImageClip", "VicoldUtility.ImageClip\VicoldUtility.ImageClip.csproj", "{9DE95D4F-0878-45E8-9085-3D2F7EF5F3A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VicoldGis", "VicoldGis\VicoldGis.csproj", "{EF37D173-77CE-4059-81D7-9DD6E3EA2F68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9DE95D4F-0878-45E8-9085-3D2F7EF5F3A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DE95D4F-0878-45E8-9085-3D2F7EF5F3A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DE95D4F-0878-45E8-9085-3D2F7EF5F3A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF37D173-77CE-4059-81D7-9DD6E3EA2F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF37D173-77CE-4059-81D7-9DD6E3EA2F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF37D173-77CE-4059-81D7-9DD6E3EA2F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF37D173-77CE-4059-81D7-9DD6E3EA2F68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
