@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using VicoldGis.VMap.Handlers;
 using VicoldGis.VMap.Projections;
+using VicoldGis.VMap.Symbols;
 
 namespace VicoldGis.VMap
 {
@@ -27,56 +28,38 @@ namespace VicoldGis.VMap
             //经度
             for (var i = -70; i <= 290; i += 10)
             {
-                var line = new Line();
-                line.RenderTransform = new TransformGroup();
-                line.StrokeThickness = 1;
-                line.Stroke = new SolidColorBrush(color);
                 var start = _projection.Project(i, 80);
                 var end = _projection.Project(i, -80);
-                line.X1 = start.X * scale;
-                line.Y1 = start.Y * scale;
-                line.X2 = end.X * scale;
-                line.Y2 = end.Y * scale;
-                line.Tag = new AdaptiveAntiZoomHandler()
+                var line = SymbolFactory.MakeLine(new SingleLineInfo()
                 {
-                    OnScale = (ratio) =>
-                    {
-                        line.StrokeThickness = ratio * 1;
-                    }
-                };
+                    LineWidth = 1,
+                    X1 = start.X * scale,
+                    Y1 = start.Y * scale,
+                    X2 = end.X * scale,
+                    Y2 = end.Y * scale,
+                    LineColor = color
+                });
                 list.Add(line);
-
-                var font = new TextBlock();
-                font.Text = i.ToString();
-                font.Foreground = new SolidColorBrush(color);
-                font.FontSize = 13;
-                font.Tag = new AdaptiveAntiZoomHandler()
+                var font = SymbolFactory.MakeFont(new FontInfo()
                 {
-                    OnScale = (ratio) =>
-                    {
-                        font.FontSize = ratio * 13;
-                        Canvas.SetLeft(font, line.X1 - (ratio * 10));
-                        Canvas.SetTop(font, line.Y1 - (ratio * 20));
-                    }
-                };
-                Canvas.SetLeft(font, line.X1);
-                Canvas.SetTop(font, line.Y1);
-
-                var font2 = new TextBlock();
-                font2.Text = i.ToString();
-                font2.Foreground = new SolidColorBrush(color);
-                font2.FontSize = 13;
-                font2.Tag = new AdaptiveAntiZoomHandler()
+                    Text = i.ToString(),
+                    FontSize = 13,
+                    X = line.X1,
+                    Y = line.Y1,
+                    XOffset = -10,
+                    YOffset = -20,
+                    FontColor = color
+                });
+                var font2 = SymbolFactory.MakeFont(new FontInfo()
                 {
-                    OnScale = (ratio) =>
-                    {
-                        font2.FontSize = ratio * 13;
-                        Canvas.SetLeft(font2, line.X2 - (ratio * 10));
-                        Canvas.SetTop(font2, line.Y2 - (ratio * 1));
-                    }
-                };
-                Canvas.SetLeft(font2, line.X2);
-                Canvas.SetTop(font2, line.Y2);
+                    Text = i.ToString(),
+                    FontSize = 13,
+                    X = line.X2,
+                    Y = line.Y2,
+                    XOffset = -10,
+                    YOffset = 1,
+                    FontColor = color
+                });
                 OnRenderOne?.Invoke(font);
                 OnRenderOne?.Invoke(font2);
             }
@@ -84,54 +67,38 @@ namespace VicoldGis.VMap
             //纬度
             for (var i = 80; i >= -80; i -= 10)
             {
-                var line = new Line();
-                line.RenderTransform = new TransformGroup();
-                line.StrokeThickness = 1;
-                line.Stroke = new SolidColorBrush(color);
-                line.X1 = -180 * scale;
-                line.Y1 = -i * scale;
-                line.X2 = 180 * scale;
-                line.Y2 = -i * scale;
-                line.Tag = new AdaptiveAntiZoomHandler()
+                var line = SymbolFactory.MakeLine(new SingleLineInfo()
                 {
-                    OnScale = (ratio) =>
-                    {
-                        line.StrokeThickness = ratio * 1;
-                    }
-                };
+                    LineWidth = 1,
+                    X1 = -180 * scale,
+                    Y1 = -i * scale,
+                    X2 = 180 * scale,
+                    Y2 = -i * scale,
+                    LineColor = color
+                });
                 list.Add(line);
 
-                var font = new TextBlock();
-                font.Text = i.ToString();
-                font.Foreground = new SolidColorBrush(color);
-                font.FontSize = 13;
-                font.Tag = new AdaptiveAntiZoomHandler()
+                var font = SymbolFactory.MakeFont(new FontInfo()
                 {
-                    OnScale = (ratio) =>
-                    {
-                        font.FontSize = ratio * 13;
-                        Canvas.SetLeft(font, line.X1 - (ratio * 22));
-                        Canvas.SetTop(font, line.Y1 - (ratio * 7));
-                    }
-                };
-                Canvas.SetLeft(font, line.X1);
-                Canvas.SetTop(font, line.Y1);
+                    Text = i.ToString(),
+                    FontSize = 13,
+                    X = line.X1,
+                    Y = line.Y1,
+                    XOffset = -22,
+                    YOffset = -7,
+                    FontColor = color
+                });
+                var font2 = SymbolFactory.MakeFont(new FontInfo()
+                {
+                    Text = i.ToString(),
+                    FontSize = 13,
+                    X = line.X2,
+                    Y = line.Y2,
+                    XOffset = 1,
+                    YOffset = -7,
+                    FontColor = color
+                });
 
-                var font2 = new TextBlock();
-                font2.Text = i.ToString();
-                font2.Foreground = new SolidColorBrush(color);
-                font2.FontSize = 13;
-                font2.Tag = new AdaptiveAntiZoomHandler()
-                {
-                    OnScale = (ratio) =>
-                    {
-                        font2.FontSize = ratio * 13;
-                        Canvas.SetLeft(font2, line.X2 + (ratio * 1));
-                        Canvas.SetTop(font2, line.Y2 - (ratio * 7));
-                    }
-                };
-                Canvas.SetLeft(font, line.X1);
-                Canvas.SetTop(font, line.Y1);
                 OnRenderOne?.Invoke(font);
                 OnRenderOne?.Invoke(font2);
             }

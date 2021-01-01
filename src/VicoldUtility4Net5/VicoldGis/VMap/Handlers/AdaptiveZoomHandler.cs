@@ -10,14 +10,10 @@ namespace VicoldGis.VMap.Handlers
     /// </summary>
     internal class AdaptiveAntiZoomHandler
     {
-        private FrameworkElement _element;
         /// <summary>
         /// 缩放回调
         /// </summary>
         public Action<double> OnScale;
-        public AdaptiveAntiZoomHandler()
-        {
-        }
 
         /// <summary>
         /// 进行反缩放
