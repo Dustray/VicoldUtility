@@ -7,6 +7,6 @@ namespace VicoldGis.VMap.Projections
 {
     internal interface IProjection
     {
-        public Point Project(float x, float y);
+        public Point Project(double x, double y);
     }
 }

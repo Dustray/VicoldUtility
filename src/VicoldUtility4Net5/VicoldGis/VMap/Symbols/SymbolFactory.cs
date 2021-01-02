@@ -41,9 +41,9 @@ namespace VicoldGis.VMap.Symbols
             line.RenderTransform = new TransformGroup();
             line.StrokeThickness = info.LineWidth;
             line.Stroke = new SolidColorBrush(info.LineColor);
-            line.X1 =info.X1;
-            line.Y1 =info.Y1;
-            line.X2 =info.X2;
+            line.X1 = info.X1;
+            line.Y1 = info.Y1;
+            line.X2 = info.X2;
             line.Y2 = info.Y2;
             line.Tag = new AdaptiveAntiZoomHandler()
             {
@@ -53,6 +53,43 @@ namespace VicoldGis.VMap.Symbols
                 }
             };
             return line;
+        }
+
+        public static List<System.Windows.Shapes.Path> MakeMiltiLine(MuiltiLineInfo info)
+        {
+            var paths = new List<System.Windows.Shapes.Path>();
+            foreach (var line in info.Lines)
+            {
+                StreamGeometry streamGeo = new StreamGeometry();
+                streamGeo.Clear();
+                var path = new System.Windows.Shapes.Path();
+                if (line.Length < 2)
+                {
+                    continue;
+                }
+                using (StreamGeometryContext ctx = streamGeo.Open())
+                {
+                    ctx.BeginFigure(line[0], false, false);
+                    for (var i = 1; i < line.Length; i++)
+                    {
+                        ctx.LineTo(line[i], true, true);
+                    }
+                }
+                streamGeo.Freeze();
+                path.Data = streamGeo;
+                path.StrokeThickness = info.LineWidth;
+                path.Stroke = new SolidColorBrush(info.LineColor);
+                path.Tag = new AdaptiveAntiZoomHandler()
+                {
+                    OnScale = (ratio) =>
+                    {
+                        path.StrokeThickness = ratio * info.LineWidth;
+                    }
+                };
+                paths.Add(path);
+            }
+
+            return paths;
         }
     }
 }

@@ -9,12 +9,12 @@
       Title="MapPage">
 
     <Grid>
-        <Border Name="outside" Grid.Column="1" Background="#444" 
-                PreviewMouseDown="outsidewrapper_PreviewMouseDown" 
-                PreviewMouseMove="outsidewrapper_PreviewMouseMove" 
+        <Border Name="outside" Grid.Column="1" Background="#111"
+                PreviewMouseDown="outsidewrapper_PreviewMouseDown"
+                PreviewMouseMove="outsidewrapper_PreviewMouseMove"
                 PreviewMouseUp="outside_PreviewMouseUp"
                 PreviewMouseWheel="outside_PreviewMouseWheel"
-                ClipToBounds="True" Loaded="outside_Loaded" >
+                ClipToBounds="True" Loaded="outside_Loaded">
 
             <Canvas Name="inside" Width="{Binding Path=ActualWidth,RelativeSource={RelativeSource AncestorType=Border}}" 
                     Height="{Binding Path=ActualHeight,RelativeSource={RelativeSource AncestorType=Border}}"  SizeChanged="inside_SizeChanged" >

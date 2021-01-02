@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using VicoldGis.VMap.Handlers;
 using VicoldGis.VMap.Projections;
 using VicoldGis.VMap.Symbols;
 
@@ -13,18 +9,31 @@ namespace VicoldGis.VMap
 {
     public class MapBox
     {
-        public Action<List<FrameworkElement>> OnRender;
-        public Action<FrameworkElement> OnRenderOne;
         private IProjection _projection;
-        private double scale = 100;
         public MapBox()
         {
             _projection = new MercatorProj();
+            Manager = new MapManager();
+            Manager.OnShowCallback = (eles) => OnRender.Invoke(eles);
+            Manager.OnDeleteCallback = (eles) => OnUnRender.Invoke(eles);
         }
+        public double Scale { get; set; } = 100;
+
+        public MapManager Manager { get; private set; }
+
+        internal Action<ICollection<FrameworkElement>> OnRender { get; set; }
+
+        internal Action<FrameworkElement> OnRenderOne { get; set; }
+
+        internal Action<ICollection<FrameworkElement>> OnUnRender { get; set; }
+
+        /// <summary>
+        /// 加载经纬线和标签
+        /// </summary>
         internal void LoadCoordinateGrid()
         {
             var list = new List<FrameworkElement>();
-            var color = Colors.White;
+            var color = Colors.Gray;
             //经度
             for (var i = -70; i <= 290; i += 10)
             {
@@ -33,10 +42,10 @@ namespace VicoldGis.VMap
                 var line = SymbolFactory.MakeLine(new SingleLineInfo()
                 {
                     LineWidth = 1,
-                    X1 = start.X * scale,
-                    Y1 = start.Y * scale,
-                    X2 = end.X * scale,
-                    Y2 = end.Y * scale,
+                    X1 = start.X * Scale,
+                    Y1 = start.Y * Scale,
+                    X2 = end.X * Scale,
+                    Y2 = end.Y * Scale,
                     LineColor = color
                 });
                 list.Add(line);
@@ -70,10 +79,10 @@ namespace VicoldGis.VMap
                 var line = SymbolFactory.MakeLine(new SingleLineInfo()
                 {
                     LineWidth = 1,
-                    X1 = -180 * scale,
-                    Y1 = -i * scale,
-                    X2 = 180 * scale,
-                    Y2 = -i * scale,
+                    X1 = -180 * Scale,
+                    Y1 = -i * Scale,
+                    X2 = 180 * Scale,
+                    Y2 = -i * Scale,
                     LineColor = color
                 });
                 list.Add(line);

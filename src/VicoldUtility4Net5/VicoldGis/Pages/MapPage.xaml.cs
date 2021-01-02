@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using VicoldGis.DefaultMapData;
 using VicoldGis.VMap;
 using VicoldGis.VMap.Handlers;
 
@@ -20,21 +13,31 @@ namespace VicoldGis.Pages
     /// </summary>
     public partial class MapPage : Page
     {
-        private MapBox _mapBox;
         public MapPage()
         {
             InitializeComponent();
-            _mapBox = new MapBox();
-            _mapBox.OnRender = (eles) =>
+            App.Current.Map2 = new MapBox();
+            App.Current.Map2.OnRender = (eles) =>
             {
                 foreach (var ele in eles)
                 {
                     inside.Children.Add(ele);
                 }
             };
-            _mapBox.OnRenderOne = (ele) =>
+            App.Current.Map2.OnRenderOne = (ele) =>
             {
                 inside.Children.Add(ele);
+            };
+            App.Current.Map2.OnUnRender = (eles) =>
+            {
+                try
+                {
+                    foreach (var ele in eles)
+                    {
+                        inside.Children.Remove(ele);
+                    }
+                }
+                catch { }
             };
         }
 
@@ -77,10 +80,6 @@ namespace VicoldGis.Pages
         /// <param name=""></param>
         private void Domousemove(Border img, MouseEventArgs e)
         {
-            if (e.LeftButton != MouseButtonState.Pressed)
-            {
-                return;
-            }
             var group = inside.RenderTransform as TransformGroup;
             var transform = group.Children[1] as TranslateTransform;
             var position = e.GetPosition(img);
@@ -167,9 +166,32 @@ namespace VicoldGis.Pages
                                                                                       //    inside.RenderTransform = tg;
             previousPoint = currentPoint;
             previousOutSize = new Size(outside.ActualWidth, outside.ActualHeight);
+
+
             isLoaded = true;
 
-            _mapBox.LoadCoordinateGrid();
+            App.Current.Map2.LoadCoordinateGrid();
+            new DefaultDataManager().LoadProvinceLine();
+
+            var transform = tg.Children[0] as ScaleTransform;
+            transform.ScaleX = 0.182;
+            transform.ScaleY = 0.182;
+            var transform1 = tg.Children[1] as TranslateTransform;
+            transform1.X = 705;
+            transform1.Y = 1017;
+            //元素线条宽度不变
+            foreach (var childObj in inside.Children)
+            {
+                var child = childObj as FrameworkElement;
+                if (child != null)
+                {
+                    if (child.Tag is AdaptiveAntiZoomHandler handler)
+                    {
+                        handler.AntiScaling(transform.ScaleX);
+                    }
+                }
+            }
+
         }
     }
 }

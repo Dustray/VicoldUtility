@@ -7,7 +7,49 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\map\countiesb2b.adr" />
+    <None Remove="Data\map\countiesb2b.ctl" />
+    <None Remove="Data\map\shp2b_city_full.adr" />
+    <None Remove="Data\map\shp2b_city_full.ctl" />
+    <None Remove="Data\map\shp2b_county_full.adr" />
+    <None Remove="Data\map\shp2b_county_full.ctl" />
+    <None Remove="Data\map\shp2b_provinces_full.adr" />
+    <None Remove="Data\map\shp2b_provinces_full.ctl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\map\countiesb2b.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\countiesb2b.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\shp2b_city_full.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\shp2b_city_full.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\shp2b_county_full.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\shp2b_county_full.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\shp2b_provinces_full.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\shp2b_provinces_full.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="VMap\Utilities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
 </Project>

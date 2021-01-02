@@ -5,10 +5,10 @@ using System.Windows;
 
 namespace VicoldGis.VMap.Projections
 {
-    public class MercatorProj: IProjection
+    public class MercatorProj : IProjection
     {
         const float kLon0 = 110;
-        public Point Project(float x, float y)
+        public Point Project(double x, double y)
         {
             var isLeft = x < 0;
             if (x < 0) x += 360;
@@ -16,7 +16,8 @@ namespace VicoldGis.VMap.Projections
             if (x > 180)
             {
                 x -= 360;
-            }else if (x == 180)
+            }
+            else if (x == 180)
             {
                 x *= isLeft ? -1 : 1;
             }
