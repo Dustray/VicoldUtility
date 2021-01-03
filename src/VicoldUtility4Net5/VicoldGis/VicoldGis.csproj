@@ -9,6 +9,10 @@
   <ItemGroup>
     <None Remove="Data\map\countiesb2b.adr" />
     <None Remove="Data\map\countiesb2b.ctl" />
+    <None Remove="Data\map\global2b.adr" />
+    <None Remove="Data\map\global2b.ctl" />
+    <None Remove="Data\map\provinces2b.adr" />
+    <None Remove="Data\map\provinces2b.ctl" />
     <None Remove="Data\map\shp2b_city_full.adr" />
     <None Remove="Data\map\shp2b_city_full.ctl" />
     <None Remove="Data\map\shp2b_county_full.adr" />
@@ -22,6 +26,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\map\countiesb2b.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\global2b.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\global2b.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\provinces2b.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\map\provinces2b.ctl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\map\shp2b_city_full.adr">

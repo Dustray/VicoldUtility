@@ -10,6 +10,11 @@ namespace VicoldGis.VMap.Symbols
     {
         public double LineWidth { get; set; }
         public List<Point[]> Lines { get; set; }
+
+        /// <summary>
+        /// 是否自动讲所有线闭合
+        /// </summary>
+        public bool IsAutoClose { get; set; }
         public Color LineColor { get; set; } = Colors.White;
     }
 }

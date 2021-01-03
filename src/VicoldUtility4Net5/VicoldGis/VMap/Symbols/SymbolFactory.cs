@@ -69,7 +69,7 @@ namespace VicoldGis.VMap.Symbols
                 }
                 using (StreamGeometryContext ctx = streamGeo.Open())
                 {
-                    ctx.BeginFigure(line[0], false, false);
+                    ctx.BeginFigure(line[0], false, info.IsAutoClose);
                     for (var i = 1; i < line.Length; i++)
                     {
                         ctx.LineTo(line[i], true, true);
