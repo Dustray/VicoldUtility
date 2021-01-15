@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
 
 namespace VicoldGis.VMap
 {
@@ -14,7 +15,11 @@ namespace VicoldGis.VMap
         }
 
         internal Action<ICollection<FrameworkElement>> OnShowCallback;
+        internal Action<ICollection<Visual>> OnShowVisualCallback;
         internal Action<ICollection<FrameworkElement>> OnDeleteCallback;
+
+        public double ScaleX { get; set; }
+        public double ScaleY { get; set; }
 
         /// <summary>
         /// 添加图层
@@ -26,8 +31,35 @@ namespace VicoldGis.VMap
             {
                 throw new Exception("地图中已存在相同ID的图层");
             }
-            OnShowCallback.Invoke(layer.GetElements());
+            layer.Load();
+            OnShowCallback.Invoke(layer.GetElements());//Visual
             _layerKeeper[layer.Id] = layer;
+        }
+
+        /// <summary>
+        /// 添加图层
+        /// </summary>
+        /// <param name="layer"></param>
+        public Layer GetLayer(long id)
+        {
+            if (_layerKeeper.TryGetValue(id, out var layer))
+            {
+                return layer;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 添加图层
+        /// </summary>
+        /// <param name="layer"></param>
+        public void Update(Layer layer)
+        {
+            if (_layerKeeper.TryGetValue(layer.Id, out var oldLayer))
+            {
+                Delete(layer.Id);
+            }
+            Add(layer);
         }
 
         /// <summary>

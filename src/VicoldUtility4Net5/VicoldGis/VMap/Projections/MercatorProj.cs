@@ -7,7 +7,7 @@ namespace VicoldGis.VMap.Projections
 {
     public class MercatorProj : IProjection
     {
-        const float kLon0 = 110;
+        const float kLon0 = 180;
         public Point Project(double x, double y)
         {
             var isLeft = x < 0;

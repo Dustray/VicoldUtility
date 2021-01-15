@@ -14,6 +14,7 @@ namespace VicoldGis.VMap
         {
             _projection = new MercatorProj();
             Manager = new MapManager();
+            Manager.OnShowVisualCallback = (eles) => OnRenderVisual.Invoke(eles);
             Manager.OnShowCallback = (eles) => OnRender.Invoke(eles);
             Manager.OnDeleteCallback = (eles) => OnUnRender.Invoke(eles);
         }
@@ -22,6 +23,7 @@ namespace VicoldGis.VMap
         public MapManager Manager { get; private set; }
 
         internal Action<ICollection<FrameworkElement>> OnRender { get; set; }
+        internal Action<ICollection<Visual>> OnRenderVisual { get; set; }
 
         internal Action<FrameworkElement> OnRenderOne { get; set; }
 

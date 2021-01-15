@@ -7,6 +7,37 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1300" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Frame Source="/Pages/MapPage.xaml"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" MinWidth="150"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="200" MinWidth="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame Grid.Row="0" Grid.ColumnSpan="5" Background="#333"></Frame>
+
+        <Frame Grid.Row="1" Grid.Column="0" Background="#888" Source="/Pages/ToolPage.xaml"/>
+        <GridSplitter  Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+
+        <Frame Grid.Row="1" Grid.Column="2" Source="/Pages/MapPage.xaml"/>
+
+        <GridSplitter  Grid.Row="1" Grid.Column="3" Width="5" HorizontalAlignment="Stretch"/>
+        <Grid Grid.Row="1" Grid.Column="4" >
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="10"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition MinHeight="10" ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0"  Background="#888" ></Frame>
+            <GridSplitter  Grid.Row="1" Height="5" HorizontalAlignment="Stretch"  ResizeDirection="Rows"/>
+            <Frame Grid.Row="2"  Background="#888" Source="/Pages/LayerManagerPage.xaml"></Frame>
+        </Grid>
+
+        <Frame Grid.Row="2" Grid.ColumnSpan="5" Background="#333"></Frame>
     </Grid>
 </Window>

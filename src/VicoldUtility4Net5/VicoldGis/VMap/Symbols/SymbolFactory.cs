@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -55,9 +56,9 @@ namespace VicoldGis.VMap.Symbols
             return line;
         }
 
-        public static List<System.Windows.Shapes.Path> MakeMiltiLine(MuiltiLineInfo info)
+        public static List<FrameworkElement> MakeMiltiLine(MuiltiLineInfo info)
         {
-            var paths = new List<System.Windows.Shapes.Path>();
+            var paths = new List<FrameworkElement>();
             foreach (var line in info.Lines)
             {
                 StreamGeometry streamGeo = new StreamGeometry();
@@ -77,7 +78,8 @@ namespace VicoldGis.VMap.Symbols
                 }
                 streamGeo.Freeze();
                 path.Data = streamGeo;
-                path.StrokeThickness = info.LineWidth;
+                var sold = App.Current.Map2.Manager.ScaleX == 0 ? 1 : App.Current.Map2.Manager.ScaleX;
+                path.StrokeThickness = 1 / sold * info.LineWidth;
                 path.Stroke = new SolidColorBrush(info.LineColor);
                 path.Tag = new AdaptiveAntiZoomHandler()
                 {
@@ -87,6 +89,35 @@ namespace VicoldGis.VMap.Symbols
                     }
                 };
                 paths.Add(path);
+            }
+
+            return paths;
+        }
+
+
+        public static List<Visual> MakeVisualMiltiLine(MuiltiLineInfo info)
+        {
+            var paths = new List<Visual>();
+            foreach (var line in info.Lines)
+            {
+                if (line.Length < 2)
+                {
+                    continue;
+                }
+
+                DrawingVisual visual = new DrawingVisual();
+                DrawingContext dc = visual.RenderOpen();
+                Pen pen = new Pen(new SolidColorBrush(info.LineColor), info.LineWidth);
+                pen.Freeze();  //冻结画笔，这样能加快绘图速度
+
+                for (int i = 0; i < line.Length - 1; i++)
+                {
+                    dc.DrawLine(pen, line[i], line[i + 1]);
+                }
+
+                dc.Close();
+
+                paths.Add(visual);
             }
 
             return paths;

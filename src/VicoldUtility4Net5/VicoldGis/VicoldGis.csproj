@@ -6,6 +6,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Data\map\countiesb2b.adr" />
     <None Remove="Data\map\countiesb2b.ctl" />
@@ -19,6 +29,7 @@
     <None Remove="Data\map\shp2b_county_full.ctl" />
     <None Remove="Data\map\shp2b_provinces_full.adr" />
     <None Remove="Data\map\shp2b_provinces_full.ctl" />
+    <None Remove="Libs\msq.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +67,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\map\shp2b_provinces_full.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libs\msq.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

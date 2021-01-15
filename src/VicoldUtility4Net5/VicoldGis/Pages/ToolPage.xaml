@@ -1,0 +1,24 @@
+﻿<Page x:Class="VicoldGis.Pages.ToolPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VicoldGis.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="200"
+      Title="ToolPage">
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" x:Name="BtnOpenFile" Content="打开文件" Padding="5" VerticalAlignment="Center" HorizontalAlignment="left" Click="BtnOpenFile_Click"/>
+        <CheckBox x:Name="CbSmooth" Grid.Row="1" Grid.Column="0" Content="平滑"  VerticalAlignment="Center" HorizontalAlignment="left" Checked="CbSmooth_Checked" Unchecked="CbSmooth_Checked"/>
+        <CheckBox x:Name="CbOffset" Grid.Row="2" Grid.Column="0" Content="分析同值自动偏移"  VerticalAlignment="Center" HorizontalAlignment="left" Checked="CbOffset_Checked" Unchecked="CbOffset_Checked"/>
+        <Slider x:Name="SldLineWidth" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" ValueChanged="SldLineWidth_ValueChanged" Minimum="1" Maximum="10" Value="1" SmallChange="1" />
+    </Grid>
+</Page>

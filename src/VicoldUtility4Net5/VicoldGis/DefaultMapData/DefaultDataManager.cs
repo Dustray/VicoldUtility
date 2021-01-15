@@ -24,7 +24,7 @@ namespace VicoldGis.DefaultMapData
 
         public void LoadProvinceLine()
         {
-            var lineDic = LoadAdrShape(_provinceControl, _provinceData);
+            var lineDic = LoadAdrShape(_globalControl, _globalData);
             LoadToMap(lineDic);
         }
 
@@ -43,10 +43,10 @@ namespace VicoldGis.DefaultMapData
         private void LoadToMap(Dictionary<int, List<double[]>> lineDic)
         {
             var lines = ToPointList(lineDic);
-            var renderPaths = SymbolFactory.MakeMiltiLine(new MuiltiLineInfo()
+            var renderPaths = SymbolFactory.MakeMiltiLine(new MuiltiLineInfo() //Visual
             {
                 Lines = lines,
-                IsAutoClose = true,
+                IsAutoClose = false,
                 LineWidth = 1
             }); 
             var layer = new VMap.Layer();

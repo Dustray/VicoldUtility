@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:VicoldGis.Pages"
+      xmlns:local="clr-namespace:VicoldGis.Pages" 
+      xmlns:mapview="clr-namespace:VicoldGis.VMap.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MapPage">
@@ -16,20 +17,17 @@
                 PreviewMouseWheel="outside_PreviewMouseWheel"
                 ClipToBounds="True" Loaded="outside_Loaded">
 
-            <Canvas Name="inside" Width="{Binding Path=ActualWidth,RelativeSource={RelativeSource AncestorType=Border}}" 
+            <mapview:MapView x:Name="inside" Width="{Binding Path=ActualWidth,RelativeSource={RelativeSource AncestorType=Border}}" 
                     Height="{Binding Path=ActualHeight,RelativeSource={RelativeSource AncestorType=Border}}"  SizeChanged="inside_SizeChanged" >
-                <Canvas.RenderTransform>
+                <mapview:MapView.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
                     </TransformGroup>
-                </Canvas.RenderTransform>
-                <Canvas.Effect>
+                </mapview:MapView.RenderTransform>
+                <mapview:MapView.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#444" Opacity="0.5" ShadowDepth="0"/>
-                </Canvas.Effect>
-                <Rectangle Canvas.Left="150" Canvas.Top="150" Width="380" Height="296" Fill="White" />
-                <Line Canvas.Left="0" Canvas.Top="0" X1="50" Y1="0" Stroke="DodgerBlue" StrokeThickness="2"/>
-                <TextBlock  Text="=odspods"/>
-            </Canvas>
+                </mapview:MapView.Effect>
+            </mapview:MapView>
         </Border>
     </Grid>
 </Page>

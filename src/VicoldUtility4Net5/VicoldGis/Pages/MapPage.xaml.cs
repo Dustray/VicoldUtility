@@ -17,6 +17,13 @@ namespace VicoldGis.Pages
         {
             InitializeComponent();
             App.Current.Map2 = new MapBox();
+            App.Current.Map2.OnRenderVisual = (eles) =>
+            {
+                foreach (var ele in eles)
+                {
+                    inside.AddVisual(ele);
+                }
+            };
             App.Current.Map2.OnRender = (eles) =>
             {
                 foreach (var ele in eles)
@@ -135,6 +142,9 @@ namespace VicoldGis.Pages
             }
             transform.ScaleX += delta * transform.ScaleX;
             transform.ScaleY += delta * transform.ScaleY;
+
+            App.Current.Map2.Manager.ScaleX = transform.ScaleX;
+            App.Current.Map2.Manager.ScaleY = transform.ScaleY;
             var transform1 = group.Children[1] as TranslateTransform;
             transform1.X = -1 * ((pointToContent.X * transform.ScaleX) - point.X);
             transform1.Y = -1 * ((pointToContent.Y * transform.ScaleY) - point.Y);
