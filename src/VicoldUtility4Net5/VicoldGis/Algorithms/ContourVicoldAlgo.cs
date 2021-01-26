@@ -28,7 +28,7 @@ namespace VicoldGis.Algorithms
         public int analysisValueCount;
         public float invalidValue;
         public byte isCrossoverAutoOffset;
-        public byte isSmooth;
+        public byte smoothInterpolationCount;
     };
 
     public struct MsqGridSlice
@@ -53,26 +53,26 @@ namespace VicoldGis.Algorithms
 
 
         public unsafe static ContourLine[] CreateContourLines(float[] data, int startX, int startY, int xSize, int ySize, int pitch,
-           float[] anaValue, bool isCrossoverAutoOffset, bool isSmooth, float undefValue = 9999.0F, bool isDebug = false)
+           float[] anaValue, bool isCrossoverAutoOffset, byte smoothCount, float undefValue = 9999.0F, bool isDebug = false)
         {
             fixed (float* pp = &data[0])
             {
-                return CreateContourLinesDo(pp, startX, startY, xSize, ySize, pitch, anaValue, isCrossoverAutoOffset, isSmooth, undefValue, 0, 0, 1f, 1f, isDebug);
+                return CreateContourLinesDo(pp, startX, startY, xSize, ySize, pitch, anaValue, isCrossoverAutoOffset, smoothCount, undefValue, 0, 0, 1f, 1f, isDebug);
             }
         }
         public unsafe static ContourLine[] CreateContourLines(float[] data, int startX, int startY, int xSize, int ySize, int pitch,
-           float[] anaValue, bool isCrossoverAutoOffset, bool isSmooth, float undefValue = 9999.0F,
+           float[] anaValue, bool isCrossoverAutoOffset, byte smoothCount, float undefValue = 9999.0F,
            float lon = 0, float lat = 0, float lonIn = 1f, float latIn = 1f, bool isDebug = false)
         {
             fixed (float* pp = &data[0])
             {
-                return CreateContourLinesDo(pp, startX, startY, xSize, ySize, pitch, anaValue, isCrossoverAutoOffset, isSmooth, undefValue, lon, lat, lonIn, latIn, isDebug);
+                return CreateContourLinesDo(pp, startX, startY, xSize, ySize, pitch, anaValue, isCrossoverAutoOffset, smoothCount, undefValue, lon, lat, lonIn, latIn, isDebug);
             }
         }
 
         delegate void OnTracing(IntPtr userData, IntPtr linePtr, int index);
-        public unsafe static ContourLine[] CreateContourLinesDo(float* data, int startX, int startY, int xSize, int ySize, int pitch,
-          float[] anaValue, bool isCrossoverAutoOffset, bool isSmooth, float undefValue = 9999.0F,
+        private unsafe static ContourLine[] CreateContourLinesDo(float* data, int startX, int startY, int xSize, int ySize, int pitch,
+          float[] anaValue, bool isCrossoverAutoOffset, byte smoothCount, float undefValue = 9999.0F,
           float lon = 0, float lat = 0, float lonIn = 1f, float latIn = 1f, bool isDebug = false)
         {
             var lines = new List<ContourLine>();
@@ -105,7 +105,6 @@ namespace VicoldGis.Algorithms
 
                 var tr = new OnTracing(OnTracings);
                 byte isC = (byte)(isCrossoverAutoOffset ? 1 : 0);
-                byte isS = (byte)(isSmooth ? 1 : 0);
                 var paras = new MsqTracePramas()
                 {
                     lineFunc = Marshal.GetFunctionPointerForDelegate(tr),
@@ -113,7 +112,7 @@ namespace VicoldGis.Algorithms
                     analysisValues = anaValuePtr,
                     invalidValue = undefValue,
                     isCrossoverAutoOffset = isC,
-                    isSmooth = isS,
+                    smoothInterpolationCount = smoothCount,
                 };
 
                 int valueCount = anaValue.Length;

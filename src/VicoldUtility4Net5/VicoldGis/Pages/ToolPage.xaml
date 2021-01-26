@@ -10,15 +10,16 @@
 
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" x:Name="BtnOpenFile" Content="打开文件" Padding="5" VerticalAlignment="Center" HorizontalAlignment="left" Click="BtnOpenFile_Click"/>
-        <CheckBox x:Name="CbSmooth" Grid.Row="1" Grid.Column="0" Content="平滑"  VerticalAlignment="Center" HorizontalAlignment="left" Checked="CbSmooth_Checked" Unchecked="CbSmooth_Checked"/>
-        <CheckBox x:Name="CbOffset" Grid.Row="2" Grid.Column="0" Content="分析同值自动偏移"  VerticalAlignment="Center" HorizontalAlignment="left" Checked="CbOffset_Checked" Unchecked="CbOffset_Checked"/>
-        <Slider x:Name="SldLineWidth" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" ValueChanged="SldLineWidth_ValueChanged" Minimum="1" Maximum="10" Value="1" SmallChange="1" />
+        <Button Grid.Row="0" x:Name="BtnOpenFile" Content="打开文件" Margin="10" Padding="5" VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnOpenFile_Click" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Foreground="White"/>
+        <StackPanel Grid.Row="1" >
+            <CheckBox x:Name="CbOffset" Content="分析同值自动偏移" Margin="10"  VerticalAlignment="Center" HorizontalAlignment="left" Checked="CbOffset_Checked" Unchecked="CbOffset_Checked"/>
+            <TextBlock Text="线粗"/>
+            <Slider x:Name="SldLineWidth" VerticalAlignment="Center" Margin="10" ValueChanged="SldLineWidth_ValueChanged" Minimum="1" Maximum="10" Value="1" SmallChange="1" />
+            <TextBlock Text="平滑插值数量"/>
+            <Slider x:Name="SldSmoothCount" VerticalAlignment="Center" Margin="10" ValueChanged="SldSmoothCount_ValueChanged" Minimum="1" Maximum="10" Value="1" SmallChange="1" />
+        </StackPanel>
     </Grid>
 </Page>

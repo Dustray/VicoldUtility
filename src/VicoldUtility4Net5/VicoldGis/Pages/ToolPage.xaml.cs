@@ -49,16 +49,6 @@ namespace VicoldGis.Pages
             }
         }
 
-        private void CbSmooth_Checked(object sender, RoutedEventArgs e)
-        {
-            var layer = App.Current.Map2.Manager.GetLayer(12138);
-            if (layer != null)
-            {
-                var data = layer.DataSource as TempAdapter;
-                data.IsSmooth = (bool)CbSmooth.IsChecked;
-                App.Current.Map2.Manager.Update(layer);
-            }
-        }
 
         private void CbOffset_Checked(object sender, RoutedEventArgs e)
         {
@@ -75,7 +65,6 @@ namespace VicoldGis.Pages
         private void LoadToMap(string file)
         {
             var adapter = new TempAdapter(file);
-            adapter.IsSmooth = false;
             adapter.IsCrossoverAutoOffset = false;
             this.Dispatcher.Invoke(() =>
             {
@@ -96,7 +85,22 @@ namespace VicoldGis.Pages
             if (layer != null)
             {
                 var data = layer.DataSource as TempAdapter;
-                data.LineWidth =(int) SldLineWidth.Value;
+                data.LineWidth = (int)SldLineWidth.Value;
+                App.Current.Map2.Manager.Update(layer);
+            }
+        }
+
+        private void SldSmoothCount_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (App.Current.Map2 == null)
+            {
+                return;
+            }
+            var layer = App.Current.Map2.Manager.GetLayer(12138);
+            if (layer != null)
+            {
+                var data = layer.DataSource as TempAdapter;
+                data.SmoothCount = (byte)SldSmoothCount.Value;
                 App.Current.Map2.Manager.Update(layer);
             }
         }

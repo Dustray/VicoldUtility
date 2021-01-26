@@ -19,16 +19,16 @@ namespace VicoldGis.Adapters
         private string _url;
         private SpaceData _spaceData;
         private float[] analyzeValueSource;
-        public bool IsCrossoverAutoOffset = true;
-        public bool IsSmooth = false;
-        public int LineWidth = 1;
 
         public TempAdapter(string url)
         {
             _url = url;
         }
 
-        public bool IsParsed = false;
+        public bool IsParsed { get; set; } = false;
+        public bool IsCrossoverAutoOffset { get; set; } = true;
+        public byte SmoothCount { get; set; } = 0;
+        public int LineWidth { get; set; } = 1;
 
         public ContourLine[] Lines;
         public void Parse()
@@ -49,7 +49,7 @@ namespace VicoldGis.Adapters
             var width = data.Width;
             var height = data.Height;
             Lines = ContourVicoldAlgo.CreateContourLines(data.Data, startX, startY, width, height, data.Width, analyzeValueSource,
-                IsCrossoverAutoOffset, IsSmooth, 9999, 0, 0, 2.5f, 2.5f, false);
+                IsCrossoverAutoOffset, SmoothCount, 9999, 0, 0, 2.5f, 2.5f, false);
             IsParsed = true;
 
         }
