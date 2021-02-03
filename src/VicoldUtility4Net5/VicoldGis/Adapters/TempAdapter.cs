@@ -33,8 +33,8 @@ namespace VicoldGis.Adapters
         public ContourLine[] Lines;
         public void Parse()
         {
-            var data = ReadData();
-            if (data == null)
+            _spaceData = ReadData();
+            if (_spaceData == null)
             {
                 return;
             }
@@ -43,12 +43,19 @@ namespace VicoldGis.Adapters
             {
                 analyzeValueSource[j] = i;
             }
-
+            //analyzeValueSource = /*new float[] { 785 };//*/ new float[(1000 - 460) / 25 + 1];// { 560, 564, 570, 574, 578, 582, 588, 590, 594, 598 };
+            //for (int i = 460, j = 0; i <= 1000; i += 25, j++)
+            //{
+            //    analyzeValueSource[j] = i;
+            //}
+            // analyzeValueSource = new float[] { 635 };
             var startX = 0;
             var startY = 0;
-            var width = data.Width;
-            var height = data.Height;
-            Lines = ContourVicoldAlgo.CreateContourLines(data.Data, startX, startY, width, height, data.Width, analyzeValueSource,
+            var width = _spaceData.Width;
+            var height = _spaceData.Height;
+            //Lines = ContourVicoldAlgo.CreateContourLines(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
+            //    IsCrossoverAutoOffset, SmoothCount, 9999, 0, 80, 0.125f, -0.125f, false);
+            Lines = ContourVicoldAlgo.CreateContourLines(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
                 IsCrossoverAutoOffset, SmoothCount, 9999, 0, 0, 2.5f, 2.5f, false);
             IsParsed = true;
 
