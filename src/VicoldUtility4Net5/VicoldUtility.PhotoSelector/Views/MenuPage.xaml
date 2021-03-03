@@ -1,0 +1,33 @@
+﻿<Page x:Class="VicoldUtility.PhotoSelector.Views.MenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VicoldUtility.PhotoSelector.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="50" d:DesignWidth="800"
+      Title="MenuPage">
+
+    <Grid>
+        <Menu Height="30" >
+            <MenuItem Header="文件" FontSize="14" Height="30" >
+                <MenuItem x:Name="MnOpenFolder" Header="打开文件夹"  Click="MnOpenFolder_Click"/>
+                <MenuItem x:Name="MnOpenProject" Header="打开工程" />
+                <Separator />
+                <MenuItem x:Name="MnSaveProject" Header="保存" InputGestureText="ctrl+o" />
+                <MenuItem x:Name="MnSaveToProject" Header="另存为工程" InputGestureText="ctrl+o" />
+                <Separator />
+                <MenuItem Header="Sen_d To">
+                    <MenuItem Header="Mail Recipient" />
+                    <MenuItem Header="My Documents" />
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <!--<ToolBar>
+            <Button>1</Button>
+            <Separator />
+            <ToggleButton>2</ToggleButton>
+            <Separator />
+        </ToolBar>-->
+    </Grid>
+</Page>

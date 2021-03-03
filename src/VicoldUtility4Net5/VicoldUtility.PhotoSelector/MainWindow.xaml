@@ -1,0 +1,68 @@
+﻿<Window x:Class="VicoldUtility.PhotoSelector.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VicoldUtility.PhotoSelector"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1300" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown">
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="10"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition MinHeight="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="10" Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition MinWidth="100"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition MinWidth="10" Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Source="./Views/ListPage.xaml" NavigationUIVisibility="Hidden"/>
+        <GridSplitter Grid.Row="0" Grid.RowSpan="3"  Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+
+        <Frame Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Source="./Views/PreviewPage.xaml" NavigationUIVisibility="Hidden"/>
+        <GridSplitter Grid.Row="0" Grid.RowSpan="3"  Grid.Column="3" Width="5" HorizontalAlignment="Stretch"/>
+
+        <Frame Grid.Row="0" Grid.Column="4" Source="./Views/ListPage.xaml" NavigationUIVisibility="Hidden"/>
+        <GridSplitter  Grid.Row="1" Grid.Column="5" Height="5"  ResizeDirection="Rows" HorizontalAlignment="Stretch"/>
+        <Frame Grid.Row="2" Grid.Column="4" Source="./Views/ListPage.xaml" NavigationUIVisibility="Hidden"/>
+
+    </Grid>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" MinWidth="150"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="200" MinWidth="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Frame Grid.Row="0" Grid.ColumnSpan="5" Background="#333" Source="/Views/MenuPage.xaml"/>
+
+        <Frame Grid.Row="1" Grid.Column="0" Background="#888" Source="/Views/ListPage.xaml"/>
+        <GridSplitter  Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+
+        <Frame x:Name="PreviewPage" Grid.Row="1" Grid.Column="2"  Source="./Views/PreviewPage.xaml"/>
+
+        <GridSplitter  Grid.Row="1" Grid.Column="3" Width="5" HorizontalAlignment="Stretch"/>
+        <Grid Grid.Row="1" Grid.Column="4" >
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="10"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition MinHeight="10" ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0"  Background="#888" Source="/Views/ListPage.xaml" ></Frame>
+            <GridSplitter  Grid.Row="1" Height="5" HorizontalAlignment="Stretch"  ResizeDirection="Rows"/>
+            <Frame Grid.Row="2"  Background="#888" Source="/Views/ListPage.xaml"></Frame>
+        </Grid>
+
+        <Frame Grid.Row="2" Grid.ColumnSpan="5" Background="#333"></Frame>
+    </Grid>
+</Window>
