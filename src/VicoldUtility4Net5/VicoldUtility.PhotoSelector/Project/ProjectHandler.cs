@@ -6,8 +6,16 @@ namespace VicoldUtility.PhotoSelector.Project
 {
     internal class ProjectHandler
     {
+        private SaveKeeper _saveKeeper;
 
-        public ProjectHandler() { }
+        private 
 
+        public ProjectHandler()
+        {
+            _saveKeeper = new SaveKeeper();
+        }
+
+
+        public void Create
     }
 }
