@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VicoldUtility.PhotoSelector.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="50" d:DesignWidth="800"
+      d:DesignHeight="50" d:DesignWidth="800" 
       Title="MenuPage">
 
     <Grid>
-        <Menu Height="30" >
+        <Menu Height="30" Background="#aaa">
             <MenuItem Header="文件" FontSize="14" Height="30" >
-                <MenuItem x:Name="MnOpenFolder" Header="打开文件夹"  Click="MnOpenFolder_Click"/>
+                <MenuItem x:Name="MnOpenFolder" Header="打开文件夹" Click="MnOpenFolder_Click"/>
                 <MenuItem x:Name="MnOpenProject" Header="打开工程" />
                 <Separator />
                 <MenuItem x:Name="MnSaveProject" Header="保存" InputGestureText="ctrl+o" />

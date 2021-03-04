@@ -13,5 +13,16 @@ namespace VicoldUtility.PhotoSelector
     /// </summary>
     public partial class App : Application
     {
+        CentralUnit SZM;
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ModEngineHolder.INSTANCE = this;
+            SZM = new CentralUnit();
+        }
+        private static class ModEngineHolder
+        {
+            internal static App INSTANCE;
+        }
+        internal new static App Current => ModEngineHolder.INSTANCE;
     }
 }

@@ -5,11 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VicoldUtility.PhotoSelector.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="400"
+      d:DesignHeight="600" d:DesignWidth="400" Background="#ddd"
       Title="ListPage">
 
-    <Grid>
-        <TextBlock x:Name="TextTitle" Text="标题" FontSize="18" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <ListBox Margin="0 38 0 0"/>
+    <Grid Background="#fff">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="TextTitle" Text="标题"  FontSize="18" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <ListBox x:Name="ListFile" Grid.Row="1" BorderThickness="0"/>
     </Grid>
 </Page>

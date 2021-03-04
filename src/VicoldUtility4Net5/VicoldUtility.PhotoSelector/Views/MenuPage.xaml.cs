@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace VicoldUtility.PhotoSelector.Views
 {
@@ -25,7 +17,27 @@ namespace VicoldUtility.PhotoSelector.Views
 
         private void MnOpenFolder_Click(object sender, RoutedEventArgs e)
         {
+            var isOpen = OpenFolder(out string folder);
+            if (isOpen)
+            {
 
+            }
+        }
+
+        private bool OpenFolder(out string folder)
+        {
+            var folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.Description = "打开图片集文件夹";
+            folderBrowserDialog.ShowNewFolderButton = true;
+            folderBrowserDialog.RootFolder = Environment.SpecialFolder.Personal;
+            folderBrowserDialog.ShowDialog();
+            if (folderBrowserDialog.SelectedPath == string.Empty)
+            {
+                folder = null;
+                return false;
+            }
+            folder = folderBrowserDialog.SelectedPath;
+            return true;
         }
     }
 }

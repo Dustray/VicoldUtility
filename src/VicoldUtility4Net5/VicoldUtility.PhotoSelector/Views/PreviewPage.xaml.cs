@@ -115,7 +115,7 @@ namespace VicoldUtility.PhotoSelector.Views
         /// 鼠标滑轮事件，得到坐标，放缩函数和滑轮指数，由于滑轮值变化较大所以*0.001.
         /// </summary>
         /// <param name="group"></param>
-        /// <param name="point"></param>
+        /// <param name="point"></param> 
         /// <param name="delta"></param>
         private void DowheelZoom(TransformGroup group, Point point, double delta)
         {
@@ -125,6 +125,7 @@ namespace VicoldUtility.PhotoSelector.Views
             {
                 return;
             }
+
             transform.ScaleX += delta * transform.ScaleX;
             transform.ScaleY += delta * transform.ScaleY;
             var transform1 = group.Children[1] as TranslateTransform;
