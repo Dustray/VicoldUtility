@@ -5,17 +5,17 @@ namespace VicoldUtility.PhotoSelector.Utilities
 {
     internal static class FilePathUtility
     {
-        private static string[] presetExtensionCanReview = { ".jpg", ".png", ".bmp" };
-        private static string[] presetExtensionCannotReview = { ".cr3", ".raw", ".dng" };
+        public static string[] PresetExtensionCanReview = { ".jpg", ".png", ".bmp" };
+        public static string[] PresetExtensionCannotReview = { ".cr3", ".raw", ".dng" };
 
         public static ImageFileType ExtensionImageType(string extension)
         {
             extension = extension.ToLower();
-            if (presetExtensionCanReview.Count(v => v == extension) > 0)
+            if (PresetExtensionCanReview.Count(v => v == extension) > 0)
             {
                 return ImageFileType.CanReview;
             }
-            else if (presetExtensionCannotReview.Count(v => v == extension) > 0)
+            else if (PresetExtensionCannotReview.Count(v => v == extension) > 0)
             {
                 return ImageFileType.CannotReview;
             }

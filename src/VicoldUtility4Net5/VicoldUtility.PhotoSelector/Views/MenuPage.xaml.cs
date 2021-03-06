@@ -20,7 +20,7 @@ namespace VicoldUtility.PhotoSelector.Views
             var isOpen = OpenFolder(out string folder);
             if (isOpen)
             {
-
+                App.Current.SZM.ProjectHandler.OpenFolder(folder);
             }
         }
 

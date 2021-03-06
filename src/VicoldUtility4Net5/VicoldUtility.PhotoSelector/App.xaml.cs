@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace VicoldUtility.PhotoSelector
     /// </summary>
     public partial class App : Application
     {
-        CentralUnit SZM;
+        internal CentralUnit SZM { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             ModEngineHolder.INSTANCE = this;

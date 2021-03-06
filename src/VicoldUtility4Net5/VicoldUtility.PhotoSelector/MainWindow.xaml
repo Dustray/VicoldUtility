@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.PhotoSelector"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1300" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown"
-        Topmost="True">
+        Title="MainWindow" Height="800" Width="1300" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown" >
     <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="10"></RowDefinition>
@@ -47,7 +46,7 @@
 
         <Frame Grid.Row="0" Grid.ColumnSpan="5" Background="#333" Source="/Views/MenuPage.xaml"/>
 
-        <Frame Grid.Row="1" Grid.Column="0" Background="#888" Source="/Views/ListPage.xaml"/>
+        <Frame x:Name="FrmUnallocated" Grid.Row="1" Grid.Column="0" Background="#888"/>
         <GridSplitter  Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
 
         <Frame x:Name="PreviewPage" Grid.Row="1" Grid.Column="2"  Source="./Views/PreviewPage.xaml"/>
@@ -59,11 +58,12 @@
                 <RowDefinition Height="5"></RowDefinition>
                 <RowDefinition MinHeight="10" ></RowDefinition>
             </Grid.RowDefinitions>
-            <Frame Grid.Row="0"  Background="#888" Source="/Views/ListPage.xaml" ></Frame>
+            <Frame x:Name="FrmSaved" Grid.Row="0"  Background="#888"  ></Frame>
             <GridSplitter  Grid.Row="1" Height="5" HorizontalAlignment="Stretch"  ResizeDirection="Rows"/>
-            <Frame Grid.Row="2"  Background="#888" Source="/Views/ListPage.xaml"></Frame>
+            <Frame x:Name="FrmDeleted" Grid.Row="2"  Background="#888"></Frame>
         </Grid>
 
         <Frame Grid.Row="2" Grid.ColumnSpan="5" Background="#333"></Frame>
+        <Image Grid.Row="1" Grid.Column="2"  Name="ds"/>
     </Grid>
 </Window>
