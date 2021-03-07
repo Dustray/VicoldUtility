@@ -23,39 +23,64 @@ namespace VicoldUtility.PhotoSelector
     /// </summary>
     public partial class MainWindow : Window
     {
+        private FileListPage _unallocatedPage;
+        private FileListPage _savedPage;
+        private FileListPage _deletedPage;
+        private PreviewPage _previewPage;
         public MainWindow()
         {
             InitializeComponent();
             App.Current.SZM.MainWindow = this;
-            var _unallocatedPage = new FileListPage(GetPageModel("未分配文件",App.Current.SZM.ProjectHandler.UnallocatedList));
-            var _savedPage = new FileListPage(GetPageModel("选中文件",App.Current.SZM.ProjectHandler.SavedList));
-            var _deletedPage = new FileListPage(GetPageModel("待删除文件",App.Current.SZM.ProjectHandler.DeletedList));
+            _unallocatedPage = new FileListPage(GetPageModel("未分配文件", App.Current.SZM.ProjectHandler.UnallocatedList));
+            _savedPage = new FileListPage(GetPageModel("选中文件", App.Current.SZM.ProjectHandler.SavedList));
+            _deletedPage = new FileListPage(GetPageModel("待删除文件", App.Current.SZM.ProjectHandler.DeletedList));
+            _previewPage = new PreviewPage();
 
             FrmUnallocated.Navigate(_unallocatedPage);
             FrmSaved.Navigate(_savedPage);
             FrmDeleted.Navigate(_deletedPage);
-
+            FrmPreview.Navigate(_previewPage);
+            InputMethod.SetIsInputMethodEnabled(this, false);
+            InputMethod.SetPreferredImeState(this, InputMethodState.Off);
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            switch (e.Key)
             {
-                var page = (PreviewPage)PreviewPage.Content;
-                page.OnKeyDown(e.Key);
+                case Key.Space:
+                    var page = (PreviewPage)FrmPreview.Content;
+                    page.OnKeyDown(e.Key);
+                    break;
+                case Key.A:
+                    var index = _unallocatedPage.SelectedIndex;
+                    if (index != -1)
+                    {
+                        App.Current.SZM.ProjectHandler.MoveToSaved(index);
+                    }
+                    break;
+                case Key.D:
+                    var index2 = _unallocatedPage.SelectedIndex;
+                    if (index2 != -1)
+                    {
+                        App.Current.SZM.ProjectHandler.MoveToDeleted(index2);
+                    }
+                    break;
             }
+            e.Handled = true;
         }
 
-        private FileListPageModel GetPageModel(string title , IList<ImageItemEtt> imageItemEtts)
+        private FileListPageModel GetPageModel(string title, IList<ImageItemEtt> imageItemEtts)
         {
             var model = new FileListPageModel(imageItemEtts as ObservableCollection<ImageItemEtt>);
             model.Title = title;
             return model;
         }
 
-        public void SetImage(BitmapImage im)
+        public void Preview(ImageItemEtt imageItemEtt)
         {
-            ds.Source = im;
+            _previewPage.Import(imageItemEtt);
         }
+
     }
 }

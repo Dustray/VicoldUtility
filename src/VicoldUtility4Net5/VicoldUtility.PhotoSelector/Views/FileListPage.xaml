@@ -14,7 +14,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock x:Name="TextTitle" Text="{Binding Title}"  FontSize="18" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <ListBox x:Name="ListFile" ItemsSource="{Binding FileList}" Grid.Row="1" BorderThickness="0" >
+        <ListBox x:Name="ListFile" ItemsSource="{Binding FileList}" Grid.Row="1" BorderThickness="0"  SelectionChanged="ListFile_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Background="#fff" Height="35">
@@ -26,7 +26,9 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition Width="70"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-
+                        <Grid.InputBindings>
+                            
+                        </Grid.InputBindings>
                         <Image x:Name="ImgThumbnail" Source="{Binding BitmapImage}" Stretch="UniformToFill" Margin="2" />
                         <TextBlock Grid.Column="1" x:Name="TextFileName" Text="{Binding FileNameWithoutExtension}"  ToolTip="" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                         <StackPanel Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft">

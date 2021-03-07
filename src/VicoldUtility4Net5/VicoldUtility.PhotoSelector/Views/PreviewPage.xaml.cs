@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VicoldUtility.PhotoSelector.Entities;
 
 namespace VicoldUtility.PhotoSelector.Views
 {
@@ -24,6 +25,14 @@ namespace VicoldUtility.PhotoSelector.Views
         public PreviewPage()
         {
             InitializeComponent();
+        }
+
+        public void Import(ImageItemEtt imageItemEtt)
+        {
+            if (imageItemEtt.FileCanShowingFullPath != null)
+            {
+                IMG1.Source = new BitmapImage(new Uri(imageItemEtt.FileCanShowingFullPath));
+            }
         }
 
         #region 图片缩放

@@ -80,7 +80,8 @@ namespace VicoldUtility.PhotoSelector.Project
                 }
             }
 
-            Task.Run(async () =>
+            // 显示图片
+            Task.Run(() =>
             {
                 foreach (var fileEtt in UnallocatedList)
                 {
@@ -93,13 +94,11 @@ namespace VicoldUtility.PhotoSelector.Project
                         bitmapImage.DecodePixelHeight = 35;   //缩略图高度            
                         bitmapImage.EndInit();
                         bitmapImage.Freeze();
-                        App.Current.SZM.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(() =>
+                        App.Current.SZM.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Background, new Action(() =>
                         {
                             fileEtt.BitmapImage = bitmapImage;
                         }));
                     }
-
-                    await Task.Delay(1);
                 }
             });
         }

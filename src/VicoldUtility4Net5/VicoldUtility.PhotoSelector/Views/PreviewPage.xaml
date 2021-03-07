@@ -19,7 +19,7 @@
                   Focusable="False" x:Name="BackFrame">
             <ContentControl  MouseLeftButtonDown="IMG1_MouseLeftButtonDown" MouseLeftButtonUp="IMG1_MouseLeftButtonUp"
                              MouseMove="IMG1_MouseMove" MouseWheel="IMG1_MouseWheel" >
-                <Image Name="IMG1" Source="D:\Program Files\BingWallpaper\Bing\bing201794.jpg" RenderTransform="{StaticResource Imageview}" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor" >
+                <Image Name="IMG1" RenderTransform="{StaticResource Imageview}" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor" >
                     <Image.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#444" Opacity="0.5" ShadowDepth="0"/>
                     </Image.Effect>

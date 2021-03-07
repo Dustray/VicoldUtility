@@ -47,6 +47,18 @@ namespace VicoldUtility.PhotoSelector.Project
 
         }
 
+        public void MoveToSaved(int unallocIndex)
+        {
+            SavedList.Add(UnallocatedList[unallocIndex]);
+            UnallocatedList.RemoveAt(unallocIndex);
+        }
+
+        public void MoveToDeleted(int unallocIndex)
+        {
+            DeletedList.Add(UnallocatedList[unallocIndex]);
+            UnallocatedList.RemoveAt(unallocIndex);
+        }
+
         public IList<ImageItemEtt> UnallocatedList => _saveKeeper.UnallocatedList;
         public IList<ImageItemEtt> SavedList => _saveKeeper.SavedList;
         public IList<ImageItemEtt> DeletedList => _saveKeeper.DeletedList;

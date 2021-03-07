@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Threading;
+using VicoldUtility.PhotoSelector.Entities;
 using VicoldUtility.PhotoSelector.Project;
 
 namespace VicoldUtility.PhotoSelector
@@ -18,5 +19,11 @@ namespace VicoldUtility.PhotoSelector
         public MainWindow MainWindow { get; set; }
 
         public Dispatcher Dispatcher => MainWindow.Dispatcher;
+
+        public void Preview(ImageItemEtt imageItemEtt)
+        {
+            MainWindow.Preview(imageItemEtt);
+        }
+
     }
 }
