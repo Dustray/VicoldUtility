@@ -14,10 +14,16 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock x:Name="TextTitle" Text="{Binding Title}"  FontSize="18" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <ListBox x:Name="ListFile" ItemsSource="{Binding FileList}" Grid.Row="1" BorderThickness="0"  SelectionChanged="ListFile_SelectionChanged">
-            <ListBox.ItemTemplate>
+        <ListView x:Name="ListFile" ItemsSource="{Binding FileList}" Grid.Row="1" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListFile_SelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Cursor" Value="Hand" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Background="#fff" Height="35">
+                    <Grid Height="35" HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
@@ -26,17 +32,16 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition Width="70"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Grid.InputBindings>
-                            
-                        </Grid.InputBindings>
                         <Image x:Name="ImgThumbnail" Source="{Binding BitmapImage}" Stretch="UniformToFill" Margin="2" />
-                        <TextBlock Grid.Column="1" x:Name="TextFileName" Text="{Binding FileNameWithoutExtension}"  ToolTip="" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Grid.Column="1" x:Name="TextFileName"
+                                   Text="{Binding FileNameWithoutExtension}" ToolTip="{Binding FileNameWithoutExtension}"
+                                   VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                         <StackPanel Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft">
 
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

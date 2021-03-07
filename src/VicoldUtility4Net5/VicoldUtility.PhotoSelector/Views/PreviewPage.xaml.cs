@@ -109,15 +109,27 @@ namespace VicoldUtility.PhotoSelector.Views
         /// <param name="e"></param>
         private void IMG1_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            var img = sender as ContentControl;
+            var img = sender as ContentControl;// 359 553   183 276    176    7
             if (img == null)
             {
                 return;
             }
-            var point = e.GetPosition(img);
+            // var point = e.GetPosition(img);
+            var point = new Point(img.ActualWidth / 2, img.ActualHeight / 2);
             var group = IMG.FindResource("Imageview") as TransformGroup;
-            var delta = e.Delta * 0.001;
-            DowheelZoom(group, point, delta);
+            var deltaX = 0d;
+            var deltaY = 0d;
+            if (img.ActualWidth > img.ActualHeight)
+            {
+                deltaX = e.Delta * 0.001;
+                deltaY = deltaX * img.ActualHeight / img.ActualWidth;
+            }
+            else
+            {
+                deltaY = e.Delta * 0.001;
+                deltaX = deltaY * img.ActualWidth / img.ActualHeight;
+            }
+            DowheelZoom(group, point, deltaX, deltaY);
         }
 
         /// <summary>
@@ -126,20 +138,20 @@ namespace VicoldUtility.PhotoSelector.Views
         /// <param name="group"></param>
         /// <param name="point"></param> 
         /// <param name="delta"></param>
-        private void DowheelZoom(TransformGroup group, Point point, double delta)
+        private void DowheelZoom(TransformGroup group, Point point, double deltaX, double deltaY)
         {
             var pointToContent = group.Inverse.Transform(point);
             var transform = group.Children[0] as ScaleTransform;
-            if ((delta < 0 && transform.ScaleX + delta < 0.1) || (delta > 0 && transform.ScaleX + delta > 20))
+            if ((deltaX < 0 && transform.ScaleX + deltaX < 0.1) || (deltaX > 0 && transform.ScaleX + deltaX > 20))
             {
                 return;
             }
 
-            transform.ScaleX += delta * transform.ScaleX;
-            transform.ScaleY += delta * transform.ScaleY;
+            transform.ScaleX += deltaX * transform.ScaleX;
+            transform.ScaleY += deltaY * transform.ScaleY;
             var transform1 = group.Children[1] as TranslateTransform;
-            transform1.X = -1 * ((pointToContent.X * transform.ScaleX) - point.X);
-            transform1.Y = -1 * ((pointToContent.Y * transform.ScaleY) - point.Y);
+            transform1.X = point.X - (pointToContent.X * transform.ScaleX);
+            transform1.Y = point.Y - (pointToContent.Y * transform.ScaleY);
         }
 
         public void OnKeyDown(Key key)

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.PhotoSelector"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1300" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown">
+        Title="MainWindow" Height="800" Width="1300" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown"
+        >
     <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="10"></RowDefinition>
