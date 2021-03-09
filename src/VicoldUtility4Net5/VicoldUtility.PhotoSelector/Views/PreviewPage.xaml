@@ -21,7 +21,7 @@
                              MouseMove="IMG1_MouseMove" MouseWheel="IMG1_MouseWheel" >
                 <Image Name="IMG1" RenderTransform="{StaticResource Imageview}" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor" >
                     <Image.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#444" Opacity="0.5" ShadowDepth="0"/>
+                        <DropShadowEffect BlurRadius="25" Color="#333" Opacity="0.6" ShadowDepth="0"/>
                     </Image.Effect>
                 </Image>
 
