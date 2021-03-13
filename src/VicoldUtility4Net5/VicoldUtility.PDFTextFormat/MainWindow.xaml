@@ -1,0 +1,18 @@
+﻿<Window x:Class="VicoldUtility.PDFTextFormat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VicoldUtility.PDFTextFormat"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="670" Width="1087" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="TbInput" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="Input_TextChanged"/>
+        <TextBox x:Name="TbOutput" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True"/>
+    </Grid>
+</Window>

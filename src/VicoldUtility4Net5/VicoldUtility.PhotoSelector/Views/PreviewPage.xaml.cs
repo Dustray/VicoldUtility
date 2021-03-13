@@ -122,7 +122,9 @@ namespace VicoldUtility.PhotoSelector.Views
             //var point = new Point(img.DesiredSize.Width / 2, img.DesiredSize.Height / 2);
             var group = IMG.FindResource("Imageview") as TransformGroup;
             var delta = e.Delta * 0.001;
-            DowheelZoom(group, point, delta, design);
+            var ws = img.DesiredSize.Width / img.ActualWidth;
+            var hs = img.DesiredSize.Height / img.ActualHeight;
+            DowheelZoom(group, point, delta, ws, hs);
         }
 
         /// <summary>
@@ -131,7 +133,7 @@ namespace VicoldUtility.PhotoSelector.Views
         /// <param name="group"></param>
         /// <param name="point"></param> 
         /// <param name="delta"></param>
-        private void DowheelZoom(TransformGroup group, Point point, double delta, double design)
+        private void DowheelZoom(TransformGroup group, Point point, double delta, double ws, double hs)
         {
             var pointToContent = group.Inverse.Transform(point);
             var transform = group.Children[0] as ScaleTransform;
@@ -142,7 +144,7 @@ namespace VicoldUtility.PhotoSelector.Views
             transform.ScaleX += delta * transform.ScaleX;
             transform.ScaleY += delta * transform.ScaleY;
             var transform1 = group.Children[1] as TranslateTransform;
-            transform1.X = point.X - (pointToContent.X * transform.ScaleX);
+            transform1.X = point.X - (pointToContent.X * transform.ScaleX );
             transform1.Y = point.Y - (pointToContent.Y * transform.ScaleY );
         }
 
