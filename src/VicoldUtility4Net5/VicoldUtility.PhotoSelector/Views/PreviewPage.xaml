@@ -8,14 +8,14 @@
       d:DesignHeight="600" d:DesignWidth="900"
       Title="PreviewPage">
 
-    <Grid x:Name="IMG" >
+    <Grid x:Name="IMG">
         <Grid.Resources>
             <TransformGroup x:Key="Imageview">
                 <ScaleTransform/>
                 <TranslateTransform/>
             </TransformGroup>
         </Grid.Resources>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Background="#444" Cursor="SizeAll"
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Background="#222" Cursor="SizeAll"
                   Focusable="False" x:Name="BackFrame">
             <ContentControl  MouseLeftButtonDown="IMG1_MouseLeftButtonDown" MouseLeftButtonUp="IMG1_MouseLeftButtonUp"
                              MouseMove="IMG1_MouseMove" MouseWheel="IMG1_MouseWheel" >

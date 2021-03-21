@@ -66,7 +66,7 @@ namespace VicoldUtility.PhotoSelector.Project
                 if (sameFiles.Count() > 0)
                 {
                     var imageItem = sameFiles.First();
-                    imageItem.SameFileExtensions.Add(extension);
+                    imageItem.AddExtension(extension);
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace VicoldUtility.PhotoSelector.Project
                         FileNameWithoutExtension = fileNoExtension,
                         FolderPath = folder,
                     };
-                    imageItem.SameFileExtensions.Add(extension);
+                    imageItem.AddExtension(extension);
                     UnallocatedList.Add(imageItem);
                 }
             }

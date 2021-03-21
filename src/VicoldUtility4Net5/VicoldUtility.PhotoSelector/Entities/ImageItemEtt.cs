@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -11,12 +12,14 @@ namespace VicoldUtility.PhotoSelector.Entities
 
     public sealed class ImageItemEtt : BaseProperty
     {
+        private List<string> _sameFileExtensions { get; set; }
         private string _fileNameWithoutExtension;
         private BitmapImage _bitmapImage;
 
         public ImageItemEtt()
         {
-            SameFileExtensions = new List<string>();
+            _sameFileExtensions = new List<string>();
+            ImageLabels = new ObservableCollection<ImageLabelViewModel>();
         }
 
         /// <summary>
@@ -26,9 +29,9 @@ namespace VicoldUtility.PhotoSelector.Entities
         {
             get
             {
-                foreach (var extension in SameFileExtensions)
+                foreach (var extension in _sameFileExtensions)
                 {
-                    if (FilePathUtility.ExtensionImageType(extension) == Entities.ImageFileType.CanReview)
+                    if (FilePathUtility.ExtensionImageType(extension) == ImageFileType.CanReview)
                     {
                         return Path.Combine(FolderPath, $"{FileNameWithoutExtension}{extension}");
                     }
@@ -52,8 +55,8 @@ namespace VicoldUtility.PhotoSelector.Entities
             }
         }
 
-        public List<string> SameFileExtensions { get; set; }
 
+        public ObservableCollection<ImageLabelViewModel> ImageLabels { get; set; }
 
         public BitmapImage BitmapImage
         {
@@ -66,6 +69,15 @@ namespace VicoldUtility.PhotoSelector.Entities
                 _bitmapImage = value;
                 OnPropertyChanged("BitmapImage");
             }
+        }
+
+        public void AddExtension(string extension)
+        {
+            _sameFileExtensions.Add(extension);
+            ImageLabels.Add(new ImageLabelViewModel()
+            {
+                 Text = extension,
+            });
         }
 
     }
