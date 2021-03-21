@@ -220,81 +220,83 @@ namespace VicoldUtility.PingDashboard
                         _delayActualWidth = spDelay.ActualWidth;
                     _historyQueueAllCount++;
                     if (null == _ping) return;
-                    lock (lockOb)
+                    PingReply p = null;
+                    try
                     {
-                        PingReply p = null;
-                        try
-                        {
-                            p = _ping.Send(_ip);
-                        }
-                        catch (Exception e)
-                        {
-                            Alert.Show("请求错误", $"{e.Message}单次检测失败", AlertTheme.Error);
-                            continue;
-                        }
-                        var flag = false;
+                        p = _ping.Send(_ip);
+                    }
+                    catch (Exception e)
+                    {
+                        Alert.Show("请求错误", $"{e.Message}单次检测失败", AlertTheme.Error);
+                        continue;
+                    }
+                    var flag = false;
 
-                        switch (p.Status)
-                        {
-                            case IPStatus.Success:
-                                //成功
-                                flag = true;
-                                _historyQueueAllSuccessCount++;
-                                _continuousSuccessCount++;
-                                _continuousFailedCount = 0;
-                                _tability10[_historyIndex10] = (int)p.RoundtripTime;
-                                break;
-                            case IPStatus.TimedOut:
-                            //超时
-                            default:
-                                //失败
-                                flag = false;
-                                _continuousFailedCount++;
-                                _continuousSuccessCount = 0;
-                                _tability10[_historyIndex10] = 5000;
-                                break;
-                        }
-
-                        AddHistory(ref _historyQueue100, ref _historyIndex100, flag);
-                        AddHistory(ref _historyQueue50, ref _historyIndex50, flag);
-                        AddHistory(ref _historyQueue10, ref _historyIndex10, flag);
-                        var p100 = GetPercent(_historyQueue100);
-                        var p50 = GetPercent(_historyQueue50);
-                        var p10 = GetPercent(_historyQueue10);
-                        Dispatcher.Invoke(new Action(() =>
-                        {
-                            if (p.Status == IPStatus.Success)
-                            {
-                                tbActualTime.Text = p.RoundtripTime.ToString();
-                                //tbActualByte.Text = p.Buffer.Length.ToString();
-                                //tbActualTTL.Text = p.Options.Ttl.ToString();
-                                tbContinuousCount.Text = $"成功：{_continuousSuccessCount}";
-                                StatisticsDelayCount(p.RoundtripTime);
-                            }
-                            else
-                            {
-                                tbActualTime.Text = "TIMEOUT";
-                                //tbActualByte.Text = "--";
-                                //tbActualTTL.Text = "--";
-                                tbContinuousCount.Text = $"失败：{_continuousFailedCount}";
-                                if (_continuousFailedCount == 20)
-                                {
-                                    Alert.Show("警告", $"Ping{_ip}已连续失败{_continuousFailedCount}次", AlertTheme.Warning, new AlertConfig() { AlertShowDuration = -1, OnlyOneWindowAllowed = true });
-                                }
-                            }
-                            tbCountAll.Text = _historyQueueAllCount.ToString();
-                            tbCountSuccess.Text = _historyQueueAllSuccessCount.ToString();
-                            tbCountFailed.Text = (_historyQueueAllCount - _historyQueueAllSuccessCount).ToString();
-                            UpdatePercentUI(tbPercent100, tbPercentText100, p100);
-                            UpdatePercentUI(tbPercent50, tbPercentText50, p50);
-                            UpdatePercentUI(tbPercent10, tbPercentText10, p10);
-                            UpdatePercentUI(tbPercentAll, tbPercentTextAll, Convert.ToInt16(_historyQueueAllCount == 0 ? 0 : (double)_historyQueueAllSuccessCount / _historyQueueAllCount * 100));
-                            Stability();
-                        }));
+                    switch (p.Status)
+                    {
+                        case IPStatus.Success:
+                            //成功
+                            flag = true;
+                            _historyQueueAllSuccessCount++;
+                            _continuousSuccessCount++;
+                            _continuousFailedCount = 0;
+                            _tability10[_historyIndex10] = (int)p.RoundtripTime;
+                            break;
+                        case IPStatus.TimedOut:
+                        //超时
+                        default:
+                            //失败
+                            flag = false;
+                            _continuousFailedCount++;
+                            _continuousSuccessCount = 0;
+                            _tability10[_historyIndex10] = 5000;
+                            break;
                     }
 
-                    await Task.Delay(_reflushTime);
+                    AddHistory(ref _historyQueue100, ref _historyIndex100, flag);
+                    AddHistory(ref _historyQueue50, ref _historyIndex50, flag);
+                    AddHistory(ref _historyQueue10, ref _historyIndex10, flag);
+                    var p100 = GetPercent(_historyQueue100);
+                    var p50 = GetPercent(_historyQueue50);
+                    var p10 = GetPercent(_historyQueue10);
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        if (p.Status == IPStatus.Success)
+                        {
+                            tbActualTime.Text = p.RoundtripTime.ToString();
+                            //tbActualByte.Text = p.Buffer.Length.ToString();
+                            //tbActualTTL.Text = p.Options.Ttl.ToString();
+                            tbContinuousCount.Text = $"成功：{_continuousSuccessCount}";
+                            StatisticsDelayCount(p.RoundtripTime);
+                        }
+                        else
+                        {
+                            tbActualTime.Text = "TIMEOUT";
+                            //tbActualByte.Text = "--";
+                            //tbActualTTL.Text = "--";
+                            tbContinuousCount.Text = $"失败：{_continuousFailedCount}";
+                            if (_continuousFailedCount == 20)
+                            {
+                                Alert.Show("警告", $"Ping{_ip}已连续失败{_continuousFailedCount}次", AlertTheme.Warning, new AlertConfig() { AlertShowDuration = -1, OnlyOneWindowAllowed = true });
+                            }
+                        }
+                        tbCountAll.Text = _historyQueueAllCount.ToString();
+                        tbCountSuccess.Text = _historyQueueAllSuccessCount.ToString();
+                        tbCountFailed.Text = (_historyQueueAllCount - _historyQueueAllSuccessCount).ToString();
+                        UpdatePercentUI(tbPercent100, tbPercentText100, p100);
+                        UpdatePercentUI(tbPercent50, tbPercentText50, p50);
+                        UpdatePercentUI(tbPercent10, tbPercentText10, p10);
+                        UpdatePercentUI(tbPercentAll, tbPercentTextAll, Convert.ToInt16(_historyQueueAllCount == 0 ? 0 : (double)_historyQueueAllSuccessCount / _historyQueueAllCount * 100));
+                        Stability();
+                    }));
+
+                    if (p.RoundtripTime < _reflushTime)
+                    {
+                        var waitTime =(int) (_reflushTime - p.RoundtripTime);
+                        await Task.Delay(_reflushTime);
+                    }
                 }
+
                 _runTask.Dispose();
                 _runTask = null;
                 Dispatcher.Invoke(new Action(() =>
@@ -330,7 +332,7 @@ namespace VicoldUtility.PingDashboard
                         tbUpSpeed.Text = upSpeed;
                     }));
 
-                    await Task.Delay(_reflushTime);
+                    await Task.Delay(1000);
                 }
 
                 _runTask2.Dispose();

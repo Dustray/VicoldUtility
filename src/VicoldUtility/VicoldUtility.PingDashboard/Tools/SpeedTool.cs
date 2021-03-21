@@ -48,7 +48,7 @@
 
         private void ChangeSpeedAndUnit(double sourceSpeed, out double speed, out string unit)
         {
-            sourceSpeed /= 8;
+            sourceSpeed /= 4;
             if (sourceSpeed < 1024)
             {
                 speed = sourceSpeed;
