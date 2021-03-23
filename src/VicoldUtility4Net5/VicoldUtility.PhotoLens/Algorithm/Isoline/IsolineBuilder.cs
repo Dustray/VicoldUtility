@@ -1,11 +1,10 @@
-﻿using LightX.Algorithm.Model.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LightX.Algorithm.Model.Isoline
+namespace VicoldUtility.PhotoLens.Algorithm.Isoline
 {
     public class IsolineBuilder
     {

@@ -1,9 +1,8 @@
-﻿using LightX.Algorithm.Model.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace LightX.Algorithm.Model.Isoline
+namespace VicoldUtility.PhotoLens.Algorithm.Isoline
 {
     internal static class Connector
     {
@@ -21,7 +20,7 @@ namespace LightX.Algorithm.Model.Isoline
         {
             fixed (float* pp = &data[0])
             {
-                if (callback != null)
+                if (callback == null)
                 {
                     return CreateValueLinesDo(pp, startX, startY, xSize, ySize, pitch, anaValue, isCrossoverAutoOffset, smoothCount, undefValue, lon, lat, lonIn, latIn);
                 }
