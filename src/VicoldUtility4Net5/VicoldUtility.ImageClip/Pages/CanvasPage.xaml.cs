@@ -32,7 +32,7 @@ namespace VicoldUtility.ImageClip.Pages
         /// <summary>
         /// 定位点
         /// </summary>
-        private List<AnchorPoint> anchorPoints = null;
+        //private List<AnchorPoint> anchorPoints = null;
 
         /// <summary>
         /// 是否鼠标为按下
@@ -42,7 +42,7 @@ namespace VicoldUtility.ImageClip.Pages
         /// <summary>
         /// 当前选中定位点
         /// </summary>
-        private AnchorPoint curAnchorPoint = null;
+        //private AnchorPoint curAnchorPoint = null;
 
 
         public CanvasPage()
@@ -161,105 +161,105 @@ namespace VicoldUtility.ImageClip.Pages
         #endregion
 
 
-        #region canvas
-        public void Init()
-        {
-            //按x轴分类
-            IEnumerable<IGrouping<double, Point>> pointXs = points.GroupBy(o => o.X);
-            //按y周分类
-            IEnumerable<IGrouping<double, Point>> pointYs = points.GroupBy(o => o.Y);
-            //绘制竖线
-            DrawXLine(pointXs);
-            //绘制横线
-            DrawYLine(pointYs);
-            //设置定位点
-            AddAnchorPoints();
-            //绘制定位点并且添加事件
-            foreach (AnchorPoint anchorPoint in anchorPoints)
-            {
-                Rectangle rec = anchorPoint.Draw();
-                rec.MouseLeftButtonDown += new MouseButtonEventHandler(rec_MouseLeftButtonDown);
-                rec.MouseMove += new MouseEventHandler(rec_MouseMove);
-                canvas.Children.Add(rec);
-            }
-            //canvas添加事件
-            canvas.MouseLeftButtonUp += new MouseButtonEventHandler(canvas_MouseLeftButtonUp);
-            canvas.MouseMove += new MouseEventHandler(canvas_MouseMove);
-            canvas.MouseLeave += new MouseEventHandler(canvas_MouseLeave);
-        }
-        public void Move(double x, double y)
-        {
-            double offset = this.Width / 2;
-            this.retc.Margin = new Thickness(x - offset, y - offset, 0, 0);
-            this.X = x;
-            this.Y = y;
-        }
-        public Rectangle Draw()
-        {
-            double offset = this.Width / 2;
-            Rectangle retc = new Rectangle()
-            {
-                Margin = new Thickness(this.X - offset, this.Y - offset, 0, 0),
-                Width = this.Width,
-                Height = this.Height,
-                Fill = Brushes.LightGoldenrodYellow,
-                Stroke = Brushes.Black,
-                StrokeThickness = 1,
-                DataContext = this.Key
-            };
-            this.retc = retc;
-            return retc;
-        }
-        private void MoveLines(double x, double y)
-        {
-            List<Line> moveLines = new List<Line>();
-            moveLines = lines.Where(o => o.Y1 == curAnchorPoint.Y
-                || o.Y2 == curAnchorPoint.Y
-                || o.X1 == curAnchorPoint.X
-                || o.X2 == curAnchorPoint.X).ToList();
-            foreach (Line line in moveLines)
-            {
-                if (line.Y1 == curAnchorPoint.Y)
-                {
-                    line.Y1 = y;
-                }
-                if (line.Y2 == curAnchorPoint.Y)
-                {
-                    line.Y2 = y;
-                }
-                if (line.X1 == curAnchorPoint.X)
-                {
-                    line.X1 = x;
-                }
-                if (line.X2 == curAnchorPoint.X)
-                {
-                    line.X2 = x;
-                }
-            }
-        }
-        private void MoveRefAnchorPoint(double x, double y, AnchorPoint movedAnchorPoint)
-        {
-            foreach (AnchorPoint anchorPoint in anchorPoints)
-            {
-                if (anchorPoint.RefPoint.Length == 2)
-                {
-                    if (anchorPoint.RefPoint[0].X == x && anchorPoint.RefPoint[0].Y == y)
-                    {
-                        anchorPoint.RefPoint[0].X = movedAnchorPoint.X;
-                        anchorPoint.RefPoint[0].Y = movedAnchorPoint.Y;
-                    }
-                    else if (anchorPoint.RefPoint[1].X == x && anchorPoint.RefPoint[1].Y == y)
-                    {
-                        anchorPoint.RefPoint[1].X = movedAnchorPoint.X;
-                        anchorPoint.RefPoint[1].Y = movedAnchorPoint.Y;
-                    }
-                    anchorPoint.X = (anchorPoint.RefPoint[0].X + anchorPoint.RefPoint[1].X) / 2;
-                    anchorPoint.Y = (anchorPoint.RefPoint[0].Y + anchorPoint.RefPoint[1].Y) / 2;
-                    anchorPoint.Move();
-                }
-            }
-        }
-        #endregion
+        //#region canvas
+        //public void Init()
+        //{
+        //    //按x轴分类
+        //    IEnumerable<IGrouping<double, Point>> pointXs = points.GroupBy(o => o.X);
+        //    //按y周分类
+        //    IEnumerable<IGrouping<double, Point>> pointYs = points.GroupBy(o => o.Y);
+        //    //绘制竖线
+        //    DrawXLine(pointXs);
+        //    //绘制横线
+        //    DrawYLine(pointYs);
+        //    //设置定位点
+        //    AddAnchorPoints();
+        //    //绘制定位点并且添加事件
+        //    foreach (AnchorPoint anchorPoint in anchorPoints)
+        //    {
+        //        Rectangle rec = anchorPoint.Draw();
+        //        rec.MouseLeftButtonDown += new MouseButtonEventHandler(rec_MouseLeftButtonDown);
+        //        rec.MouseMove += new MouseEventHandler(rec_MouseMove);
+        //        canvas.Children.Add(rec);
+        //    }
+        //    //canvas添加事件
+        //    canvas.MouseLeftButtonUp += new MouseButtonEventHandler(canvas_MouseLeftButtonUp);
+        //    canvas.MouseMove += new MouseEventHandler(canvas_MouseMove);
+        //    canvas.MouseLeave += new MouseEventHandler(canvas_MouseLeave);
+        //}
+        //public void Move(double x, double y)
+        //{
+        //    double offset = this.Width / 2;
+        //    this.retc.Margin = new Thickness(x - offset, y - offset, 0, 0);
+        //    this.X = x;
+        //    this.Y = y;
+        //}
+        //public Rectangle Draw()
+        //{
+        //    double offset = this.Width / 2;
+        //    Rectangle retc = new Rectangle()
+        //    {
+        //        Margin = new Thickness(this.X - offset, this.Y - offset, 0, 0),
+        //        Width = this.Width,
+        //        Height = this.Height,
+        //        Fill = Brushes.LightGoldenrodYellow,
+        //        Stroke = Brushes.Black,
+        //        StrokeThickness = 1,
+        //        DataContext = this.Key
+        //    };
+        //    this.retc = retc;
+        //    return retc;
+        //}
+        //private void MoveLines(double x, double y)
+        //{
+        //    List<Line> moveLines = new List<Line>();
+        //    moveLines = lines.Where(o => o.Y1 == curAnchorPoint.Y
+        //        || o.Y2 == curAnchorPoint.Y
+        //        || o.X1 == curAnchorPoint.X
+        //        || o.X2 == curAnchorPoint.X).ToList();
+        //    foreach (Line line in moveLines)
+        //    {
+        //        if (line.Y1 == curAnchorPoint.Y)
+        //        {
+        //            line.Y1 = y;
+        //        }
+        //        if (line.Y2 == curAnchorPoint.Y)
+        //        {
+        //            line.Y2 = y;
+        //        }
+        //        if (line.X1 == curAnchorPoint.X)
+        //        {
+        //            line.X1 = x;
+        //        }
+        //        if (line.X2 == curAnchorPoint.X)
+        //        {
+        //            line.X2 = x;
+        //        }
+        //    }
+        //}
+        //private void MoveRefAnchorPoint(double x, double y, AnchorPoint movedAnchorPoint)
+        //{
+        //    foreach (AnchorPoint anchorPoint in anchorPoints)
+        //    {
+        //        if (anchorPoint.RefPoint.Length == 2)
+        //        {
+        //            if (anchorPoint.RefPoint[0].X == x && anchorPoint.RefPoint[0].Y == y)
+        //            {
+        //                anchorPoint.RefPoint[0].X = movedAnchorPoint.X;
+        //                anchorPoint.RefPoint[0].Y = movedAnchorPoint.Y;
+        //            }
+        //            else if (anchorPoint.RefPoint[1].X == x && anchorPoint.RefPoint[1].Y == y)
+        //            {
+        //                anchorPoint.RefPoint[1].X = movedAnchorPoint.X;
+        //                anchorPoint.RefPoint[1].Y = movedAnchorPoint.Y;
+        //            }
+        //            anchorPoint.X = (anchorPoint.RefPoint[0].X + anchorPoint.RefPoint[1].X) / 2;
+        //            anchorPoint.Y = (anchorPoint.RefPoint[0].Y + anchorPoint.RefPoint[1].Y) / 2;
+        //            anchorPoint.Move();
+        //        }
+        //    }
+        //}
+        //#endregion
 
     }
     public enum AnchorPointType

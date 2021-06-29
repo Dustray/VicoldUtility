@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Vicold.Popup;
 using VicoldUtility.PingDashboard.Properties;
+using VicoldUtility.PingDashboard.Tools;
 
 namespace VicoldUtility.PingDashboard
 {
@@ -25,12 +26,14 @@ namespace VicoldUtility.PingDashboard
     public partial class MainWindow : Window
     {
         private Ping _ping;
+        private SpeedTool _speedTool;
         private char[] _font = new char[] { ((char)0xEA3B), ((char)0xEA3A) };
         private string _ip;
         private int _reflushTime = 1000;
         private double _delayActualWidth = 0;
         private object lockOb = new object();
         private Task _runTask;
+        private Task _runTask2;
         #region 计数参数
 
 
@@ -60,7 +63,6 @@ namespace VicoldUtility.PingDashboard
 
         #region Flag
 
-        private bool _loadOver = false;
         private bool isStart = false;
 
         #endregion
@@ -72,6 +74,7 @@ namespace VicoldUtility.PingDashboard
             InitUI();
 
             _ping = new Ping();
+            _speedTool = new SpeedTool();
             tboxIP.Text = _ip = Settings.Default.IP;
             if (CheckIP(_ip))
             {
@@ -83,12 +86,11 @@ namespace VicoldUtility.PingDashboard
             Background = new SolidColorBrush(Color.FromArgb(Settings.Default.BgTrans, 40, 40, 40));
             sldBgTrans.Value = Settings.Default.BgTrans;
         }
-        
+
         #region 窗体事件
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _loadOver = true;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -218,82 +220,83 @@ namespace VicoldUtility.PingDashboard
                         _delayActualWidth = spDelay.ActualWidth;
                     _historyQueueAllCount++;
                     if (null == _ping) return;
-                    lock (lockOb)
+                    PingReply p = null;
+                    try
                     {
-                        PingReply p = null ;
-
-                        try
-                        {
-                            p = _ping.Send(_ip);
-
-                        }
-                        catch (Exception e)
-                        {
-                            Alert.Show("请求错误",$"{e.Message}单次检测失败", AlertTheme.Error);
-                            continue;
-                        }
-                        var flag = false;
-
-                        switch (p.Status)
-                        {
-                            case IPStatus.Success:
-                                //成功
-                                flag = true;
-                                _historyQueueAllSuccessCount++;
-                                _continuousSuccessCount++;
-                                _continuousFailedCount = 0;
-                                _tability10[_historyIndex10] = (int)p.RoundtripTime;
-                                break;
-                            case IPStatus.TimedOut:
-                            //超时
-                            default:
-                                //失败
-                                flag = false;
-                                _continuousFailedCount++;
-                                _continuousSuccessCount = 0;
-                                _tability10[_historyIndex10] = 5000;
-                                break;
-                        }
-
-                        AddHistory(ref _historyQueue100, ref _historyIndex100, flag);
-                        AddHistory(ref _historyQueue50, ref _historyIndex50, flag);
-                        AddHistory(ref _historyQueue10, ref _historyIndex10, flag);
-                        var p100 = GetPercent(_historyQueue100);
-                        var p50 = GetPercent(_historyQueue50);
-                        var p10 = GetPercent(_historyQueue10);
-                        Dispatcher.Invoke(new Action(() =>
-                        {
-                            if (p.Status == IPStatus.Success)
-                            {
-                                tbActualByte.Text = p.Buffer.Length.ToString();
-                                tbActualTime.Text = p.RoundtripTime.ToString();
-                                tbActualTTL.Text = p.Options.Ttl.ToString();
-                                tbContinuousCount.Text = $"成功：{_continuousSuccessCount}";
-                                StatisticsDelayCount(p.RoundtripTime);
-                            }
-                            else
-                            {
-                                tbActualByte.Text = "*";
-                                tbActualTime.Text = "*";
-                                tbActualTTL.Text = "*";
-                                tbContinuousCount.Text = $"失败：{_continuousFailedCount}";
-                                if (_continuousFailedCount == 20)
-                                {
-                                    Alert.Show("警告", $"Ping{_ip}已连续失败{_continuousFailedCount}次", AlertTheme.Warning, new AlertConfig() { AlertShowDuration = -1, OnlyOneWindowAllowed = true });
-                                }
-                            }
-                            tbCountAll.Text = _historyQueueAllCount.ToString();
-                            tbCountSuccess.Text = _historyQueueAllSuccessCount.ToString();
-                            tbCountFailed.Text = (_historyQueueAllCount - _historyQueueAllSuccessCount).ToString();
-                            UpdatePercentUI(tbPercent100, tbPercentText100, p100);
-                            UpdatePercentUI(tbPercent50, tbPercentText50, p50);
-                            UpdatePercentUI(tbPercent10, tbPercentText10, p10);
-                            UpdatePercentUI(tbPercentAll, tbPercentTextAll, Convert.ToInt16(_historyQueueAllCount == 0 ? 0 : (double)_historyQueueAllSuccessCount / _historyQueueAllCount * 100));
-                            Stability();
-                        }));
+                        p = _ping.Send(_ip);
                     }
-                    await Task.Delay(_reflushTime);
+                    catch (Exception e)
+                    {
+                        Alert.Show("请求错误", $"{e.Message}单次检测失败", AlertTheme.Error);
+                        continue;
+                    }
+                    var flag = false;
+
+                    switch (p.Status)
+                    {
+                        case IPStatus.Success:
+                            //成功
+                            flag = true;
+                            _historyQueueAllSuccessCount++;
+                            _continuousSuccessCount++;
+                            _continuousFailedCount = 0;
+                            _tability10[_historyIndex10] = (int)p.RoundtripTime;
+                            break;
+                        case IPStatus.TimedOut:
+                        //超时
+                        default:
+                            //失败
+                            flag = false;
+                            _continuousFailedCount++;
+                            _continuousSuccessCount = 0;
+                            _tability10[_historyIndex10] = 5000;
+                            break;
+                    }
+
+                    AddHistory(ref _historyQueue100, ref _historyIndex100, flag);
+                    AddHistory(ref _historyQueue50, ref _historyIndex50, flag);
+                    AddHistory(ref _historyQueue10, ref _historyIndex10, flag);
+                    var p100 = GetPercent(_historyQueue100);
+                    var p50 = GetPercent(_historyQueue50);
+                    var p10 = GetPercent(_historyQueue10);
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        if (p.Status == IPStatus.Success)
+                        {
+                            tbActualTime.Text = p.RoundtripTime.ToString();
+                            //tbActualByte.Text = p.Buffer.Length.ToString();
+                            //tbActualTTL.Text = p.Options.Ttl.ToString();
+                            tbContinuousCount.Text = $"成功：{_continuousSuccessCount}";
+                            StatisticsDelayCount(p.RoundtripTime);
+                        }
+                        else
+                        {
+                            tbActualTime.Text = "TIMEOUT";
+                            //tbActualByte.Text = "--";
+                            //tbActualTTL.Text = "--";
+                            tbContinuousCount.Text = $"失败：{_continuousFailedCount}";
+                            if (_continuousFailedCount == 20)
+                            {
+                                Alert.Show("警告", $"Ping{_ip}已连续失败{_continuousFailedCount}次", AlertTheme.Warning, new AlertConfig() { AlertShowDuration = -1, OnlyOneWindowAllowed = true });
+                            }
+                        }
+                        tbCountAll.Text = _historyQueueAllCount.ToString();
+                        tbCountSuccess.Text = _historyQueueAllSuccessCount.ToString();
+                        tbCountFailed.Text = (_historyQueueAllCount - _historyQueueAllSuccessCount).ToString();
+                        UpdatePercentUI(tbPercent100, tbPercentText100, p100);
+                        UpdatePercentUI(tbPercent50, tbPercentText50, p50);
+                        UpdatePercentUI(tbPercent10, tbPercentText10, p10);
+                        UpdatePercentUI(tbPercentAll, tbPercentTextAll, Convert.ToInt16(_historyQueueAllCount == 0 ? 0 : (double)_historyQueueAllSuccessCount / _historyQueueAllCount * 100));
+                        Stability();
+                    }));
+
+                    if (p.RoundtripTime < _reflushTime)
+                    {
+                        var waitTime =(int) (_reflushTime - p.RoundtripTime);
+                        await Task.Delay(_reflushTime);
+                    }
                 }
+
                 _runTask.Dispose();
                 _runTask = null;
                 Dispatcher.Invoke(new Action(() =>
@@ -302,6 +305,44 @@ namespace VicoldUtility.PingDashboard
                 }));
             });
             _runTask.Start();
+
+            _runTask2 = new Task(async () =>
+            {
+                while (isStart)
+                {
+                    string downSpeed;
+                    string upSpeed;
+                    try
+                    {
+                        _speedTool.Flush();
+                        _speedTool.GetDownSpeed(out var inS, out var inUnit);
+                        _speedTool.GetUpSpeed(out var outS, out var outUnit);
+                        downSpeed = $"{Math.Round(inS, 2, MidpointRounding.AwayFromZero)}{inUnit}";
+                        upSpeed = $"{Math.Round(outS, 2, MidpointRounding.AwayFromZero)}{outUnit}";
+                    }
+                    catch (Exception e)
+                    {
+                        Alert.Show("网速测试请求错误", $"{e.Message}单次检测失败", AlertTheme.Error);
+                        continue;
+                    }
+
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        tbDownSpeed.Text = downSpeed;
+                        tbUpSpeed.Text = upSpeed;
+                    }));
+
+                    await Task.Delay(1000);
+                }
+
+                _runTask2.Dispose();
+                _runTask2 = null;
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    btnStartOrPause.Content = "开始";
+                }));
+            });
+            _runTask2.Start();
         }
 
         /// <summary>
@@ -310,35 +351,42 @@ namespace VicoldUtility.PingDashboard
         /// <param name="roundtripTime"></param>
         private void StatisticsDelayCount(long roundtripTime)
         {
+            Color color;
             if (roundtripTime <= 60)
             {
                 _delayTimesCount[0]++;
                 tbDelay60.Text = _delayTimesCount[0].ToString();
+                color = Color.FromArgb(255, 0, 204, 0);
             }
             else if (roundtripTime <= 120)
             {
                 _delayTimesCount[1]++;
                 tbDelay120.Text = _delayTimesCount[1].ToString();
+                color = Color.FromArgb(255, 136, 204, 0);
             }
             else if (roundtripTime <= 460)
             {
                 _delayTimesCount[2]++;
                 tbDelay460.Text = _delayTimesCount[2].ToString();
+                color = Color.FromArgb(255, 187, 238, 0);
             }
             else if (roundtripTime <= 1000)
             {
                 _delayTimesCount[3]++;
                 tbDelay1000.Text = _delayTimesCount[3].ToString();
+                color = Color.FromArgb(0, 238, 187, 0);
             }
             else if (roundtripTime <= 3000)
             {
                 _delayTimesCount[4]++;
                 tbDelay3000.Text = _delayTimesCount[4].ToString();
+                color = Color.FromArgb(255, 204, 136, 0);
             }
             else
             {
                 _delayTimesCount[5]++;
                 tbDelay10000.Text = _delayTimesCount[5].ToString();
+                color = Color.FromArgb(255, 204, 0, 0);
             }
             if (_historyQueueAllSuccessCount != 0)
             {
@@ -349,6 +397,7 @@ namespace VicoldUtility.PingDashboard
                 bdrDelay3000.Width = (double)_delayTimesCount[4] / _historyQueueAllSuccessCount * _delayActualWidth;
                 bdrDelay10000.Width = (double)_delayTimesCount[5] / _historyQueueAllSuccessCount * _delayActualWidth;
             }
+            tbActualTime.Foreground = new SolidColorBrush(color);
         }
 
         /// <summary>
@@ -508,7 +557,8 @@ namespace VicoldUtility.PingDashboard
             var showPoint = Math.Round(10 - value, 2, MidpointRounding.AwayFromZero).ToString();
             tbStabilityText.Text = showPoint;
             tbStabilityText.ToolTip = showPoint;
-            elpStabilityBreath.Fill = brush;
+            // elpStabilityBreath.Fill = brush;
+            tbStabilityText.Foreground = brush;
         }
 
         #endregion
@@ -570,7 +620,9 @@ namespace VicoldUtility.PingDashboard
             var full = 10;
             var half = 4;
             val = val < 0 ? 0 : (val > full ? full : val);
-            int r = 0, g = 0, b = 0;
+            int b = 0;
+            int r;
+            int g;
             if (val < half)
             {
                 r = (int)(255 * val / half);
@@ -581,7 +633,7 @@ namespace VicoldUtility.PingDashboard
                 r = 255;
                 g = 255 - (int)(255 * (val - half) / (full - half));
             }
-            return new SolidColorBrush(Color.FromArgb((byte)200, (byte)r, (byte)g, (byte)b));
+            return new SolidColorBrush(Color.FromArgb(200, (byte)r, (byte)g, (byte)b));
         }
 
         #endregion

@@ -1,0 +1,32 @@
+﻿<Page x:Class="VicoldUtility.PhotoSelector.Views.PreviewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VicoldUtility.PhotoSelector.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="PreviewPage">
+
+    <Grid x:Name="IMG">
+        <Grid.Resources>
+            <TransformGroup x:Key="Imageview">
+                <ScaleTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.Resources>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Background="#222" Cursor="SizeAll"
+                  Focusable="False" x:Name="BackFrame">
+            <ContentControl  MouseLeftButtonDown="IMG1_MouseLeftButtonDown" MouseLeftButtonUp="IMG1_MouseLeftButtonUp"
+                             MouseMove="IMG1_MouseMove" MouseWheel="IMG1_MouseWheel" >
+                <Image Name="IMG1" RenderTransform="{StaticResource Imageview}" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor" >
+                    <Image.Effect>
+                        <DropShadowEffect BlurRadius="25" Color="#333" Opacity="0.6" ShadowDepth="0"/>
+                    </Image.Effect>
+                </Image>
+
+            </ContentControl>
+        </ScrollViewer>
+        <Canvas Name="canvas" ClipToBounds="True"/>
+    </Grid>
+</Page>

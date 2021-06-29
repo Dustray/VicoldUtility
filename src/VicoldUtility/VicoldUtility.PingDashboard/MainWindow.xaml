@@ -9,12 +9,12 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing"
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseMove="Window_MouseMove">
 
-    <Window.Triggers>
+    <!--<Window.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard Name="OpacityStoryboard">
                 <Storyboard RepeatBehavior="Forever" AutoReverse="True" Timeline.DesiredFrameRate="10">
-                    <DoubleAnimation  Storyboard.TargetProperty="Height" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
-                    <DoubleAnimation  Storyboard.TargetProperty="Width" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>
+                    --><!--<DoubleAnimation  Storyboard.TargetProperty="Height" Storyboard.TargetName="elpStabilityBreath" From="10" To="15"/>--><!--
+                    <DoubleAnimation  Storyboard.TargetProperty="Width" Storyboard.TargetName="elpStabilityBreath" From="10" To="30"/>
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -24,28 +24,67 @@
         <EventTrigger RoutedEvent="UIElement.MouseLeave">
             <ResumeStoryboard BeginStoryboardName="OpacityStoryboard" />
         </EventTrigger>
-    </Window.Triggers>
-    
+    </Window.Triggers>-->
+
     <StackPanel>
-        <Border Height="5"></Border>
+        <StackPanel Name="spDelay" Orientation="Horizontal" Height="6" >
+            <Border Background="#c0b0" Width="0" Name="bdrDelay60"/>
+            <Border Background="#c7c0" Width="0" Name="bdrDelay120" />
+            <Border Background="#ccf0" Width="0" Name="bdrDelay460" />
+            <Border Background="#cfc0" Width="0" Name="bdrDelay1000" />
+            <Border Background="#cc80" Width="0" Name="bdrDelay3000" />
+            <Border Background="#cb00" Width="0" Name="bdrDelay10000" />
+        </StackPanel>
         <Grid Margin="0 0 0 5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="17"></RowDefinition>
-                <RowDefinition Height="17"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="5 0">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTime"/>
+            </Viewbox>
+            <Viewbox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Stretch="Uniform" Margin="5 0" Height="30">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" FontSize="20" Name="tbStabilityText"/>
+            </Viewbox>
+
+            <!--<Rectangle Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="3" x:Name="elpStabilityBreath" Height="2" Width="10" Fill="White">
+                <Rectangle.Effect>
+                    <DropShadowEffect Opacity="1" ShadowDepth="0" Color="GreenYellow" BlurRadius="200" Direction="10"/>
+                </Rectangle.Effect>
+            </Rectangle>-->
+
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#aaa"  FontSize="10" Text="延迟(ms)"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#aaa"  FontSize="10" Text="稳定指数"/>
+
+        </Grid>
+        <Border Background="#2fff" Height="1"/>
+        <Grid Margin="0 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="字节"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="时间(ms)"/>
-            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#eee" FontWeight="Bold" Text="TTL"/>
+            <!--<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#ddd"  FontSize="12" Name="tbActualByte"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#ddd"  FontSize="12" Name="tbActualTTL"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualByte"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTime"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd" Name="tbActualTTL"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#aaa"  FontSize="12" Text="字节："/>
+            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#aaa"  FontSize="12" Text="TTL："/>-->
+
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd"  FontSize="12" Name="tbDownSpeed"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ddd"  FontSize="12" Name="tbUpSpeed"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#aaa"  FontSize="10" Text="下载速度"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#aaa"  FontSize="10" Text="上传速度"/>
+
         </Grid>
         <Border Background="#2fff" Height="1"/>
         <Grid  Margin="0 5">
@@ -105,7 +144,6 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -126,34 +164,6 @@
             <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" Text="3000-∞"  FontSize="10"/>
             <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c00" Text="0" Name="tbDelay10000"/>
 
-            <StackPanel Name="spDelay" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="3" Height="5" Margin=" 0 2 0 0">
-                <Border Background="#c0b0" Width="0" Name="bdrDelay60"/>
-                <Border Background="#c9c0" Width="0" Name="bdrDelay120" />
-                <Border Background="#ccf0" Width="0" Name="bdrDelay460" />
-                <Border Background="#cfc0" Width="0" Name="bdrDelay1000" />
-                <Border Background="#cc80" Width="0" Name="bdrDelay3000" />
-                <Border Background="#cb00" Width="0" Name="bdrDelay10000" />
-            </StackPanel>
-        </Grid>
-        <Border Background="#2fff" Height="1"/>
-        <Grid Margin="5" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="16"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" FontSize="12" Text="稳定指数"/>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#eee" FontSize="12" Name="tbStabilityText"/>
-
-            <Ellipse Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"  x:Name="elpStabilityBreath" Height="10" Width="10" Fill="White">
-                <Ellipse.Effect>
-                    <DropShadowEffect Opacity="1" ShadowDepth="0" Color="GreenYellow" BlurRadius="200" Direction="10"/>
-                </Ellipse.Effect>
-            </Ellipse>
         </Grid>
         <Grid Name="gridTool" Margin="5" Background="#2aaa">
             <Grid.RowDefinitions>

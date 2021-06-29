@@ -1,0 +1,33 @@
+﻿<Page x:Class="VicoldGis.Pages.MapPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VicoldGis.Pages" 
+      xmlns:mapview="clr-namespace:VicoldGis.VMap.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MapPage">
+
+    <Grid>
+        <Border Name="outside" Grid.Column="1" Background="#111"
+                PreviewMouseDown="outsidewrapper_PreviewMouseDown"
+                PreviewMouseMove="outsidewrapper_PreviewMouseMove"
+                PreviewMouseUp="outside_PreviewMouseUp"
+                PreviewMouseWheel="outside_PreviewMouseWheel"
+                ClipToBounds="True" Loaded="outside_Loaded">
+
+            <mapview:MapView x:Name="inside" Width="{Binding Path=ActualWidth,RelativeSource={RelativeSource AncestorType=Border}}" 
+                    Height="{Binding Path=ActualHeight,RelativeSource={RelativeSource AncestorType=Border}}"  SizeChanged="inside_SizeChanged" >
+                <mapview:MapView.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                    </TransformGroup>
+                </mapview:MapView.RenderTransform>
+                <mapview:MapView.Effect>
+                    <DropShadowEffect BlurRadius="20" Color="#444" Opacity="0.5" ShadowDepth="0"/>
+                </mapview:MapView.Effect>
+            </mapview:MapView>
+        </Border>
+    </Grid>
+</Page>
