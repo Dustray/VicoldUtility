@@ -8,7 +8,7 @@ namespace VicoldGis.Algorithms.Entities
     public class ContourLine
     {
         public float[] LinePoints { get; set; }
-        public Color PolygonColor { get; set; }
+        //public Color PolygonColor { get; set; }
         public float Value { get; set; }
     }
 }

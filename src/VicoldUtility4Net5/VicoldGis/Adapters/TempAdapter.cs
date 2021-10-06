@@ -1,5 +1,8 @@
-﻿using System;
+﻿using HighContour;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -38,26 +41,77 @@ namespace VicoldGis.Adapters
             {
                 return;
             }
-            analyzeValueSource = new float[(588 - 472) / 4 + 1];// { 560, 564, 570, 574, 578, 582, 588, 590, 594, 598 };
-            for (int i = 472, j = 0; i <= 588; i += 4, j++)
-            {
-                analyzeValueSource[j] = i;
-            }
+            //analyzeValueSource = new float[(588 - 472) / 4 + 1];// { 560, 564, 570, 574, 578, 582, 588, 590, 594, 598 };
+            //for (int i = 472, j = 0; i <= 588; i += 4, j++)
+            //{
+            //    analyzeValueSource[j] = i;
+            //}
             //analyzeValueSource = /*new float[] { 785 };//*/ new float[(1000 - 460) / 25 + 1];// { 560, 564, 570, 574, 578, 582, 588, 590, 594, 598 };
             //for (int i = 460, j = 0; i <= 1000; i += 25, j++)
             //{
             //    analyzeValueSource[j] = i;
             //}
-            // analyzeValueSource = new float[] { 635 };
+            analyzeValueSource = _spaceData.CreateAnaValue(20);
+            //analyzeValueSource = new float[] { 635 };
             var startX = 0;
             var startY = 0;
             var width = _spaceData.Width;
             var height = _spaceData.Height;
-            //Lines = ContourVicoldAlgo.CreateContourLines(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
-            //    IsCrossoverAutoOffset, SmoothCount, 9999, 0, 80, 0.125f, -0.125f, false);
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             Lines = ContourVicoldAlgo.CreateContourLines(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
-                IsCrossoverAutoOffset, SmoothCount, 9999, 0, 0, 2.5f, 2.5f, false);
+                IsCrossoverAutoOffset, SmoothCount, 9999, 0, 80, 0.25f, -0.25f, false);
+            //Lines = ContourVicoldAlgo.CreateContourLines(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
+            //    IsCrossoverAutoOffset, SmoothCount, 9999, 0, 0, 2.5f, 2.5f, false);
+            sw.Stop();
+            var old = sw.Elapsed;// Console.WriteLine($"旧算法{sw.Elapsed}");
+            sw.Restart();
+            var sl = ContourCreator.Excute(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
+                new ContourOptions()
+                {
+                    InvalidValue = 9999,
+                    Longitude = 0,
+                    Latitude = 80,
+                    LonInterval = 0.25f,
+                    LatInterval = -0.25f,
+                    SmoothInterpolationCount = SmoothCount,
+                    ComputeDevice = ComputeDevice.Cuda
+                });
+            sw.Stop();
+            MessageBox.Show($"旧算法{old}   新算法{sw.Elapsed}");
+            //Console.WriteLine($"新算法{sw.Elapsed}");
+
+            Lines = new ContourLine[sl.Length];
+            for (var l = 0; l < sl.Length; l++)
+            {
+                Lines[l] = new ContourLine()
+                {
+                    LinePoints = sl[l].LinePoints,
+                    Value = sl[l].Value,
+                };
+            }
             IsParsed = true;
+
+            //List<ContourLine> ds = new List<ContourLine>();
+            //for (var i = Lines.Length - 1; i >= 0; i--)
+            //{
+            //    for(var j=0;j< Lines[i].LinePoints.Length ; j+=2)
+            //    {
+            //        var x = Lines[i].LinePoints[j];
+            //        var y = Lines[i].LinePoints[j+1];
+            //        if (x < 117.5 && x > 115.3 && y < 41.5 && y > 39)
+            //        {
+            //            ds.Add(Lines[i]);
+            //            break;
+            //        }
+            //    }
+
+            //}
+
+            //Lines = ds.ToArray();
+            //var te = JsonConvert.SerializeObject(ds);
+            //File.WriteAllText(@"d:\isoline.json", te);
 
         }
 

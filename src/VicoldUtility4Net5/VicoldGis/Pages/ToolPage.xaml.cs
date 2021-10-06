@@ -71,6 +71,11 @@ namespace VicoldGis.Pages
                 var layer = new VMap.Layer();
                 layer.Id = 12138;
                 layer.DataSource = adapter;
+                var oldlayer = App.Current.Map2.Manager.GetLayer(layer.Id);
+                if (oldlayer != null)
+                {
+                    App.Current.Map2.Manager.Delete(layer.Id);
+                }
                 App.Current.Map2.Manager.Add(layer);
             });
         }
