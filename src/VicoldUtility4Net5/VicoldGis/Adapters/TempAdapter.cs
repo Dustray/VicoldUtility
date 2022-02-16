@@ -60,7 +60,7 @@ namespace VicoldGis.Adapters
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            Lines = ContourVicoldAlgo.CreateContourLines(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
+             ContourVicoldAlgo.CreateContourLines(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
                 IsCrossoverAutoOffset, SmoothCount, 9999, 0, 80, 0.25f, -0.25f, false);
             //Lines = ContourVicoldAlgo.CreateContourLines(_spaceData.Data, startX, startY, width, height, _spaceData.Width, analyzeValueSource,
             //    IsCrossoverAutoOffset, SmoothCount, 9999, 0, 0, 2.5f, 2.5f, false);
@@ -81,7 +81,6 @@ namespace VicoldGis.Adapters
             sw.Stop();
             MessageBox.Show($"旧算法{old}   新算法{sw.Elapsed}");
             //Console.WriteLine($"新算法{sw.Elapsed}");
-
             Lines = new ContourLine[sl.Length];
             for (var l = 0; l < sl.Length; l++)
             {
@@ -159,6 +158,12 @@ namespace VicoldGis.Adapters
         private List<System.Windows.Point[]> ToPointList(ContourLine[] lines)
         {
             var list = new List<System.Windows.Point[]>();
+
+            if (lines == null)
+            {
+                return list;
+            }
+
             foreach (var line in lines)
             {
                 var length = line.LinePoints.Length / 2;
