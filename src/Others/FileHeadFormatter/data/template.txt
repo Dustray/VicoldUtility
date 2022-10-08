@@ -1,0 +1,20 @@
+﻿/**
+ * @FilePath: $filepath$
+ * @Description: $description$
+ * @Author: $author$($email$)
+ * @Date: $createdatetime$
+ * @LastEditors: $author$($email$)
+ * @LastEditTime: $modifydatetime$
+ * @copyright Copyright(c) 2022-2022, YUSUR Technology Co., Ltd. Learn more at www.yusur.tech.
+ */
+$$if!emptyfile $$ifext h|cuh
+$$if!emptyfile $$ifext h|cuh #ifndef _YUSUR_RACE_$pathupper&_H_
+$$if!emptyfile $$ifext h|cuh #define _YUSUR_RACE_$pathupper&_H_
+$$if!emptyfile 
+$$if!emptyfile namespace yusur {
+$$if!emptyfile namespace race {
+$$if!emptyfile 
+$$if!emptyfile }
+$$if!emptyfile }
+$$if!emptyfile $$ifext h|cuh
+$$if!emptyfile $$ifext h|cuh #endif  // _YUSUR_RACE_$pathupper&_H_

@@ -1,0 +1,7 @@
+﻿$filepath$		= %currentpath%
+$description$		=
+$author$		= Yin Yue
+$email$			= yiny@yusur.tech
+$createdatetime$	= %datetime.now%
+$modifydatetime$	= %datetime.now%
+$pathupper&		= %pathupper%
