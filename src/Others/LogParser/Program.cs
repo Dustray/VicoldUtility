@@ -5,7 +5,7 @@ Console.WriteLine("Hello, World!");
 
 
 
-string logFile = @"C:\Users\yinxi\Desktop\ptest_log.txt";
+string logFile = @"C:\Users\yinxi\Desktop\ptest_logs.txt";
 string resultFile = Path.GetFullPath(@"result.csv");
 
 string func = "PerformanceTest";
@@ -15,7 +15,10 @@ string[] partTimes = { "calc total", "data transfer", "param transfer", "calcula
 string currentFunc = string.Empty;
 string currentRowCount = string.Empty;
 
-Dictionary<string, Dictionary<string, Dictionary<string, float>>> result = new();
+bool isCombinedFunction = false;
+Dictionary<string, int> combinedTimeCount = new(); 
+
+Dictionary<string, Dictionary<string, Dictionary<string, List<float>>>> result = new();
 // 遍历日志每一行
 foreach (string line in File.ReadLines(logFile))
 {
@@ -34,6 +37,11 @@ foreach (string line in File.ReadLines(logFile))
         }
         var functionName = newSpan.Slice(0, end);
         currentFunc = functionName.ToString();
+
+        #region Combined情况
+        isCombinedFunction = currentFunc.Contains("Combined");
+        #endregion
+
         if (!result.TryGetValue(currentFunc, out _))
         {
             result.Add(currentFunc, new());
@@ -52,6 +60,20 @@ foreach (string line in File.ReadLines(logFile))
         {
             result[currentFunc].Add(currentRowCount, new());
         }
+
+        #region Combined情况
+        if (isCombinedFunction)
+        {
+            if (!combinedTimeCount.TryGetValue(currentFunc + currentRowCount, out var times))
+            {
+                combinedTimeCount[currentFunc + currentRowCount] = 0;
+            }
+            else
+            {
+                combinedTimeCount[currentFunc + currentRowCount]++;
+            }
+        }
+        #endregion
     }
     else if (IsTimeIndexOf(out var part, out var index2))
     {
@@ -62,7 +84,30 @@ foreach (string line in File.ReadLines(logFile))
         var end = newSpan.IndexOf("ms");
         var rowCount = newSpan.Slice(0, end).ToString();
         float time = float.Parse(rowCount);
-        result[currentFunc][currentRowCount][part] = time;
+        if (!result[currentFunc][currentRowCount].TryGetValue(part, out var valueList))
+        {
+            result[currentFunc][currentRowCount][part] = new List<float>();
+        }
+
+        if (isCombinedFunction)
+        {
+            var count= result[currentFunc][currentRowCount][part].Count;
+            var times = combinedTimeCount[currentFunc + currentRowCount];// result[currentFunc][currentRowCount][part].Count;
+            if ( count<=times)
+            {
+                result[currentFunc][currentRowCount][part].Add(time);
+            }
+            else
+            {
+
+                result[currentFunc][currentRowCount][part][times] += time;
+            }
+
+        }
+        else
+        {
+            result[currentFunc][currentRowCount][part].Add(time);
+        }
     }
 
     bool IsIndexOf(string key, out int index)
@@ -113,9 +158,21 @@ foreach (var function in result)
 
         foreach (var partTimeKey in partTimes)
         {
-            if (rowCount.Value.TryGetValue(partTimeKey, out var value))
+            if (rowCount.Value.TryGetValue(partTimeKey, out var values))
             {
-                var v = Math.Round(value, 2, MidpointRounding.AwayFromZero);
+                if (values.Count == 0)
+                {
+                    continue;
+                }
+
+                float sumValue = 0;
+
+                foreach (var value in values)
+                {
+                    sumValue += value;
+                }
+
+                var v = Math.Round(sumValue / values.Count, 2, MidpointRounding.AwayFromZero);
                 builder.Append(v);
                 builder.Append(',');
             }
