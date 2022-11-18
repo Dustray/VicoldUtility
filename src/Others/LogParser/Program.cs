@@ -5,12 +5,12 @@ Console.WriteLine("Hello, World!");
 
 
 
-string logFile = @"C:\Users\yinxi\Desktop\ptest_logs.txt";
+string logFile = @"C:\Users\yiny\Desktop\hls.txt";
 string resultFile = Path.GetFullPath(@"result.csv");
 
 string func = "PerformanceTest";
 string rc = "Current row count";
-string[] partTimes = { "calc total", "data transfer", "param transfer", "calculate", "total(during exec)" };
+string[] partTimes = { "calc total", "data transfer out", "data transfer back", "param transfer", "calculate", "total(during exec)" };
 
 string currentFunc = string.Empty;
 string currentRowCount = string.Empty;
