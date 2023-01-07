@@ -275,7 +275,7 @@ namespace VicoldUtility.PingDashboard
                             //tbActualByte.Text = "--";
                             //tbActualTTL.Text = "--";
                             tbContinuousCount.Text = $"失败：{_continuousFailedCount}";
-                            if (_continuousFailedCount == 20)
+                            if (_continuousFailedCount <= 2 || _continuousFailedCount == 20)
                             {
                                 Alert.Show("警告", $"Ping{_ip}已连续失败{_continuousFailedCount}次", AlertTheme.Warning, new AlertConfig() { AlertShowDuration = -1, OnlyOneWindowAllowed = true });
                             }
@@ -292,7 +292,7 @@ namespace VicoldUtility.PingDashboard
 
                     if (p.RoundtripTime < _reflushTime)
                     {
-                        var waitTime =(int) (_reflushTime - p.RoundtripTime);
+                        var waitTime = (int)(_reflushTime - p.RoundtripTime);
                         await Task.Delay(_reflushTime);
                     }
                 }
