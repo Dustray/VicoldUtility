@@ -108,7 +108,7 @@ namespace FileHeadFormatter
                     case "%pathupper%":
                         return GetUpperPath(fileName);
                     case "%datetime.now%":
-                        return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        return DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                     default:
                         return "";
                 }
@@ -224,7 +224,7 @@ namespace FileHeadFormatter
                                     }
 
 
-                                    
+
 
                                     Span<char> value;
                                     if (vIndex != -1)
@@ -305,8 +305,8 @@ namespace FileHeadFormatter
         {
             path = path.Replace("\\", "/");
             var pathArray = path.Split('/');
-            var includeIndex = Array.FindIndex(pathArray, s => s.ToLower() == "include");
-            var srcIndex = Array.FindIndex(pathArray, s => s.ToLower() == "src");
+            var includeIndex = Array.FindIndex(pathArray, s => s.ToLower() == "include") - 1;
+            var srcIndex = Array.FindIndex(pathArray, s => s.ToLower() == "src") - 1;
             var index = includeIndex > srcIndex ? includeIndex : srcIndex;
             if (index != -1)
             {
