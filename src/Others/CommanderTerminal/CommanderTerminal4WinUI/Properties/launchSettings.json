@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CommanderTerminal4WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CommanderTerminal4WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
