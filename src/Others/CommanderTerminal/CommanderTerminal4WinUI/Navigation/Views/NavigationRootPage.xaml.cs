@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
+using CommanderTerminal.Adding;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -184,8 +185,12 @@ namespace CommanderTerminal.Navigation.Views
                 }
 
                 var destinationTabView = sender as TabView;
-                var destinationItems = destinationTabView.TabItems;
+                if (destinationTabView is not { })
+                {
+                    return;
+                }
 
+                var destinationItems = destinationTabView.TabItems;
                 if (destinationItems != null)
                 {
                     // First we need to get the position in the List to drop to
@@ -196,16 +201,19 @@ namespace CommanderTerminal.Navigation.Views
                     {
                         var item = destinationTabView.ContainerFromIndex(i) as TabViewItem;
 
-                        if (e.GetPosition(item).X - item.ActualWidth < 0)
+                        if (item is { })
                         {
-                            index = i;
-                            break;
+                            if (e.GetPosition(item).X - item.ActualWidth < 0)
+                            {
+                                index = i;
+                                break;
+                            }
                         }
                     }
 
                     // The TabView can only be in one tree at a time. Before moving it to the new TabView, remove it from the old.
-                    var destinationTabViewListView = ((obj as TabViewItem).Parent as TabViewListView);
-                    destinationTabViewListView.Items.Remove(obj);
+                    var destinationTabViewListView = ((obj as TabViewItem)?.Parent as TabViewListView);
+                    destinationTabViewListView?.Items.Remove(obj);
 
                     if (index < 0)
                     {
@@ -233,9 +241,42 @@ namespace CommanderTerminal.Navigation.Views
             }
         }
 
-        private void Tabs_AddTabButtonClick(TabView sender, object args)
+        private async void Tabs_AddTabButtonClick(TabView sender, object args)
         {
-            //sender.TabItems.Add(new TabViewItem() { IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Placeholder }, Header = "New Item", Content = new MyTabContentControl() { DataContext = "New Item" } });
+            var addDialog = new ContentDialog();
+            addDialog.XamlRoot = this.XamlRoot;
+            addDialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            addDialog.Title = "Open Commander";
+            addDialog.IsPrimaryButtonEnabled = false;
+            addDialog.IsSecondaryButtonEnabled = false;
+            //addDialog.PrimaryButtonText = "Open";
+            //addDialog.SecondaryButtonText = "Don't Save";
+            addDialog.CloseButtonText = "Close";
+            addDialog.DefaultButton = ContentDialogButton.Primary;
+            var addPage = new AddPage();
+            addDialog.Content = addPage;
+
+
+            var dialogResult = await addDialog.ShowAsync();
+            if(dialogResult == ContentDialogResult.None)
+            {
+                return;
+            }
+
+            
+
+            sender.TabItems.Add(new TabViewItem()
+            {
+                IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource()
+                {
+                    Symbol = Symbol.Placeholder
+                },
+                Header = "New Item",
+                //Content = new MyTabContentControl()
+                //{
+                //    DataContext = "New Item"
+                //}
+            });
         }
 
         private void Tabs_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)

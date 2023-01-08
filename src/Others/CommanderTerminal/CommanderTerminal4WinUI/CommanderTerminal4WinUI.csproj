@@ -16,6 +16,7 @@
 	<AssemblyName>CommanderTerminal</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Adding\AddPage.xaml" />
     <None Remove="Controls\PageFrame.xaml" />
     <None Remove="Navigation\Views\NavigationRootPage.xaml" />
   </ItemGroup>
@@ -54,6 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\PageFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Adding\AddPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

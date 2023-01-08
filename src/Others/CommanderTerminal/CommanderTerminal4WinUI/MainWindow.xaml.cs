@@ -30,7 +30,7 @@ namespace CommanderTerminal
         public MainWindow()
         {
             this.InitializeComponent();
-            Frame frame = new Frame();
+            Frame frame = new();
             frame.Navigate(typeof(NavigationRootPage), null);
             Content = frame;
         }

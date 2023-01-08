@@ -15,6 +15,8 @@ namespace CommanderTerminalCore.Configuration.Entities
 
     public class SSHHostItemConfigEtt
     {
+        public int ID { get; set; }
+
         public string? Name { get; set; }
 
         public string? Host { get; set; }
@@ -24,13 +26,28 @@ namespace CommanderTerminalCore.Configuration.Entities
         public string? RememberedPasswd { get; set; }
 
         public List<SSHCommandConfigEtt>? Commands { get; set; }
+
     }
 
     public class SSHHostConfigEtt
     {
         private string? _configPath;
 
-        public List<SSHHostItemConfigEtt>? HostList { get; set; }
+        public SSHHostConfigEtt()
+        {
+        }
+
+        public SSHHostConfigEtt(string configPath)
+        {
+            _configPath = configPath;
+        }
+
+        public List<SSHHostItemConfigEtt> HostList { get; set; } = new List<SSHHostItemConfigEtt>();
+
+        public SSHHostItemConfigEtt? SelectHostItemByID(int id)
+        {
+            return HostList.FirstOrDefault(x => x.ID == id);
+        }
 
         public void Save()
         {
@@ -70,6 +87,7 @@ namespace CommanderTerminalCore.Configuration.Entities
                 {
                     ett._configPath = path;
                 }
+
                 return ett;
             }
             catch

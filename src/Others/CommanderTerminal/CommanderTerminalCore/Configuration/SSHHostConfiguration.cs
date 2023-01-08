@@ -12,7 +12,7 @@ namespace CommanderTerminalCore.Configuration
             if (_sshHostConfigEtt is null)
             {
                 var fullpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _baseHostConfigPath);
-                _sshHostConfigEtt = SSHHostConfigEtt.Read(fullpath) ?? new SSHHostConfigEtt();
+                _sshHostConfigEtt = SSHHostConfigEtt.Read(fullpath) ?? new SSHHostConfigEtt(fullpath);
             }
 
             return _sshHostConfigEtt;
