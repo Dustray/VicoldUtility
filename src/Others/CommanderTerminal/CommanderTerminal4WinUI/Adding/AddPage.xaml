@@ -64,7 +64,8 @@
             Width="220"
             Height="auto"
             HorizontalAlignment="Left"
-            Margin="5"/>
+            Margin="5"
+            SelectionChanged="SSHHostList_SelectionChanged"/>
 
 
         <Grid 

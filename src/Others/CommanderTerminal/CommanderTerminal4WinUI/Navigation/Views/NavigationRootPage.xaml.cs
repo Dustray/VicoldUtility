@@ -256,7 +256,6 @@ namespace CommanderTerminal.Navigation.Views
             var addPage = new AddPage();
             addDialog.Content = addPage;
 
-
             var dialogResult = await addDialog.ShowAsync();
             if(dialogResult == ContentDialogResult.None)
             {
