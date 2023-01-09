@@ -17,6 +17,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Adding\AddPage.xaml" />
+    <None Remove="CommandPad\CommandPadPage.xaml" />
+    <None Remove="CommandPad\PasswordInputPage.xaml" />
+    <None Remove="CommandPad\WelcomePage.xaml" />
     <None Remove="Controls\PageFrame.xaml" />
     <None Remove="Navigation\Views\NavigationRootPage.xaml" />
   </ItemGroup>
@@ -49,6 +52,16 @@
     <ProjectReference Include="..\CommanderTerminalCore\CommanderTerminalCore.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="CommandPad\PasswordInputPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="CommandPad\WelcomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Navigation\Views\NavigationRootPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -60,6 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Adding\AddPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="CommandPad\CommandPadPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

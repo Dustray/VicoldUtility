@@ -89,16 +89,17 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="EditTitleText" Grid.Row="0" Text="Detail" Margin="0 10" FontSize="22"/>
 
-            <TextBox     Header="Name:"     Grid.Row="1" Grid.Column="1" Margin="5" Text="{x:Bind _hostListItemVM.Name, Mode=TwoWay}" x:Name="HostName"/>
-            <TextBox     Header="Host:"     Grid.Row="2" Grid.Column="1" Margin="5" Text="{x:Bind _hostListItemVM.Host, Mode=TwoWay}"/>
-            <TextBox     Header="Port:"     Grid.Row="3" Grid.Column="1" Margin="5" Text="{x:Bind _hostListItemVM.Port, Mode=TwoWay}"/>
-            <PasswordBox Header="Password:" Grid.Row="4" Grid.Column="1" Margin="5" Password="{x:Bind _hostListItemVM.Password, Mode=TwoWay}"/>
-            <CheckBox                       Grid.Row="5" Grid.Column="1" Margin="5 3" Content="Save password" IsChecked="{x:Bind _hostListItemVM.IsSavePassword, Mode=TwoWay}"/>
+            <TextBox     x:Name="HostName"     Header="Name:"     Grid.Row="1" Grid.Column="1" Margin="5"   Text="{x:Bind _hostListItemVM.Name, Mode=TwoWay}"/>
+            <TextBox     x:Name="HostHost"     Header="Host:"     Grid.Row="2" Grid.Column="1" Margin="5"   Text="{x:Bind _hostListItemVM.Host, Mode=TwoWay}"/>
+            <TextBox     x:Name="HostPort"     Header="Port:"     Grid.Row="3" Grid.Column="1" Margin="5"   Text="{x:Bind _hostListItemVM.Port, Mode=TwoWay}"/>
+            <PasswordBox x:Name="HostPassword" Header="Password:" Grid.Row="4" Grid.Column="1" Margin="5"   Password="{x:Bind _hostListItemVM.Password, Mode=TwoWay}"/>
+            <CheckBox    x:Name="RememberPasswd"                  Grid.Row="5" Grid.Column="1" Margin="5 3" IsChecked="{x:Bind _hostListItemVM.IsSavePassword, Mode=TwoWay}"
+                         Content="Save password"/>
 
             <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Save" Padding="10 5" HorizontalAlignment="Center" Margin="5 0"
+                <Button x:Name="SaveBtn" Content="Save" Padding="10 5" HorizontalAlignment="Center" Margin="5 0"
                         Click="Save_Click" Background="{ThemeResource AccentTextFillColorPrimaryBrush}" Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
-                <Button Content="Clear" Padding="10 5" HorizontalAlignment="Center" Margin="5 0"
+                <Button x:Name="ClearBtn" Content="Clear" Padding="10 5" HorizontalAlignment="Center" Margin="5 0"
                         Click="Clear_Click" />
             </StackPanel>
 

@@ -53,7 +53,9 @@ namespace CommanderTerminal.Adding
             InitListData();
         }
 
+        public bool IsReadyToOpenHost { get; set; }
         public SSHHostItemConfigEtt? HostItemConfigEtt { get; private set; }
+        public Action OnHostChecked { get; internal set; }
 
         private void InitListData()
         {
@@ -80,7 +82,6 @@ namespace CommanderTerminal.Adding
             _hostListItemVM.Name = "New Host";
             HostName.Focus(FocusState.Pointer);
             HostName.SelectAll();
-            BindCurrentVM();
             ClearLog();
         }
 
@@ -88,6 +89,7 @@ namespace CommanderTerminal.Adding
         {
             if (!CheckEditGrid())
             {
+                IsReadyToOpenHost = false;
                 return;
             }
 
@@ -126,7 +128,7 @@ namespace CommanderTerminal.Adding
                 UpdateTitle(EditTitle.EditDetail);
                 SetEditEnabled(true);
                 _hostListItemVM.CopyFrom(vm);
-                BindCurrentVM();
+                HostPassword.Password = _hostListItemVM.Password;
                 ClearLog();
 
                 //select item
@@ -140,25 +142,36 @@ namespace CommanderTerminal.Adding
 
         private void SSHHostList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_isEditMode)
-            {
-                Log("Please [clear] Edit State first.");
-                return;
-            }
+            //if (_isEditMode)
+            //{
+            //    Log("Please [clear] Edit State first.");
+            //    IsReadyToOpenHost = false;
+            //    return;
+            //}
 
             if (SSHHostList.SelectedIndex < 0 || SSHHostList.SelectedIndex >= _hostListItems.Count)
             {
                 Log("Select Error.", severity: InfoBarSeverity.Error);
+                IsReadyToOpenHost = false;
                 return;
             }
 
             var vm = _hostListItems[SSHHostList.SelectedIndex];
+            _hostListItemVM.CopyFrom(vm);
+            HostPassword.Password = _hostListItemVM.Password;
             var config = TerminalCore.Current.HostConfig.GetConfigEtt();
             HostItemConfigEtt = config.SelectHostItemByID(vm.ID);
-            if (HostItemConfigEtt is not { })
+            if (HostItemConfigEtt is { })
+            {
+                OnHostChecked?.Invoke();
+                IsReadyToOpenHost = true;
+            }
+            else
             {
                 Log("Cannot find host from configuration.", severity: InfoBarSeverity.Error);
+                IsReadyToOpenHost = false;
             }
+
         }
 
         #endregion
@@ -183,13 +196,7 @@ namespace CommanderTerminal.Adding
             config.Save();
         }
 
-        private void BindCurrentVM()
-        {
-            //(this.Content as FrameworkElement).DataContext = _hostListItemVM;
-            //_hostListItemVM.
-        }
-
-        private void Log(string message, string? title = null, InfoBarSeverity severity = InfoBarSeverity.Informational)
+        public void Log(string message, string? title = null, InfoBarSeverity severity = InfoBarSeverity.Informational)
         {
             LogInfo.IsOpen = true;
             LogInfo.Message = message;
@@ -204,13 +211,24 @@ namespace CommanderTerminal.Adding
 
         private void SetEditEnabled(bool enabled)
         {
-            foreach (var element in EditGrid.Children)
+            HostName.IsEnabled = enabled;
+            HostHost.IsEnabled = enabled;
+            HostPort.IsEnabled = enabled;
+
+            if (!enabled && string.IsNullOrWhiteSpace(HostPassword.Password))
             {
-                if (element is Control ctl)
-                {
-                    ctl.IsEnabled = enabled;
-                }
+                HostPassword.IsEnabled = true;
+                RememberPasswd.IsEnabled = true;
+                SaveBtn.IsEnabled = true;
             }
+            else
+            {
+
+                HostPassword.IsEnabled = enabled;
+                RememberPasswd.IsEnabled = enabled;
+                SaveBtn.IsEnabled = enabled;
+            }
+            ClearBtn.IsEnabled = enabled;
         }
 
         private void ClearEditGrid()

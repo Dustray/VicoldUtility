@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommanderTerminalCore.SSHConnection
 {
-    internal interface ISSHHandle
+    public interface ISSHHandle
     {
 
         Task<bool> Connect(string user, string? password = null);

@@ -1,0 +1,24 @@
+<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Page
+    x:Class="CommanderTerminal.CommandPad.WelcomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CommanderTerminal.CommandPad"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Welcome to Commander Terminal." FontSize="24" HorizontalAlignment="Center" Margin="10"/>
+            <TextBlock Text="Open a Commander:"              FontSize="16" HorizontalAlignment="Center" Margin="10"/>
+            <Button Width="60" Height="60" HorizontalAlignment="Center" Margin="10" Click="Button_Click">
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE109;" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

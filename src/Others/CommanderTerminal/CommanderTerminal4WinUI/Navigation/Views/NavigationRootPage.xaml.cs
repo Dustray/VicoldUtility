@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 
 using CommanderTerminal.Adding;
+using CommanderTerminal.CommandPad;
+using CommanderTerminalCore.Configuration.Entities;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -33,6 +35,7 @@ namespace CommanderTerminal.Navigation.Views
         public NavigationRootPage()
         {
             this.InitializeComponent();
+            App.Current.Navigation = this;
 
             Tabs.TabItemsChanged += Tabs_TabItemsChanged;
 
@@ -80,23 +83,15 @@ namespace CommanderTerminal.Navigation.Views
 
         void SetupWindow()
         {
-
-            // Main Window -- add some default items
-            for (int i = 0; i < 4; i++)
+            Tabs.TabItems.Add(new TabViewItem()
             {
-                Tabs.TabItems.Add(new TabViewItem()
+                IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource()
                 {
-                    IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource()
-                    {
-                        Symbol = Symbol.Link
-                    },
-                    Header = $"Item {i}",
-                    //Content = new MyTabContentControl()
-                    //{
-                    //    DataContext = $"Page {i}"
-                    //}
-                });
-            }
+                    Symbol = Symbol.World
+                },
+                Header = $"Welcome",
+                Content = new WelcomePage()
+            });
 
             Tabs.SelectedIndex = 0;
 
@@ -241,41 +236,61 @@ namespace CommanderTerminal.Navigation.Views
             }
         }
 
-        private async void Tabs_AddTabButtonClick(TabView sender, object args)
+        public async void OpenAddDialog()
         {
             var addDialog = new ContentDialog();
             addDialog.XamlRoot = this.XamlRoot;
             addDialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
             addDialog.Title = "Open Commander";
-            addDialog.IsPrimaryButtonEnabled = false;
+            addDialog.IsPrimaryButtonEnabled = true;
             addDialog.IsSecondaryButtonEnabled = false;
-            //addDialog.PrimaryButtonText = "Open";
+            addDialog.PrimaryButtonText = "Open";
             //addDialog.SecondaryButtonText = "Don't Save";
             addDialog.CloseButtonText = "Close";
             addDialog.DefaultButton = ContentDialogButton.Primary;
             var addPage = new AddPage();
+
             addDialog.Content = addPage;
+            addDialog.CloseButtonClick += (sender, e) =>
+            {
+                addPage.IsReadyToOpenHost = true;
+            };
+            addDialog.Closing += (sender, e) =>
+            {
+                if (!addPage.IsReadyToOpenHost)
+                {
+                    addPage.Log("Please choosing a host.", severity: InfoBarSeverity.Error);
+                    e.Cancel = true;
+                }
+            };
 
             var dialogResult = await addDialog.ShowAsync();
-            if(dialogResult == ContentDialogResult.None)
+            if (dialogResult == ContentDialogResult.None)
             {
                 return;
             }
 
-            
+            var itemConfig = addPage.HostItemConfigEtt;
+            if (itemConfig is not { })
+            {
+                return;
+            }
 
-            sender.TabItems.Add(new TabViewItem()
+            Tabs.TabItems.Add(new TabViewItem()
             {
                 IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource()
                 {
-                    Symbol = Symbol.Placeholder
+                    Symbol = Symbol.Link
                 },
-                Header = "New Item",
-                //Content = new MyTabContentControl()
-                //{
-                //    DataContext = "New Item"
-                //}
+                Header = itemConfig.Name,
+                Content = new CommandPadPage(itemConfig)
             });
+            Tabs.SelectedIndex = Tabs.TabItems.Count - 1;
+        }
+
+        private void Tabs_AddTabButtonClick(TabView sender, object args)
+        {
+            OpenAddDialog();
         }
 
         private void Tabs_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
+using CommanderTerminal.Navigation.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -52,5 +53,6 @@ namespace CommanderTerminal
         }
 
         public Window? ShellWindow { get; private set; }
+        public NavigationRootPage? Navigation { get; internal set; }
     }
 }
