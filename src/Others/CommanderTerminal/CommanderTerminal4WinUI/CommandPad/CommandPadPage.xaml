@@ -8,10 +8,45 @@
     xmlns:local="using:CommanderTerminal.CommandPad"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <Grid Grid.Column="0" Background="#1777" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Background="#1555" Padding="0 10">
+                <TextBlock Text="{x:Bind HostEtt.Name, Mode=OneTime}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontSize="26"/>
+                <TextBlock Text="{x:Bind HostEtt.HostPort, Mode=OneTime}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontSize="14" Margin="0 8 0 2"/>
+                <TextBlock Text="{x:Bind ConnectionState.Display, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontSize="14" Foreground="{x:Bind ConnectionState.Color, Mode=TwoWay}" PointerPressed="Reconnect_PointerPressed"/>
+            </StackPanel>
+            <Grid Grid.Row="1" >
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1">
+
+        </Grid>
+
+        <controls:GridSplitter Grid.Column="2" Width="1" Background="#4777"/>
+
+        <Grid Grid.Column="3">
+            <TextBox TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True"
+    SelectionHighlightColor="Green" />
+        </Grid>
     </Grid>
 </Page>

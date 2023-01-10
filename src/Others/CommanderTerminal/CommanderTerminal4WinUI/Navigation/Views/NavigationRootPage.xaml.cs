@@ -95,6 +95,13 @@ namespace CommanderTerminal.Navigation.Views
 
             Tabs.SelectedIndex = 0;
 
+            Tabs.TabCloseRequested += (tab, e)=>{
+                CommandPadPage ? commandPad = (e.Item as TabViewItem)?.Content as CommandPadPage;
+                if(commandPad is { })
+                {
+                    commandPad.Close();
+                }
+            };
 
 #if UNIVERSAL
             // Extend into the titlebar

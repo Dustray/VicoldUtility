@@ -23,6 +23,11 @@ namespace CommanderTerminal.Utilities
             return true;
         }
 
+        protected void SetProperty([CallerMemberName] string? propertyName = null)
+        {
+            NotifyPropertyChanged(propertyName);
+        }
+
         private void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

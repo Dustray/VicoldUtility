@@ -8,7 +8,6 @@ namespace CommanderTerminalCore.SSHConnection
 {
     public interface ISSHHandle
     {
-
         Task<bool> Connect(string user, string? password = null);
 
         Task<string> execute(string command);

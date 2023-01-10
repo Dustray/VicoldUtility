@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommanderTerminalCore.SSHConnection
 {
-    internal enum LoginKeyType
+    public enum LoginKeyType
     {
         Password,
         SSHKey,

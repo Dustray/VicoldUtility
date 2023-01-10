@@ -28,7 +28,7 @@ namespace CommanderTerminal.CommandPad
     /// </summary>
     public sealed partial class PasswordInputPage : Page
     {
-        public PasswordInputPage(ISSHHandle handle, bool isWrong=false)
+        public PasswordInputPage(bool isWrong = false)
         {
             this.InitializeComponent();
             if (isWrong)
@@ -39,14 +39,23 @@ namespace CommanderTerminal.CommandPad
 
 
         public string InputPasswd { get; set; } = string.Empty;
+        public bool IsGoOn { get; internal set; } = false;
 
-        public bool Check()
+        public void Check()
         {
-            return true;
+            if (string.IsNullOrWhiteSpace(InputPasswd))
+            {
+                Log("Password can not be empty.", severity: InfoBarSeverity.Error);
+                IsGoOn = false;
+            }
+            else
+            {
+                IsGoOn = true;
+            }
         }
 
 
-        private void Log(string message, string? title = null, InfoBarSeverity severity = InfoBarSeverity.Informational)
+        internal void Log(string message, string? title = null, InfoBarSeverity severity = InfoBarSeverity.Informational)
         {
             LogInfo.IsOpen = true;
             LogInfo.Message = message;
@@ -57,6 +66,11 @@ namespace CommanderTerminal.CommandPad
         private void ClearLog()
         {
             LogInfo.IsOpen = false;
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ClearLog();
         }
     }
 }

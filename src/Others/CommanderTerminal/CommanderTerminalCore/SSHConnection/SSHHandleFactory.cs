@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommanderTerminalCore.SSHConnection
 {
-    internal static class SSHHandleFactory
+    public static class SSHHandleFactory
     {
         public static ISSHHandle Create(string ip, int port, LoginKeyType keyType = LoginKeyType.Password)
         {
