@@ -35,6 +35,13 @@ namespace CommanderTerminal.Adding.ViewModels
 
         public string HostPort => $"{Host}:{Port}";
 
+        private string _user = string.Empty;
+        public string User
+        {
+            get { return _user; }
+            set { SetProperty(ref _user, value); }
+        }
+        
         private string _password = string.Empty;
         public string Password
         {

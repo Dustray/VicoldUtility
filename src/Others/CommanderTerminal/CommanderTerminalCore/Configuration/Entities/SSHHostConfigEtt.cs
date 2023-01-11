@@ -22,6 +22,8 @@ namespace CommanderTerminalCore.Configuration.Entities
         public string? Host { get; set; }
 
         public string? Port { get; set; }
+        
+        public string? User { get; set; }
 
         public string? RememberedPasswd { get; set; }
 

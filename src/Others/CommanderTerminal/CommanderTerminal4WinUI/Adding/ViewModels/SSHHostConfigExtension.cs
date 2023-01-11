@@ -17,6 +17,7 @@ namespace CommanderTerminal.Adding.ViewModels
                 Name = sshHostItemConfigEtt.Name ?? string.Empty,
                 Host = sshHostItemConfigEtt.Host ?? string.Empty,
                 Port = sshHostItemConfigEtt.Port ?? string.Empty,
+                User = sshHostItemConfigEtt.User ?? string.Empty,
                 Password = sshHostItemConfigEtt.RememberedPasswd ?? string.Empty,
                 IsSavePassword = sshHostItemConfigEtt.RememberedPasswd is not null,
             };

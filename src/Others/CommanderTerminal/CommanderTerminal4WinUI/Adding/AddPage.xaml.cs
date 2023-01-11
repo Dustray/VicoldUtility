@@ -188,9 +188,11 @@ namespace CommanderTerminal.Adding
                 config.HostList.Add(configHost);
             }
 
+            configHost.ID = hostListItemVM.ID;
             configHost.Name = hostListItemVM.Name;
             configHost.Host = hostListItemVM.Host;
             configHost.Port = hostListItemVM.Port;
+            configHost.User= hostListItemVM.User;
             configHost.RememberedPasswd = hostListItemVM.Password;
 
             config.Save();
@@ -217,6 +219,7 @@ namespace CommanderTerminal.Adding
 
             if (!enabled && string.IsNullOrWhiteSpace(HostPassword.Password))
             {
+                HostUser.IsEnabled = true;
                 HostPassword.IsEnabled = true;
                 RememberPasswd.IsEnabled = true;
                 SaveBtn.IsEnabled = true;
@@ -224,6 +227,7 @@ namespace CommanderTerminal.Adding
             else
             {
 
+                HostUser.IsEnabled = enabled;
                 HostPassword.IsEnabled = enabled;
                 RememberPasswd.IsEnabled = enabled;
                 SaveBtn.IsEnabled = enabled;

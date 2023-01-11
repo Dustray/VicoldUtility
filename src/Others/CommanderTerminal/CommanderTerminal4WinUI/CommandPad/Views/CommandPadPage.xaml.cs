@@ -50,6 +50,7 @@ namespace CommanderTerminal.CommandPad
                     Port = 22;
                 }
 
+                User = config.User ;
                 Password = config.RememberedPasswd;
             }
 
@@ -61,6 +62,8 @@ namespace CommanderTerminal.CommandPad
 
             public string HostPort => $"{Host}:{Port}";
 
+            public string? User { get; set; }
+            
             public string? Password { get; set; }
         }
 
@@ -71,14 +74,11 @@ namespace CommanderTerminal.CommandPad
             HostEtt = new HostEntity(itemConfig);
             _handle = SSHHandleFactory.Create(HostEtt.Host, HostEtt.Port);
             this.InitializeComponent();
-            Task.Run(async () =>
+
+            Loaded += (sender, e) =>
             {
-                await Task.Delay(100);
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    Init();
-                });
-            });
+                Init();
+            };
         }
 
         internal HostEntity HostEtt { get; }
@@ -98,7 +98,6 @@ namespace CommanderTerminal.CommandPad
 
                 isWrong = true;
             }
-
         }
 
 
@@ -131,7 +130,6 @@ namespace CommanderTerminal.CommandPad
                 addDialog.IsPrimaryButtonEnabled = true;
                 addDialog.IsSecondaryButtonEnabled = false;
                 addDialog.PrimaryButtonText = "Login";
-                //addDialog.SecondaryButtonText = "Don't Save";
                 addDialog.CloseButtonText = "Cancel";
                 addDialog.DefaultButton = ContentDialogButton.Primary;
                 var passwdPage = new PasswordInputPage(isWrong);
