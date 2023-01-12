@@ -19,7 +19,7 @@ namespace CommanderTerminal.Adding.ViewModels
                 Port = sshHostItemConfigEtt.Port ?? string.Empty,
                 User = sshHostItemConfigEtt.User ?? string.Empty,
                 Password = sshHostItemConfigEtt.RememberedPasswd ?? string.Empty,
-                IsSavePassword = sshHostItemConfigEtt.RememberedPasswd is not null,
+                IsSavePassword = !string.IsNullOrWhiteSpace(sshHostItemConfigEtt.RememberedPasswd),
             };
         }
     }

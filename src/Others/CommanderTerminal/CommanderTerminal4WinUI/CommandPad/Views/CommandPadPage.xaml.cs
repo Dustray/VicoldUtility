@@ -90,20 +90,27 @@ namespace CommanderTerminal.CommandPad
 
         internal ConnectState ConnectionState { get; } = new ConnectState();
 
-        internal bool IsConnected => ConnectionState.State == ConnectState.CState.Connected;
+        internal bool IsConnected => ConnectionState.State == ConnectState.CState.Connecting;
 
         public async void Init()
         {
-            bool isWrong = false;
-            while (true)
+            if (string.IsNullOrWhiteSpace(HostEtt.Password))
             {
-                var isContinue = await OpenPasswordInputDialog(isWrong);
-                if (!isContinue)
+                bool isWrong = false;
+                while (true)
                 {
-                    break;
-                }
+                    var isContinue = await OpenPasswordInputDialog(isWrong);
+                    if (!isContinue)
+                    {
+                        break;
+                    }
 
-                isWrong = true;
+                    isWrong = true;
+                }
+            }
+            else
+            {
+                await Connect();
             }
 
             if (IsConnected && _itemConfig.Commands is { })

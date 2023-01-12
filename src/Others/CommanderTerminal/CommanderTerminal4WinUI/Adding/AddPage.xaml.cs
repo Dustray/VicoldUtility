@@ -55,7 +55,7 @@ namespace CommanderTerminal.Adding
 
         public bool IsReadyToOpenHost { get; set; }
         public SSHHostItemConfigEtt? HostItemConfigEtt { get; private set; }
-        public Action OnHostChecked { get; internal set; }
+        public Action? OnHostChecked { get; internal set; }
 
         private void InitListData()
         {
@@ -80,6 +80,7 @@ namespace CommanderTerminal.Adding
             SetEditEnabled(true);
             _hostListItemVM.Clear();
             _hostListItemVM.Name = "New Host";
+            _hostListItemVM.Port = "22";
             HostName.Focus(FocusState.Pointer);
             HostName.SelectAll();
             ClearLog();
@@ -129,6 +130,7 @@ namespace CommanderTerminal.Adding
                 SetEditEnabled(true);
                 _hostListItemVM.CopyFrom(vm);
                 HostPassword.Password = _hostListItemVM.Password;
+                RememberPasswd.IsChecked = _hostListItemVM.IsSavePassword;
                 ClearLog();
 
                 //select item
@@ -159,6 +161,7 @@ namespace CommanderTerminal.Adding
             var vm = _hostListItems[SSHHostList.SelectedIndex];
             _hostListItemVM.CopyFrom(vm);
             HostPassword.Password = _hostListItemVM.Password;
+            RememberPasswd.IsChecked = _hostListItemVM.IsSavePassword;
             var config = TerminalCore.Current.HostConfig.GetConfigEtt();
             HostItemConfigEtt = config.SelectHostItemByID(vm.ID);
             if (HostItemConfigEtt is { })
@@ -192,7 +195,7 @@ namespace CommanderTerminal.Adding
             configHost.Name = hostListItemVM.Name;
             configHost.Host = hostListItemVM.Host;
             configHost.Port = hostListItemVM.Port;
-            configHost.User= hostListItemVM.User;
+            configHost.User = hostListItemVM.User;
             configHost.RememberedPasswd = hostListItemVM.Password;
 
             config.Save();
@@ -256,27 +259,30 @@ namespace CommanderTerminal.Adding
 
         private bool CheckEditGrid()
         {
-            foreach (var element in EditGrid.Children)
+            do
             {
-                if (element is TextBox tb)
+                if (string.IsNullOrWhiteSpace(HostName.Text))
                 {
-                    if (string.IsNullOrWhiteSpace(tb.Text))
-                    {
-                        Log("Name, Host and Port must not be empty.", severity: InfoBarSeverity.Error);
-                        return false;
-                    }
+                    Log("Name must not be empty.", severity: InfoBarSeverity.Error);
+                    break;
                 }
-                //else if (element is PasswordBox pw)
-                //{
-                //    if (string.IsNullOrWhiteSpace(pw.Password))
-                //    {
-                //        Log("ÃÜÂë²»µÃÎª¿Õ", severity: InfoBarSeverity.Error);
-                //        return false;
-                //    }
-                //}
-            }
 
-            return true;
+                if (string.IsNullOrWhiteSpace(HostHost.Text))
+                {
+                    Log("Host must not be empty.", severity: InfoBarSeverity.Error);
+                    break;
+                }
+
+                if (string.IsNullOrWhiteSpace(HostPort.Text))
+                {
+                    Log("Port must not be empty.", severity: InfoBarSeverity.Error);
+                    break;
+                }
+
+                return true;
+            } while (true);
+
+            return false;
         }
 
         private void UpdateTitle(EditTitle detail)

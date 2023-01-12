@@ -30,6 +30,7 @@ namespace CommanderTerminal
         public MainWindow()
         {
             this.InitializeComponent();
+            Title = "Commander Terminal";
             Frame frame = new();
             frame.Navigate(typeof(NavigationRootPage), null);
             Content = frame;
