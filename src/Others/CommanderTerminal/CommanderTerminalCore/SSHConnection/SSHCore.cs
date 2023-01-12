@@ -13,7 +13,7 @@ namespace CommanderTerminalCore.SSHConnection
         private readonly int _port;
         private bool _has_connected = false;
         private LoginKeyType _loginKeyType;
-        private SshClient ?_client;
+        private SshClient? _client;
 
         public SSHCore(string host, int port, LoginKeyType loginKeyType)
         {
@@ -37,14 +37,22 @@ namespace CommanderTerminalCore.SSHConnection
             return Task.Run(() =>
             {
                 _client = new SshClient(_host, _port, user, password);
-                _client.Connect();
+                try
+                {
+                    _client.Connect();
+                }
+                catch (Renci.SshNet.Common.SshAuthenticationException ex)
+                {
+                    return false;
+                }
+                
                 return true;
             });
         }
 
         public Task<string> execute(string command)
         {
-            if(_client is not { })
+            if (_client is not { })
             {
                 return Task.FromResult("Execute command failed.");
             }

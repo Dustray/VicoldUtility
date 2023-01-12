@@ -67,6 +67,7 @@ namespace CommanderTerminal.Adding.ViewModels
             Name = string.Empty;
             Host = string.Empty;
             Port = string.Empty;
+            User = string.Empty;
             Password = string.Empty;
             IsSavePassword = false;
         }
@@ -77,6 +78,7 @@ namespace CommanderTerminal.Adding.ViewModels
             Name = vm.Name;
             Host = vm.Host;
             Port = vm.Port;
+            User = vm.User;
             Password = vm.Password;
             IsSavePassword = vm.IsSavePassword;
         }

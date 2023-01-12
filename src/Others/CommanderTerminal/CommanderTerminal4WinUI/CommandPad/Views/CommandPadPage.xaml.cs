@@ -53,7 +53,7 @@ namespace CommanderTerminal.CommandPad
                     Port = 22;
                 }
 
-                User = config.User ;
+                User = config.User;
                 Password = config.RememberedPasswd;
             }
 
@@ -66,7 +66,7 @@ namespace CommanderTerminal.CommandPad
             public string HostPort => $"{Host}:{Port}";
 
             public string? User { get; set; }
-            
+
             public string? Password { get; set; }
         }
 
@@ -167,7 +167,7 @@ namespace CommanderTerminal.CommandPad
                 addDialog.CloseButtonText = "Cancel";
                 addDialog.DefaultButton = ContentDialogButton.Primary;
                 var passwdPage = new PasswordInputPage(isWrong);
-
+                passwdPage.InputUser = HostEtt.User ?? string.Empty;
                 addDialog.Content = passwdPage;
                 addDialog.PrimaryButtonClick += (sender, e) =>
                 {
@@ -188,6 +188,8 @@ namespace CommanderTerminal.CommandPad
                 var dialogResult = await addDialog.ShowAsync();
                 if (dialogResult == ContentDialogResult.Primary)
                 {
+                    HostEtt.User = passwdPage.InputUser;
+                    HostEtt.Password = passwdPage.InputPasswd;
                     bool isSuccess = await Connect();
                     if (isSuccess)
                     {
@@ -209,7 +211,15 @@ namespace CommanderTerminal.CommandPad
             return Task.Run(async () =>
             {
                 bool is_success = false;
-                await Task.Delay(1000);
+                //await Task.Delay(1000);
+
+                if (HostEtt.User is not { } || HostEtt.Password is not { })
+                {
+                    return false;
+                }
+
+                is_success = await _handle.Connect(HostEtt.User, HostEtt.Password);
+
                 DispatcherQueue.TryEnqueue(() =>
                 {
                     ConnectionState.State = is_success ? ConnectState.CState.Connected : ConnectState.CState.NotConnect;
@@ -218,6 +228,14 @@ namespace CommanderTerminal.CommandPad
                 if (!is_success)
                 {
                     HostEtt.Password = null;
+                }
+                else
+                {
+                    _itemConfig.User = HostEtt.User;
+                    if (!string.IsNullOrWhiteSpace(_itemConfig.RememberedPasswd))
+                    {
+                        _itemConfig.RememberedPasswd = HostEtt.Password;
+                    }
                 }
 
                 return is_success;

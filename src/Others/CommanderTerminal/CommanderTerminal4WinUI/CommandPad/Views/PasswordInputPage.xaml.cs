@@ -37,21 +37,44 @@ namespace CommanderTerminal.CommandPad
             }
         }
 
+        public string InputUser
+        {
+            get => UserText.Text;
+            set
+            {
+                UserText.Text = value;
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                     PasswdText.Focus(FocusState.Programmatic);
+                }
+            }
 
-        public string InputPasswd { get; set; } = string.Empty;
+        }
+
+        public string InputPasswd
+        {
+            get => PasswdText.Password;
+            set => PasswdText.Password = value;
+        }
+
         public bool IsGoOn { get; internal set; } = false;
 
         public void Check()
         {
+            if (string.IsNullOrWhiteSpace(InputUser))
+            {
+                Log("User name can not be empty.", severity: InfoBarSeverity.Error);
+                IsGoOn = false;
+                return;
+            }
             if (string.IsNullOrWhiteSpace(InputPasswd))
             {
                 Log("Password can not be empty.", severity: InfoBarSeverity.Error);
                 IsGoOn = false;
+                return;
             }
-            else
-            {
-                IsGoOn = true;
-            }
+
+            IsGoOn = true;
         }
 
 
@@ -68,9 +91,10 @@ namespace CommanderTerminal.CommandPad
             LogInfo.IsOpen = false;
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        private void Text_PasswordChanged(object sender, RoutedEventArgs e)
         {
             ClearLog();
         }
+
     }
 }
