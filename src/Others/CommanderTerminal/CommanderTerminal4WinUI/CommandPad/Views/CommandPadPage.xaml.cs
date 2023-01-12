@@ -2,7 +2,9 @@
 // Licensed under the MIT License.
 
 using CommanderTerminal.Adding;
+using CommanderTerminal.Adding.ViewModels;
 using CommanderTerminal.CommandPad.Entities;
+using CommanderTerminal.CommandPad.ViewModels;
 using CommanderTerminal.Utilities;
 using CommanderTerminalCore.Configuration.Entities;
 using CommanderTerminalCore.SSHConnection;
@@ -16,6 +18,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -68,9 +71,11 @@ namespace CommanderTerminal.CommandPad
         }
 
         private ISSHHandle _handle;
-
+        private ObservableCollection<CommandListItemMV> _commandListItems = new ObservableCollection<CommandListItemMV>();
+        private SSHHostItemConfigEtt _itemConfig;
         public CommandPadPage(SSHHostItemConfigEtt itemConfig)
         {
+            _itemConfig = itemConfig;
             HostEtt = new HostEntity(itemConfig);
             _handle = SSHHandleFactory.Create(HostEtt.Host, HostEtt.Port);
             this.InitializeComponent();
@@ -85,6 +90,8 @@ namespace CommanderTerminal.CommandPad
 
         internal ConnectState ConnectionState { get; } = new ConnectState();
 
+        internal bool IsConnected => ConnectionState.State == ConnectState.CState.Connected;
+
         public async void Init()
         {
             bool isWrong = false;
@@ -98,8 +105,25 @@ namespace CommanderTerminal.CommandPad
 
                 isWrong = true;
             }
+
+            if (IsConnected && _itemConfig.Commands is { })
+            {
+                foreach (var command in _itemConfig.Commands)
+                {
+                    _commandListItems.Add(command.ToVM());
+                }
+            }
         }
 
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         /// <summary>
         /// 重连按钮
@@ -117,6 +141,16 @@ namespace CommanderTerminal.CommandPad
 
                 await Connect().ConfigureAwait(false);
             }
+        }
+
+        private void SSHCommandList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private async Task<bool> OpenPasswordInputDialog(bool isWrong = false)
@@ -197,7 +231,39 @@ namespace CommanderTerminal.CommandPad
 
         private void SaveConfig()
         {
-
+            TerminalCore.Current.HostConfig.GetConfigEtt().Save();
         }
+
+        private void SyncDataToConfig()
+        {
+            var config = _itemConfig;
+            if (config.Commands is not { })
+            {
+                config.Commands = new();
+            }
+
+            for (var i = 0; i < _commandListItems.Count; i++)
+            {
+                var vm = _commandListItems[i];
+                SSHCommandConfigEtt command;
+                if (config.Commands.Count <= i)
+                {
+                    command = new();
+                    config.Commands.Add(command);
+                }
+                else
+                {
+                    command = config.Commands[i];
+                }
+
+                command.ID = vm.ID;
+                command.Name = vm.Name;
+                command.Command = vm.Command;
+            }
+
+            SaveConfig();
+        }
+
+
     }
 }

@@ -6,6 +6,8 @@ namespace CommanderTerminalCore.Configuration.Entities
 {
     public class SSHCommandConfigEtt
     {
+        public int ID { get; set; }
+        
         public string? Name { get; set; }
 
         public string? Command { get; set; }
