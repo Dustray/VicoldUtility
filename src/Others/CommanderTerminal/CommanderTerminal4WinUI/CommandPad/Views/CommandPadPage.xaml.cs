@@ -73,10 +73,15 @@ namespace CommanderTerminal.CommandPad
         private ISSHHandle _handle;
         private ObservableCollection<CommandListItemMV> _commandListItems = new ObservableCollection<CommandListItemMV>();
         private SSHHostItemConfigEtt _itemConfig;
-        public CommandPadPage(SSHHostItemConfigEtt itemConfig)
+        public CommandPadPage(SSHHostItemConfigEtt itemConfig, string password = "")
         {
             _itemConfig = itemConfig;
             HostEtt = new HostEntity(itemConfig);
+            if (string.IsNullOrWhiteSpace(HostEtt.Password))
+            {
+                HostEtt.Password = password;
+            }
+
             _handle = SSHHandleFactory.Create(HostEtt.Host, HostEtt.Port);
             this.InitializeComponent();
 

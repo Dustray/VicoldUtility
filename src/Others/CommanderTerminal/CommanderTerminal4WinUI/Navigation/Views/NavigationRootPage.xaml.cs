@@ -95,9 +95,10 @@ namespace CommanderTerminal.Navigation.Views
 
             Tabs.SelectedIndex = 0;
 
-            Tabs.TabCloseRequested += (tab, e)=>{
-                CommandPadPage ? commandPad = (e.Item as TabViewItem)?.Content as CommandPadPage;
-                if(commandPad is { })
+            Tabs.TabCloseRequested += (tab, e) =>
+            {
+                CommandPadPage? commandPad = (e.Item as TabViewItem)?.Content as CommandPadPage;
+                if (commandPad is { })
                 {
                     commandPad.Close();
                 }
@@ -290,7 +291,7 @@ namespace CommanderTerminal.Navigation.Views
                     Symbol = Symbol.Link
                 },
                 Header = itemConfig.Name,
-                Content = new CommandPadPage(itemConfig)
+                Content = new CommandPadPage(itemConfig, addPage.InputPassword)
             });
             Tabs.SelectedIndex = Tabs.TabItems.Count - 1;
         }

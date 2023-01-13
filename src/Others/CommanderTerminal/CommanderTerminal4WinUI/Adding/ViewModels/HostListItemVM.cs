@@ -45,12 +45,12 @@ namespace CommanderTerminal.Adding.ViewModels
         private string _password = string.Empty;
         public string Password
         {
-            get { return _isSavePassword ? _password : string.Empty; }
+            get { return  _password ; }
             set { SetProperty(ref _password, value); }
         }
-        public string VisablePassword
+        public string NotRememberPassword
         {
-            get { return _password; }
+            get { return _isSavePassword ? _password : string.Empty; }
             set { SetProperty(ref _password, value); }
         }
 
@@ -79,7 +79,7 @@ namespace CommanderTerminal.Adding.ViewModels
             Host = vm.Host;
             Port = vm.Port;
             User = vm.User;
-            Password = vm.Password;
+            Password = vm.NotRememberPassword;
             IsSavePassword = vm.IsSavePassword;
         }
 

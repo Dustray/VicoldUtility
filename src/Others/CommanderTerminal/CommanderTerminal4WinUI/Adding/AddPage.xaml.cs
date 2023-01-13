@@ -57,6 +57,7 @@ namespace CommanderTerminal.Adding
         public SSHHostItemConfigEtt? HostItemConfigEtt { get; private set; }
         public Action? OnHostChecked { get; internal set; }
 
+        public string InputPassword => _hostListItemVM.Password;
         private void InitListData()
         {
             var config = TerminalCore.Current.HostConfig.GetConfigEtt();
@@ -129,7 +130,7 @@ namespace CommanderTerminal.Adding
                 UpdateTitle(EditTitle.EditDetail);
                 SetEditEnabled(true);
                 _hostListItemVM.CopyFrom(vm);
-                HostPassword.Password = _hostListItemVM.Password;
+                HostPassword.Password = _hostListItemVM.NotRememberPassword;
                 RememberPasswd.IsChecked = _hostListItemVM.IsSavePassword;
                 ClearLog();
 
@@ -160,7 +161,7 @@ namespace CommanderTerminal.Adding
 
             var vm = _hostListItems[SSHHostList.SelectedIndex];
             _hostListItemVM.CopyFrom(vm);
-            HostPassword.Password = _hostListItemVM.Password;
+            HostPassword.Password = _hostListItemVM.NotRememberPassword;
             RememberPasswd.IsChecked = _hostListItemVM.IsSavePassword;
             var config = TerminalCore.Current.HostConfig.GetConfigEtt();
             HostItemConfigEtt = config.SelectHostItemByID(vm.ID);
@@ -196,7 +197,7 @@ namespace CommanderTerminal.Adding
             configHost.Host = hostListItemVM.Host;
             configHost.Port = hostListItemVM.Port;
             configHost.User = hostListItemVM.User;
-            configHost.RememberedPasswd = hostListItemVM.Password;
+            configHost.RememberedPasswd = hostListItemVM.NotRememberPassword;
 
             config.Save();
         }
