@@ -38,6 +38,8 @@ namespace CommanderTerminal.CommandPad
     /// </summary>
     public sealed partial class CommandPadPage : Page
     {
+        #region HostEntity
+        
         internal class HostEntity
         {
             public HostEntity(SSHHostItemConfigEtt config)
@@ -70,9 +72,12 @@ namespace CommanderTerminal.CommandPad
             public string? Password { get; set; }
         }
 
+        #endregion
+
         private ISSHHandle _handle;
         private ObservableCollection<CommandListItemMV> _commandListItems = new ObservableCollection<CommandListItemMV>();
         private SSHHostItemConfigEtt _itemConfig;
+        
         public CommandPadPage(SSHHostItemConfigEtt itemConfig, string password = "")
         {
             _itemConfig = itemConfig;
@@ -85,6 +90,7 @@ namespace CommanderTerminal.CommandPad
             _handle = SSHHandleFactory.Create(HostEtt.Host, HostEtt.Port);
             this.InitializeComponent();
 
+            SSHCommandList.ItemsSource = _commandListItems;
             Loaded += (sender, e) =>
             {
                 Init();
@@ -134,7 +140,11 @@ namespace CommanderTerminal.CommandPad
         /// <param name="e"></param>
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+            var command = new SSHCommandConfigEtt();
+            _itemConfig.Commands?.Add(command);
+            _commandListItems.Add(command.ToVM());
 
+            TerminalCore.Current.HostConfig.Save();
         }
 
         /// <summary>

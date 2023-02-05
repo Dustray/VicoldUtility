@@ -18,6 +18,9 @@ namespace CommanderTerminalCore.Configuration
             return _sshHostConfigEtt;
         }
 
-
+        public void Save()
+        {
+            _sshHostConfigEtt?.Save();
+        }
     }
 }
