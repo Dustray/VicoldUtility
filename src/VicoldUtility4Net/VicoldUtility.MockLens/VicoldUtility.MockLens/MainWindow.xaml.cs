@@ -24,7 +24,7 @@ namespace VicoldUtility.MockLens
     {
         private ImageBytes? imageBytes_ = null;
         private WriteableBitmap? writeableBitmap_ = null;
-        private ImageByteBuffer? buffer_ = null;
+        private ImageRuntionBuffer? buffer_ = null;
         private bool updating = false;
 
         public MainWindow()
@@ -36,7 +36,8 @@ namespace VicoldUtility.MockLens
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // read file to bitmap
-            using Bitmap bitmap = new Bitmap(@"F:\照片\2023.01.01元旦青岛\DSC01645.JPG");
+            using Bitmap bitmap = new Bitmap(@"E:\十月一照片精选\IMG_4416.JPG");
+            //using Bitmap bitmap = new Bitmap(@"F:\照片\2023.01.01元旦青岛\DSC01645.JPG");
             // get orientation from id: 274
             var orientation = bitmap.PropertyItems.FirstOrDefault(x => x.Id == 274);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using VicoldUtility.MockLens.Algorithms;
 
@@ -24,34 +25,6 @@ namespace VicoldUtility.MockLens
         }
     }
 
-    internal class ImageByteBuffer
-    {
-        public ImageByteBuffer(byte[] data, int width, int height)
-        {
-            SourceData = data;
-            Data = new byte[SourceData.Length];
-            SourceData.CopyTo(Data, 0);
-
-            Width = width;
-            Height = height;
-        }
-
-        public byte[] SourceData { get; }
-
-        public byte[] Data { get; }
-
-        public int Width { get; }
-
-        public int Height { get; }
-
-        public void Add(short value)
-        {
-            for (var i = 0; i < SourceData.Length; i++)
-            {
-                Data[i] = (byte)Math.Max(0, Math.Min(255, SourceData[i] + value));
-            }
-        }
-    }
 
     internal class ImageBytes
     {
@@ -145,7 +118,7 @@ namespace VicoldUtility.MockLens
             }
         }
 
-        public ImageByteBuffer CreateSourceCopy()
+        public ImageRuntionBuffer CreateSourceCopy()
         {
             byte[] copies = new byte[Width * Height * Deep];
             int i = 0;
@@ -161,10 +134,10 @@ namespace VicoldUtility.MockLens
                 }
             }
 
-            return new ImageByteBuffer(copies, Width, Height);
+            return new ImageRuntionBuffer(copies, Width, Height);
         }
 
-        public ImageByteBuffer CreateSourceZoomCopy(int width, int height)
+        public ImageRuntionBuffer CreateSourceZoomCopy(int width, int height)
         {
             byte[] copies = new byte[width * height * Deep];
             int i = 0;
@@ -187,7 +160,7 @@ namespace VicoldUtility.MockLens
                 }
             }
 
-            return new ImageByteBuffer(copies, width, height);
+            return new ImageRuntionBuffer(copies, width, height);
         }
     }
 }
