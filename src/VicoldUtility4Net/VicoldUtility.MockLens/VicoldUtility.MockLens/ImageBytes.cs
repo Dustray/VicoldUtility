@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using VicoldUtility.MockLens.Algorithms;
+using VicoldUtility.MockLens.WriteableBuffer;
 
 namespace VicoldUtility.MockLens
 {
@@ -118,7 +119,7 @@ namespace VicoldUtility.MockLens
             }
         }
 
-        public ImageRuntionBuffer CreateSourceCopy()
+        public ImageRuntimeBuffer CreateSourceCopy()
         {
             byte[] copies = new byte[Width * Height * Deep];
             int i = 0;
@@ -134,10 +135,10 @@ namespace VicoldUtility.MockLens
                 }
             }
 
-            return new ImageRuntionBuffer(copies, Width, Height);
+            return new ImageRuntimeBuffer(copies, Width, Height);
         }
 
-        public ImageRuntionBuffer CreateSourceZoomCopy(int width, int height)
+        public ImageRuntimeBuffer CreateSourceZoomCopy(int width, int height)
         {
             byte[] copies = new byte[width * height * Deep];
             int i = 0;
@@ -160,7 +161,7 @@ namespace VicoldUtility.MockLens
                 }
             }
 
-            return new ImageRuntionBuffer(copies, width, height);
+            return new ImageRuntimeBuffer(copies, width, height);
         }
     }
 }

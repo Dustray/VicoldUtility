@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,9 +15,31 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VicoldUtility.MockLens.WriteableBuffer;
+using VicoldUtility.MockLens.WriteableBuffer.BufferOperators;
 
 namespace VicoldUtility.MockLens
 {
+
+    struct RunningLocker
+    {
+        private bool _isLocked = false;
+
+        public RunningLocker()
+        { }
+
+        public async void Lock(Func<Task> action)
+        {
+            if (_isLocked)
+            {
+                return;
+            }
+
+            _isLocked = true;
+            await action();
+            _isLocked = false;
+        }
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -24,20 +47,23 @@ namespace VicoldUtility.MockLens
     {
         private ImageBytes? imageBytes_ = null;
         private WriteableBitmap? writeableBitmap_ = null;
-        private ImageRuntionBuffer? buffer_ = null;
-        private bool updating = false;
+        private RunningLocker locker = new RunningLocker();
+        private OperatorManager operatorManager_ = new OperatorManager();
+        private LinearOperator linearOperator = new LinearOperator();
+        private ContrastOperator contrastOperator = new ContrastOperator();
 
         public MainWindow()
         {
             InitializeComponent();
-
+            operatorManager_.AddOperator(linearOperator);
+            operatorManager_.AddOperator(contrastOperator);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // read file to bitmap
-            using Bitmap bitmap = new Bitmap(@"E:\十月一照片精选\IMG_4416.JPG");
-            //using Bitmap bitmap = new Bitmap(@"F:\照片\2023.01.01元旦青岛\DSC01645.JPG");
+            //using Bitmap bitmap = new Bitmap(@"E:\十月一照片精选\IMG_4416.JPG");
+            using Bitmap bitmap = new Bitmap(@"F:\照片\2023.01.01元旦青岛\DSC01645.JPG");
             // get orientation from id: 274
             var orientation = bitmap.PropertyItems.FirstOrDefault(x => x.Id == 274);
 
@@ -83,20 +109,22 @@ namespace VicoldUtility.MockLens
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        private void LoadBitmap(int width, int height)
+        private async void LoadBitmap(int width, int height)
         {
             if (imageBytes_ is not { })
             {
                 return;
             }
 
-            if (buffer_ is not { })
+            if (operatorManager_.RuntimeBuffer is not { })
             {
-                buffer_ = imageBytes_.CreateSourceZoomCopy(width, height);
+                operatorManager_.RuntimeBuffer = imageBytes_.CreateSourceZoomCopy(width, height);
+                operatorManager_.RuntimeBuffer = operatorManager_.RuntimeBuffer;
             }
-            else if (width - buffer_.Width > 10 || height - buffer_.Height > 10)
+            else if (width - operatorManager_.RuntimeBuffer.Width > 10 || height - operatorManager_.RuntimeBuffer.Height > 10)
             {
-                buffer_ = imageBytes_.CreateSourceZoomCopy(width, height);
+                operatorManager_.RuntimeBuffer = imageBytes_.CreateSourceZoomCopy(width, height);
+                operatorManager_.RuntimeBuffer = operatorManager_.RuntimeBuffer;
             }
             else
             {
@@ -105,33 +133,27 @@ namespace VicoldUtility.MockLens
             writeableBitmap_ = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgra32, null);
             ImageSource.Source = writeableBitmap_;
 
+            await operatorManager_.ExecAsync();
             Update();
         }
 
         public void Update()
         {
-            if (updating)
+            if (operatorManager_.RuntimeBuffer is not { })
             {
                 return;
             }
 
-            if (buffer_ is not { })
-            {
-                return;
-            }
-
-            byte[]? buffer = buffer_.Data;
+            byte[]? buffer = operatorManager_.RuntimeBuffer.Data;
             if (buffer is not { })
             {
                 return;
             }
 
-            //this.Dispatcher.Invoke(() =>
-            //{
-            updating = true;
-            writeableBitmap_?.WritePixels(new Int32Rect(0, 0, buffer_.Width, buffer_.Height), buffer, writeableBitmap_.BackBufferStride, 0);
-            updating = false;
-            //});
+            this.Dispatcher.Invoke(() =>
+            {
+                writeableBitmap_?.WritePixels(new Int32Rect(0, 0, operatorManager_.RuntimeBuffer.Width, operatorManager_.RuntimeBuffer.Height), buffer, writeableBitmap_.BackBufferStride, 0);
+            });
         }
         public static void Rotating(Bitmap img, int orien)
         {
@@ -169,16 +191,33 @@ namespace VicoldUtility.MockLens
             LoadBitmap(newWidth, newHeight);
         }
 
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void LinearSL_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (buffer_ is not { })
+            linearOperator.Update((int)LinearSL.Value);
+            UpdateOperator();
+        }
+
+        private void ContrastSL_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            contrastOperator.Update((float)ContrastSL.Value / 10);
+            UpdateOperator();
+        }
+
+        private void UpdateOperator()
+        {
+            if (operatorManager_ is not { })
             {
                 return;
-
             }
-            buffer_.Add((short)AddSlider.Value);
-            Update();
+
+            locker.Lock(() =>
+            {
+                return Task.Run(async () =>
+                {
+                    await operatorManager_.ExecAsync();
+                    Update();
+                });
+            });
         }
     }
-
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VicoldUtility.MockLens.BufferOperators
+namespace VicoldUtility.MockLens.WriteableBuffer
 {
-    internal interface IBufferOperator
+    internal interface IBufferUpdate<T>
     {
-        byte 
+        void Update(T value);
     }
 }

@@ -15,8 +15,9 @@
             <Image x:Name="ImageSource"/>
         </Grid>
 
-        <Grid Grid.Column="1">
-            <Slider x:Name="AddSlider" Maximum="100" Minimum="-100" Value="0" Interval="1" ValueChanged="Slider_ValueChanged"/>
-        </Grid>
+        <StackPanel Grid.Column="1">
+            <Slider x:Name="LinearSL"   Minimum="-100" Maximum="100" Value="0" Interval="1" ValueChanged="LinearSL_ValueChanged"/>
+            <Slider x:Name="ContrastSL" Minimum="-20" Maximum="9" Value="0" Interval="1" ValueChanged="ContrastSL_ValueChanged"/>
+        </StackPanel>
     </Grid>
 </Window>
