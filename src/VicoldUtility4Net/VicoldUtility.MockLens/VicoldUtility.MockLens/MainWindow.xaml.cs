@@ -20,11 +20,9 @@ using VicoldUtility.MockLens.WriteableBuffer.BufferOperators;
 
 namespace VicoldUtility.MockLens
 {
-
-    struct RunningLocker
+    class RunningLocker
     {
         private bool _isLocked = false;
-
         public RunningLocker()
         { }
 
@@ -34,12 +32,12 @@ namespace VicoldUtility.MockLens
             {
                 return;
             }
-
             _isLocked = true;
             await action();
             _isLocked = false;
         }
     }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
