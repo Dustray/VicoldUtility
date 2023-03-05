@@ -20,23 +20,6 @@ using VicoldUtility.MockLens.WriteableBuffer.BufferOperators;
 
 namespace VicoldUtility.MockLens
 {
-    class RunningLocker
-    {
-        private bool _isLocked = false;
-        public RunningLocker()
-        { }
-
-        public async void Lock(Func<Task> action)
-        {
-            if (_isLocked)
-            {
-                return;
-            }
-            _isLocked = true;
-            await action();
-            _isLocked = false;
-        }
-    }
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -45,16 +28,31 @@ namespace VicoldUtility.MockLens
     {
         private ImageBytes? imageBytes_ = null;
         private WriteableBitmap? writeableBitmap_ = null;
-        private RunningLocker locker = new RunningLocker();
-        private OperatorManager operatorManager_ = new OperatorManager();
+        private OperatorManager operatorManager_;
+
         private LinearOperator linearOperator = new LinearOperator();
-        private ContrastOperator contrastOperator = new ContrastOperator();
 
         public MainWindow()
         {
             InitializeComponent();
+            operatorManager_ = App.Current.OperatorManager;
+            operatorManager_.RegisterContainer(ControlFrame);
+            operatorManager_.OnUpdated = Updated;
+
             operatorManager_.AddOperator(linearOperator);
-            operatorManager_.AddOperator(contrastOperator);
+            operatorManager_.AddOperator(new ContrastOperator("对比度 - 全局", ChannelColor.ChannelType.All));
+            operatorManager_.AddOperator(new ContrastOperator("对比度 - 红", ChannelColor.ChannelType.Red));
+            operatorManager_.AddOperator(new ContrastOperator("对比度 - 绿", ChannelColor.ChannelType.Green));
+            operatorManager_.AddOperator(new ContrastOperator("对比度 - 蓝", ChannelColor.ChannelType.Blue));
+
+            operatorManager_.AddOperator(new HueOperator("色相 - 红", ChannelColor.ChannelType.Red));
+            operatorManager_.AddOperator(new HueOperator("色相 - 绿", ChannelColor.ChannelType.Green));
+            operatorManager_.AddOperator(new HueOperator("色相 - 蓝", ChannelColor.ChannelType.Blue));
+            operatorManager_.AddOperator(new HueOperator("色相 - 黄", ChannelColor.ChannelType.Yellow));
+            operatorManager_.AddOperator(new HueOperator("色相 - 洋红", ChannelColor.ChannelType.Magenta));
+            operatorManager_.AddOperator(new HueOperator("色相 - 青", ChannelColor.ChannelType.Cyan));
+
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -107,7 +105,7 @@ namespace VicoldUtility.MockLens
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        private async void LoadBitmap(int width, int height)
+        private void LoadBitmap(int width, int height)
         {
             if (imageBytes_ is not { })
             {
@@ -131,11 +129,10 @@ namespace VicoldUtility.MockLens
             writeableBitmap_ = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgra32, null);
             ImageSource.Source = writeableBitmap_;
 
-            await operatorManager_.ExecAsync();
-            Update();
+            operatorManager_.ExecuteCalculation();
         }
 
-        public void Update()
+        public void Updated()
         {
             if (operatorManager_.RuntimeBuffer is not { })
             {
@@ -189,33 +186,34 @@ namespace VicoldUtility.MockLens
             LoadBitmap(newWidth, newHeight);
         }
 
-        private void LinearSL_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            linearOperator.Update((int)LinearSL.Value);
-            UpdateOperator();
-        }
+        //private void LinearSL_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    linearOperator.Update((int)LinearSL.Value);
+        //    UpdateOperator();
+        //}
 
-        private void ContrastSL_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            contrastOperator.Update((float)ContrastSL.Value / 10);
-            UpdateOperator();
-        }
+        //private void ContrastSL_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    contrastOperator.Update((float)ContrastSL.Value / 10);
+        //    UpdateOperator();
+        //}
 
-        private void UpdateOperator()
-        {
-            if (operatorManager_ is not { })
-            {
-                return;
-            }
+        //private void UpdateOperator()
+        //{
+        //    if (operatorManager_ is not { })
+        //    {
+        //        return;
+        //    }
 
-            locker.Lock(() =>
-            {
-                return Task.Run(async () =>
-                {
-                    await operatorManager_.ExecAsync();
-                    Update();
-                });
-            });
-        }
+        //    locker.Lock(() =>
+        //    {
+        //        return Task.Run(async () =>
+        //        {
+        //            await operatorManager_.ExecAsync();
+        //            Update();
+        //        });
+        //    });
+
+        //}
     }
 }

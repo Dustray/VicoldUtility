@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VicoldUtility.MockLens.WriteableBuffer
 {
-    internal interface IBufferUpdate<T>
+    public interface IBufferUpdate<T>
     {
         void Update(T value);
     }

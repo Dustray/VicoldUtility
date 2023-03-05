@@ -10,19 +10,19 @@ using VicoldUtility.MockLens.WriteableBuffer.OperatorControls;
 
 namespace VicoldUtility.MockLens.WriteableBuffer.BufferOperators
 {
-    internal class ContrastOperator : IBufferOperator
+    internal class HueOperator : IBufferOperator
     {
         private BaseSlider _slider;
         private ChannelType _channelType;
-        private const int _contrastCenter = 128;
+        private const int _contrastCenter = 240;
 
-        public int ID { get; } = Guid.NewGuid().GetHashCode();
-
-        public ContrastOperator(string display, ChannelType chanelType)
+        public HueOperator(string display, ChannelType chanelType)
         {
             _channelType = chanelType;
-            _slider = new BaseSlider(ID,display, new SliderParams(-0.5, 2, 0, 0.05, 2));
+            _slider = new BaseSlider(ID,display, new SliderParams(-1, 1, 0, 0.05, 2));
         }
+
+        public int ID { get; } = Guid.NewGuid().GetHashCode();
 
         public void Compute(ref BufferIterator bufferIterator)
         {
@@ -31,11 +31,11 @@ namespace VicoldUtility.MockLens.WriteableBuffer.BufferOperators
             bufferIterator.ForEach((b, g, r, a) =>
             {
                 b = ChannelUtility.IsChannelMatched(_channelType, ChannelType.Blue) ?
-                ChannelUtility.DataNumericalLegitimacy(b + ((b - _contrastCenter) * value)) : b;
+                ChannelUtility.DataNumericalLegitimacy(b + ((_contrastCenter - b) * value)) : b;
                 g = ChannelUtility.IsChannelMatched(_channelType, ChannelType.Green) ?
-                ChannelUtility.DataNumericalLegitimacy(g + ((g - _contrastCenter) * value)) : g;
+                ChannelUtility.DataNumericalLegitimacy(g + ((_contrastCenter - g) * value)) : g;
                 r = ChannelUtility.IsChannelMatched(_channelType, ChannelType.Red) ?
-                ChannelUtility.DataNumericalLegitimacy(r + ((r - _contrastCenter) * value)) : r;
+                ChannelUtility.DataNumericalLegitimacy(r + ((_contrastCenter - r) * value)) : r;
                 return (b, g, r, a);
             });
         }
