@@ -1,4 +1,5 @@
 ﻿$filepath$		= %currentpath%
+$filename$		= %currentfile%
 $description$		=
 $author$		= Yin Yue
 $email$			= yiny@yusur.tech

@@ -10,6 +10,7 @@ using System.Windows.Shapes;
 
 namespace FileHeadFormatter
 {
+    [ Serializable]
     internal static class TemplateTool
     {
 
@@ -103,6 +104,8 @@ namespace FileHeadFormatter
             {
                 switch (presetName)
                 {
+                    case "%currentfile%":
+                        return System.IO.Path.GetFileName(fileName);
                     case "%currentpath%":
                         return GetRelativePath(fileName);
                     case "%pathupper%":
