@@ -1,0 +1,119 @@
+﻿<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Page
+    x:Class="CommanderTerminal.Adding.AddPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CommanderTerminal.Adding"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:entities="using:CommanderTerminalCore.Configuration.Entities" 
+    xmlns:viewmodels="using:CommanderTerminal.Adding.ViewModels"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="HostListViewTemplate" x:DataType="viewmodels:HostListItemVM">
+            <Grid  Height="50" ToolTipService.ToolTip="{x:Bind HostPort, Mode=OneWay}" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+ 
+                <TextBlock Grid.Row="0" Text="{x:Bind Name, Mode=TwoWay}"     VerticalAlignment="Center"
+                           x:Phase="1" FontSize="18"/>
+                <TextBlock Grid.Row="1" Text="{x:Bind HostPort, Mode=OneWay}" VerticalAlignment="Top"
+                           x:Phase="1" FontSize="14"/>
+                <Border Grid.Column="1" Grid.RowSpan="2" Width="1" Height="30" BorderThickness="1"  BorderBrush="#5333" Margin="5 0"/>
+                <Button Grid.Column="2" Grid.RowSpan="2" Width="30" Height="30"  VerticalAlignment="Center"
+                        BorderThickness="0" Background="Transparent" Margin="0" Padding="0" Click="ItemEdit_Click">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE104;"  FontSize="12"/>
+                </Button>
+
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid  Height="500" MaxHeight="500">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Content="Add" Margin="5" Click="Add_Click"/>
+        </StackPanel>
+
+        <ListView
+            Grid.Row="1"
+            x:Name="SSHHostList"
+            ItemTemplate="{StaticResource HostListViewTemplate}"
+            BorderThickness="1"
+            BorderBrush="{ThemeResource SystemBaseMediumLowColor}"
+            CornerRadius="4"
+            Width="220"
+            Height="auto"
+            HorizontalAlignment="Left"
+            Margin="5"
+            SelectionChanged="SSHHostList_SelectionChanged"/>
+
+
+        <Grid 
+            x:Name="EditGrid"
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5 0 0 0"
+            >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="EditTitleText" Grid.Row="0" Text="Detail" Margin="0 0 0 10" FontSize="22"/>
+
+            <TextBox     x:Name="HostName"     Header="Name:"     Grid.Row="1" Grid.Column="1" Margin="2"   Text="{x:Bind _hostListItemVM.Name, Mode=TwoWay}"/>
+            <TextBox     x:Name="HostHost"     Header="Host:"     Grid.Row="2" Grid.Column="1" Margin="2"   Text="{x:Bind _hostListItemVM.Host, Mode=TwoWay}"/>
+            <TextBox     x:Name="HostPort"     Header="Port:"     Grid.Row="3" Grid.Column="1" Margin="2"   Text="{x:Bind _hostListItemVM.Port, Mode=TwoWay}"/>
+            <TextBox     x:Name="HostUser"     Header="User:"     Grid.Row="4" Grid.Column="1" Margin="2"   Text="{x:Bind _hostListItemVM.User, Mode=TwoWay}"/>
+            <PasswordBox x:Name="HostPassword" Header="Password:" Grid.Row="5" Grid.Column="1" Margin="2"   Password="{x:Bind _hostListItemVM.Password, Mode=TwoWay}"/>
+            <CheckBox    x:Name="RememberPasswd"                  Grid.Row="6" Grid.Column="1" Margin="2" IsChecked="{x:Bind _hostListItemVM.IsSavePassword, Mode=TwoWay}"
+                         Content="Save password"/>
+
+            <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="SaveBtn" Content="Save" Padding="10 5" HorizontalAlignment="Center" Margin="5 0"
+                        Click="Save_Click" Background="{ThemeResource AccentTextFillColorPrimaryBrush}" Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                <Button x:Name="ClearBtn" Content="Clear" Padding="10 5" HorizontalAlignment="Center" Margin="5 0"
+                        Click="Clear_Click" />
+            </StackPanel>
+
+        </Grid>
+        <InfoBar 
+            x:Name="LogInfo"
+            Grid.ColumnSpan="2"
+            Grid.Row="7"
+            Margin="5 0 5 5"
+            IsOpen="False"
+            Severity="Informational"
+            Title=""
+            Message="" />
+    </Grid>
+</Page>

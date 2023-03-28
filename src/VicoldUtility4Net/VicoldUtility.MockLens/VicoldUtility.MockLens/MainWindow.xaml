@@ -1,0 +1,25 @@
+﻿<Window x:Class="VicoldUtility.MockLens.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VicoldUtility.MockLens"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid Name="ImageSourceFrame">
+            <Image x:Name="ImageSource"/>
+        </Grid>
+
+        <ScrollViewer Grid.Column="1">
+            <StackPanel x:Name="ControlFrame" >
+                <!--<Slider x:Name="LinearSL"   Minimum="-100" Maximum="100" Value="0" Interval="1" ValueChanged="LinearSL_ValueChanged"/>
+            <Slider x:Name="ContrastSL" Minimum="-20" Maximum="9" Value="0" Interval="1" ValueChanged="ContrastSL_ValueChanged"/>-->
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

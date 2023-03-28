@@ -1,0 +1,32 @@
+﻿<local:BaseControl x:Class="VicoldUtility.MockLens.WriteableBuffer.OperatorControls.BaseSlider"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VicoldUtility.MockLens.WriteableBuffer.OperatorControls"
+                  mc:Ignorable="d" 
+                   d:DataContext="{d:DesignInstance Type=local:BaseSlider}"
+                   d:DesignHeight="450" d:DesignWidth="400">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneTime}"/>
+        <TextBlock Grid.Column="1" Text="{Binding CurrentValueStr, Mode=OneWay}" HorizontalAlignment="Right"/>
+        <Slider x:Name="ValueSlider" 
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Minimum="{Binding MinIndex, Mode=OneWay}"
+                Maximum="{Binding MaxIndex, Mode=OneWay}"
+                Value="{Binding CurrentIndex, Mode=TwoWay}"
+                Interval="1" 
+                ValueChanged="ValueSlider_ValueChanged"/>
+
+    </Grid>
+</local:BaseControl>

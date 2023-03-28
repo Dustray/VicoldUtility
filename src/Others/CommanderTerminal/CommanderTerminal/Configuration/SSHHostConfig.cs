@@ -9,9 +9,9 @@ namespace CommanderTerminal.Configuration
 {
     internal class SSHHostConfig
     {
-        public SSHHostConfigEtt GetConfigEtt()
-        {
+        //public SSHHostConfigEtt GetConfigEtt()
+        //{
 
-        }
+        //}
     }
 }
