@@ -4,4 +4,4 @@ using System.Text;
 
 Console.WriteLine("Hello, World!");
 
-_ = new RaceMultithreadLog();
+_ = new RaceAppendBufferLog();
