@@ -10,6 +10,7 @@ using System.Windows.Shapes;
 
 namespace FileHeadFormatter
 {
+    [ Serializable]
     internal static class TemplateTool
     {
 
@@ -103,6 +104,8 @@ namespace FileHeadFormatter
             {
                 switch (presetName)
                 {
+                    case "%currentfile%":
+                        return System.IO.Path.GetFileName(fileName);
                     case "%currentpath%":
                         return GetRelativePath(fileName);
                     case "%pathupper%":
@@ -308,7 +311,7 @@ namespace FileHeadFormatter
             var includeIndex = Array.FindIndex(pathArray, s => s.ToLower() == "include") - 1;
             var srcIndex = Array.FindIndex(pathArray, s => s.ToLower() == "src") - 1;
             var index = includeIndex > srcIndex ? includeIndex : srcIndex;
-            if (index != -1)
+            if (index >= 0)
             {
                 var span = new Span<string>(pathArray, index, pathArray.Length - index);
                 return string.Join('/', span.ToArray());

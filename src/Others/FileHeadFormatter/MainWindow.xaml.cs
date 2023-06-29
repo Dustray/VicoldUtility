@@ -149,7 +149,10 @@ namespace FileHeadFormatter
                         TemplateTool.Process(pastingText, TemplateText.Text, ParameterText.Text);
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,"Error");
+                }
             }
         }
 
