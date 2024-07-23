@@ -24,9 +24,13 @@ namespace VicoldUtility.Retirement
         public MainWindow()
         {
             InitializeComponent();
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
             timer.Tick += Timer_Tick;
+            LoadWindowPosition();
+            this.Closing += MainWindow_Closing;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -49,10 +53,10 @@ namespace VicoldUtility.Retirement
 
         private void ShowSetDateWindow()
         {
-            SetDateWindow setDateWindow = new SetDateWindow();
+            SetDateWindow setDateWindow = new();
             if (setDateWindow.ShowDialog() == true)
             {
-                targetDate = setDateWindow.SelectedDate.Value ;
+                targetDate = setDateWindow.SelectedDate??DateTime.Now;
                 SaveTargetDate();
                 StartCountdown();
             }
@@ -79,7 +83,7 @@ namespace VicoldUtility.Retirement
             }
             else
             {
-                CountdownDisplay.Text = "目标日期已过,请设置新的日期";
+                CountdownDisplay.Text = "您已退休，请重生以设置新的日期";
             }
         }
 
@@ -100,7 +104,7 @@ namespace VicoldUtility.Retirement
             if (remainingTime.TotalSeconds <= 0)
             {
                 timer.Stop();
-                CountdownDisplay.Text = "倒计时结束！";
+                CountdownDisplay.Text = "倒计时结束，恭喜你退休啦！";
                 return;
             }
 
@@ -111,6 +115,50 @@ namespace VicoldUtility.Retirement
             int seconds = remainingTime.Seconds;
 
             CountdownDisplay.Text = $"{years}年 {days}天 {hours:D2}:{minutes:D2}:{seconds:D2}";
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        // 新增: 加载窗体位置
+        private void LoadWindowPosition()
+        {
+            double left, top, width, height;
+
+            if (double.TryParse(ConfigurationManager.AppSettings["WindowLeft"], out left) && left<10000&&
+                double.TryParse(ConfigurationManager.AppSettings["WindowTop"], out top )&& top < 10000)
+            {
+                
+                this.Left = left;
+                this.Top = top;
+            }
+
+            if (double.TryParse(ConfigurationManager.AppSettings["WindowWidth"], out width) && width < 10000 &&
+                double.TryParse(ConfigurationManager.AppSettings["WindowHeight"], out height) && height < 10000)
+            {
+                this.Width = width;
+                this.Height = height;
+            }
+        }
+
+        // 新增: 保存窗体位置
+        private void SaveWindowPosition()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings.Add("WindowLeft",this.Left.ToString());
+            config.AppSettings.Settings.Add("WindowTop", this.Top.ToString());
+            config.AppSettings.Settings.Add("WindowWidth", this.Width.ToString());
+            config.AppSettings.Settings.Add("WindowHeight", this.Height.ToString());
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        // 新增: 窗口关闭事件处理
+        private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SaveWindowPosition();
         }
     }
 }

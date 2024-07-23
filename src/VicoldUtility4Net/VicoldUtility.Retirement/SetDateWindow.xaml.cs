@@ -30,7 +30,7 @@ namespace VicoldUtility.Retirement
         {
             if (TargetDatePicker.SelectedDate.HasValue)
             {
-                SelectedDate = TargetDatePicker.SelectedDate.Value.Date;
+                SelectedDate = TargetDatePicker.SelectedDate.Value.Date.AddYears(65);
                 DialogResult = true;
             }
             else

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VicoldUtility.Retirement"
         mc:Ignorable="d"
-        Title="MainWindow" Height="110" Width="300" WindowStyle="None"  Background="Transparent"  ResizeMode="NoResize"
+        Title="MainWindow" Height="110" Width="300" WindowStyle="None"  Background="Transparent"  ResizeMode="NoResize" MouseLeftButtonDown="Window_MouseLeftButtonDown"
  Loaded="Window_Loaded">
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1" />
@@ -21,7 +21,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Margin="10" FontSize="20">倒计时：</TextBlock>
+            <TextBlock Grid.Row="0" Margin="10" FontSize="20">退休倒计时：</TextBlock>
             <Button Grid.Row="0" Grid.Column="1" Width="30" Height="30" Margin="5" FontSize="16" Background="Transparent"
                     BorderThickness="0" Cursor="Hand" Content="&#xE713;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Click="ChangeDateButton_Click"/>
             <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="10" FontSize="20" x:Name="CountdownDisplay"></TextBlock>
