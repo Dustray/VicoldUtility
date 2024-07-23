@@ -125,18 +125,16 @@ namespace VicoldUtility.Retirement
         // 新增: 加载窗体位置
         private void LoadWindowPosition()
         {
-            double left, top, width, height;
-
-            if (double.TryParse(ConfigurationManager.AppSettings["WindowLeft"], out left) && left<10000&&
-                double.TryParse(ConfigurationManager.AppSettings["WindowTop"], out top )&& top < 10000)
+            if (double.TryParse(ConfigurationManager.AppSettings["WindowLeft"], out double left) && left < 10000 &&
+                double.TryParse(ConfigurationManager.AppSettings["WindowTop"], out double top) && top < 10000)
             {
-                
+
                 this.Left = left;
                 this.Top = top;
             }
 
-            if (double.TryParse(ConfigurationManager.AppSettings["WindowWidth"], out width) && width < 10000 &&
-                double.TryParse(ConfigurationManager.AppSettings["WindowHeight"], out height) && height < 10000)
+            if (double.TryParse(ConfigurationManager.AppSettings["WindowWidth"], out double width) && width < 10000 &&
+                double.TryParse(ConfigurationManager.AppSettings["WindowHeight"], out double height) && height < 10000)
             {
                 this.Width = width;
                 this.Height = height;
